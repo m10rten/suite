@@ -22,7 +22,7 @@
     "@mvdlei/types": "workspace:*"
   },
   "dependencies": {
-    "@mvdlei/types": "latest"
+    "@mvdlei/types": "^0.0.1"
   },
   "exports": {
     ".": {
