@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "Easy Node Environment Variables, useable in TypeScript and JavaScript on both React and Node applications.",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup --format cjs,esm --dts",
     "lint": "eslint src/**/*.ts",
@@ -19,7 +21,30 @@
     "internal-config": "workspace:*",
     "@mvdlei/types": "workspace:*"
   },
-  "peerDependencies": {
-    "@mvdlei/types": "workspace:*"
+  "dependencies": {
+    "@mvdlei/types": "latest"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./env": {
+      "node": "./dist/env.js",
+      "import": "./dist/env.mjs",
+      "require": "./dist/env.js",
+      "types": "./dist/env.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

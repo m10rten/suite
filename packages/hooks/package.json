@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "A Collection of React Hooks",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup --format cjs,esm --dts",
     "lint": "eslint src/**/*.ts",
@@ -28,5 +30,47 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.21.1",
     "internal-config": "workspace:*"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./use-debounce": {
+      "import": "./dist/use-debounce.mjs",
+      "require": "./dist/use-debounce.js",
+      "types": "./dist/use-debounce.d.ts"
+    },
+    "./use-storage": {
+      "import": "./dist/use-storage.mjs",
+      "require": "./dist/use-storage.js",
+      "types": "./dist/use-storage.d.ts"
+    },
+    "./use-local-storage": {
+      "import": "./dist/use-local-storage.mjs",
+      "require": "./dist/use-local-storage.js",
+      "types": "./dist/use-local-storage.d.ts"
+    },
+    "./use-session-storage": {
+      "import": "./dist/use-session-storage.mjs",
+      "require": "./dist/use-session-storage.js",
+      "types": "./dist/use-session-storage.d.ts"
+    },
+    "./use-query-state": {
+      "import": "./dist/use-query-state.mjs",
+      "require": "./dist/use-query-state.js",
+      "types": "./dist/use-query-state.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }
