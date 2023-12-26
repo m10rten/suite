@@ -1,7 +1,7 @@
 {
-  "name": "@mvdlei/<>",
+  "name": "@mvdlei/env",
   "version": "0.0.0",
-  "description": "<>",
+  "description": "Easy Node Environment Variables, useable in TypeScript and JavaScript on both React and Node applications.",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsup --format cjs,esm --dts",
@@ -16,6 +16,10 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "20.10.5",
-    "internal-config": "workspace:*"
+    "internal-config": "workspace:*",
+    "@mvdlei/types": "workspace:*"
+  },
+  "peerDependencies": {
+    "@mvdlei/types": "latest"
   }
 }
