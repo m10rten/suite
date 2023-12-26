@@ -15,6 +15,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "20.10.5"
+    "@types/node": "20.10.5",
+    "internal-config": "workspace:*"
   }
 }
