@@ -1,0 +1,32 @@
+{
+  "name": "@mvdlei/hooks",
+  "version": "0.0.0",
+  "description": "A Collection of React Hooks",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsup --format cjs,esm --dts",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --passWithNoTests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.10.5",
+    "@types/react": "18.2.45",
+    "@types/react-dom": "18.2.18",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.21.1",
+    "internal-config": "workspace:*"
+  }
+}
