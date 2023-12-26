@@ -20,6 +20,6 @@
     "@mvdlei/types": "workspace:*"
   },
   "peerDependencies": {
-    "@mvdlei/types": "latest"
+    "@mvdlei/types": "workspace:*"
   }
 }
