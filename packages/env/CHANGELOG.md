@@ -1,5 +1,13 @@
 # @mvdlei/env
 
+## 0.0.2
+
+### Patch Changes
+
+- 668fa23: Update package.json
+- Updated dependencies [668fa23]
+  - @mvdlei/types@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
