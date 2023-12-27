@@ -1,7 +1,7 @@
 {
-  "name": "@mvdlei/<>",
+  "name": "@mvdlei/zod",
   "version": "0.0.0",
-  "description": "<>",
+  "description": "Zod Preset and Extension. Includes Schemas, Types, Base interfaces and more.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -18,7 +18,11 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "20.10.5",
-    "internal-config": "workspace:*"
+    "internal-config": "workspace:*",
+    "zod": "3.22.4"
+  },
+  "peerDependencies": {
+    "zod": "3.22.4"
   },
   "exports": {
     ".": {
@@ -26,7 +30,12 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./schemas": {
+      "import": "./dist/schemas/index.mjs",
+      "require": "./dist/schemas/index.js",
+      "types": "./dist/schemas/index.d.ts"
+    }
   },
   "files": [
     "dist",
