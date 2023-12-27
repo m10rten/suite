@@ -31,9 +31,9 @@ jobs:
         env:
           CI: true
       - name: Verify Packages 🧷📦,⚡
-        run: pnpm turbo --filter "./packages/**" typecheck lint
+        run: pnpm turbo --filter "./packages/**" typecheck lint --concurrency 12
       - name: Check packages and create build 🧪,🔨,
-        run: pnpm turbo --filter "./packages/**" build test
+        run: pnpm turbo --filter "./packages/**" build test --concurrency 12
         env:
           CI: true
 
