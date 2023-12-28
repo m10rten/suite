@@ -33,6 +33,27 @@
     "LICENSE",
     "README.md"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./env": {
+      "import": "./dist/env.mjs",
+      "require": "./dist/env.js",
+      "types": "./dist/env.d.ts"
+    },
+    "./*": "./dist/*"
+  },
+  "typesVersions": {
+    "*": {
+      "env": [
+        "dist/env.d.ts"
+      ]
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
