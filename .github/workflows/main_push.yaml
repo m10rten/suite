@@ -39,6 +39,7 @@ jobs:
 
       # publish
       - name: Create release PR and publish packages
+        if: matrix.node-version == '20.x'
         id: changesets
         uses: changesets/action@v1.4.5
         with:
