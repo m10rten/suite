@@ -36,7 +36,8 @@
       "import": "./dist/env.mjs",
       "require": "./dist/env.js",
       "types": "./dist/env.d.ts"
-    }
+    },
+    "./*": "./dist/*"
   },
   "files": [
     "dist",

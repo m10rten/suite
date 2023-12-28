@@ -35,7 +35,8 @@
       "import": "./dist/schemas/index.mjs",
       "require": "./dist/schemas/index.js",
       "types": "./dist/schemas/index.d.ts"
-    }
+    },
+    "./*": "./dist/*"
   },
   "files": [
     "dist",

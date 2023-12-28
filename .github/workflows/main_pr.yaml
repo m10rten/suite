@@ -24,7 +24,6 @@ jobs:
       # install
       - name: Install dependencies 📦
         run: pnpm i --frozen-lockfile
-        # TODO: add matrix for different node versions, pnpm versions and npm:zod versions
       # lint
       - name: Typecheck 🧷
         run: pnpm run typecheck

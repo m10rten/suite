@@ -41,7 +41,8 @@
       "import": "./dist/tests.mjs",
       "require": "./dist/tests.js",
       "types": "./dist/tests.d.ts"
-    }
+    },
+    "./*": "./dist/*"
   },
   "files": [
     "dist",
