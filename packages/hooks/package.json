@@ -31,60 +31,6 @@
     "react-router-dom": "6.21.1",
     "internal-config": "workspace:*"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json",
-    "./use-debounce": {
-      "import": "./dist/use-debounce.mjs",
-      "require": "./dist/use-debounce.js",
-      "types": "./dist/use-debounce.d.ts"
-    },
-    "./use-storage": {
-      "import": "./dist/use-storage.mjs",
-      "require": "./dist/use-storage.js",
-      "types": "./dist/use-storage.d.ts"
-    },
-    "./use-local-storage": {
-      "import": "./dist/use-local-storage.mjs",
-      "require": "./dist/use-local-storage.js",
-      "types": "./dist/use-local-storage.d.ts"
-    },
-    "./use-session-storage": {
-      "import": "./dist/use-session-storage.mjs",
-      "require": "./dist/use-session-storage.js",
-      "types": "./dist/use-session-storage.d.ts"
-    },
-    "./use-query-state": {
-      "import": "./dist/use-query-state.mjs",
-      "require": "./dist/use-query-state.js",
-      "types": "./dist/use-query-state.d.ts"
-    },
-    "./use-clipboard": {
-      "import": "./dist/use-clipboard.mjs",
-      "require": "./dist/use-clipboard.js",
-      "types": "./dist/use-clipboard.d.ts"
-    },
-    "./use-iso-effect": {
-      "import": "./dist/use-iso-effect.mjs",
-      "require": "./dist/use-iso-effect.js",
-      "types": "./dist/use-iso-effect.d.ts"
-    },
-    "./use-click-outside": {
-      "import": "./dist/use-click-outside.mjs",
-      "require": "./dist/use-click-outside.js",
-      "types": "./dist/use-click-outside.d.ts"
-    },
-    "./use-event-listener": {
-      "import": "./dist/use-event-listener.mjs",
-      "require": "./dist/use-event-listener.js",
-      "types": "./dist/use-event-listener.d.ts"
-    },
-    "./*": "./dist/*"
-  },
   "files": [
     "dist",
     "package.json",
@@ -93,5 +39,16 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m10rten/suite"
+  },
+  "bugs": {
+    "url": "https://github.com/m10rten/suite/issues"
   }
 }

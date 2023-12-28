@@ -69,34 +69,6 @@
     "vaul": "0.8.0",
     "zod": "3.22.4"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json",
-    "./lib/utils": {
-      "import": "./dist/lib/utils.mjs",
-      "require": "./dist/lib/utils.js",
-      "types": "./dist/lib/utils.d.ts"
-    },
-    "./lib/hooks/use-toast": {
-      "import": "./dist/lib/hooks/use-toast.mjs",
-      "require": "./dist/lib/hooks/use-toast.js",
-      "types": "./dist/lib/hooks/use-toast.d.ts"
-    },
-    "./*": "./dist/*"
-  },
-  "files": [
-    "dist",
-    "package.json",
-    "LICENSE",
-    "README.md"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
     "@hookform/resolvers": "3.3.3",
     "@radix-ui/react-accordion": "1.1.2",
@@ -144,5 +116,25 @@
     "tailwindcss-animate": "1.0.7",
     "vaul": "0.8.0",
     "zod": "3.22.4"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m10rten/suite"
+  },
+  "bugs": {
+    "url": "https://github.com/m10rten/suite/issues"
   }
 }

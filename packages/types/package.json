@@ -20,30 +20,6 @@
     "@types/node": "20.10.5",
     "internal-config": "workspace:*"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json",
-    "./helpers": {
-      "import": "./dist/helpers.mjs",
-      "require": "./dist/helpers.js",
-      "types": "./dist/helpers.d.ts"
-    },
-    "./primitives": {
-      "import": "./dist/primitives.mjs",
-      "require": "./dist/primitives.js",
-      "types": "./dist/primitives.d.ts"
-    },
-    "./tests": {
-      "import": "./dist/tests.mjs",
-      "require": "./dist/tests.js",
-      "types": "./dist/tests.d.ts"
-    },
-    "./*": "./dist/*"
-  },
   "files": [
     "dist",
     "package.json",
@@ -52,5 +28,16 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m10rten/suite"
+  },
+  "bugs": {
+    "url": "https://github.com/m10rten/suite/issues"
   }
 }

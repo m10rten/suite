@@ -27,21 +27,6 @@
   "peerDependencies": {
     "@mvdlei/types": "^0.0.3"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json",
-    "./env": {
-      "node": "./dist/env.js",
-      "import": "./dist/env.mjs",
-      "require": "./dist/env.js",
-      "types": "./dist/env.d.ts"
-    },
-    "./*": "./dist/*"
-  },
   "files": [
     "dist",
     "package.json",
@@ -50,5 +35,16 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m10rten/suite"
+  },
+  "bugs": {
+    "url": "https://github.com/m10rten/suite/issues"
   }
 }
