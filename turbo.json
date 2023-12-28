@@ -20,7 +20,7 @@
       "persistent": false
     },
     "typecheck": {
-      "cache": true,
+      "cache": false,
       "persistent": false
     },
     "generate": {

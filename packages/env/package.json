@@ -24,6 +24,9 @@
   "dependencies": {
     "@mvdlei/types": "^0.0.2"
   },
+  "peerDependencies": {
+    "@mvdlei/types": "^0.0.2"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
