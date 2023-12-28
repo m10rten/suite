@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/types",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Collection of Type Helpers, Primitives and Utilities for TypeScript, Node & Testing types.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
