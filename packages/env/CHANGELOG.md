@@ -1,5 +1,13 @@
 # @mvdlei/env
 
+## 0.0.5
+
+### Patch Changes
+
+- 20205eb: Updated package.json for typeVersions and reverted exports
+- Updated dependencies [20205eb]
+  - @mvdlei/types@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes
