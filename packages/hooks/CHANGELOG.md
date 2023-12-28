@@ -1,5 +1,11 @@
 # @mvdlei/hooks
 
+## 0.0.3
+
+### Patch Changes
+
+- ad9458b: Added `use-clipboard`, `use-click-outside`, `use-event-listener` and `use-iso-effect`
+
 ## 0.0.2
 
 ### Patch Changes

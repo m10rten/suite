@@ -1,5 +1,11 @@
 # @mvdlei/types
 
+## 0.0.3
+
+### Patch Changes
+
+- ad9458b: Bump package.json exports
+
 ## 0.0.2
 
 ### Patch Changes
