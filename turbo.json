@@ -6,7 +6,6 @@
       "persistent": false
     },
     "lint": {
-      "dependsOn": ["^typecheck"],
       "cache": true,
       "persistent": false
     },
@@ -20,7 +19,7 @@
       "persistent": false
     },
     "typecheck": {
-      "cache": false,
+      "cache": true,
       "persistent": false
     },
     "generate": {
