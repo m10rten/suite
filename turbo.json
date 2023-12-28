@@ -8,7 +8,7 @@
     "lint": {
       "dependsOn": ["^typecheck"],
       "cache": true,
-      "persistent": true
+      "persistent": false
     },
     "dev": {
       "cache": false,
@@ -17,7 +17,7 @@
     "test": {
       "dependsOn": ["^build"],
       "cache": true,
-      "persistent": true
+      "persistent": false
     },
     "typecheck": {
       "cache": true,
@@ -25,7 +25,7 @@
     },
     "generate": {
       "cache": true,
-      "persistent": true
+      "persistent": false
     }
   }
 }
