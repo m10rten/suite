@@ -67,7 +67,7 @@ importers:
   packages/env:
     dependencies:
       "@mvdlei/types":
-        specifier: ^0.0.3
+        specifier: ^0.0.4
         version: link:../types
     devDependencies:
       "@types/node":
