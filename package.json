@@ -1,7 +1,21 @@
 {
   "name": "suite-root",
   "version": "0.0.0",
+  "private": true,
   "description": "Personal Suite of Code for self-made packages and apps.",
+  "keywords": [],
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "author": "m10rten",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m10rten/suite"
+  },
+  "bugs": {
+    "url": "https://github.com/m10rten/suite/issues"
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -40,8 +54,5 @@
     "typescript": "5.3.3",
     "zod": "3.22.4",
     "@mvdlei/types": "^0.0.2"
-  },
-  "keywords": [],
-  "author": "m10rten",
-  "license": "MIT"
+  }
 }
