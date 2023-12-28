@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/env",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Easy Node Environment Variables, useable in TypeScript and JavaScript on both React and Node applications.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -22,10 +22,10 @@
     "@mvdlei/types": "workspace:*"
   },
   "dependencies": {
-    "@mvdlei/types": "^0.0.4"
+    "@mvdlei/types": "^0.0.5"
   },
   "peerDependencies": {
-    "@mvdlei/types": "^0.0.4"
+    "@mvdlei/types": "^0.0.5"
   },
   "files": [
     "dist",

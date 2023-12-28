@@ -1,5 +1,11 @@
 # @mvdlei/ui
 
+## 0.0.3
+
+### Patch Changes
+
+- 20205eb: Updated package.json for typeVersions and reverted exports
+
 ## 0.0.2
 
 ### Patch Changes
