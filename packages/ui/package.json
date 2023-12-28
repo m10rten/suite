@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/ui",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React.js UI generic component set",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
