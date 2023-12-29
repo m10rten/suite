@@ -13,9 +13,6 @@ importers:
       "@ianvs/prettier-plugin-sort-imports":
         specifier: 4.1.1
         version: 4.1.1(prettier@3.1.1)
-      "@mvdlei/types":
-        specifier: ^0.0.2
-        version: 0.0.2
       "@types/jest":
         specifier: 29.5.11
         version: 29.5.11
@@ -1873,13 +1870,6 @@ packages:
       fs-extra: 8.1.0
       globby: 11.1.0
       read-yaml-file: 1.1.0
-    dev: true
-
-  /@mvdlei/types@0.0.2:
-    resolution:
-      {
-        integrity: sha512-C1uVnB0tnJnM/zDcwfa+0BTPh+KcQlk1LSSZDzRlCbf9qVPckFiRW3aXKUjX5uACC8XQYYC+ZmKcJz+VU8U2TA==,
-      }
     dev: true
 
   /@next/env@14.0.4:
