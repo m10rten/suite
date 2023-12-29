@@ -4,6 +4,11 @@ on:
     branches:
       - main
       - dev
+    paths:
+      - "packages/**"
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   ci:
     runs-on: ubuntu-latest

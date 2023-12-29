@@ -1,3 +1,6 @@
 packages:
   - "apps/*"
   - "packages/*"
+  # all internal packages except `packages/internal/_template`
+  - "!packages/internal/_template"
+  - "packages/internal/**"

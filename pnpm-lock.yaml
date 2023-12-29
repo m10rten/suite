@@ -104,16 +104,7 @@ importers:
         specifier: 6.21.1
         version: 6.21.1(react-dom@18.2.0)(react@18.2.0)
 
-  packages/types:
-    devDependencies:
-      "@types/node":
-        specifier: 20.10.5
-        version: 20.10.5
-      internal-config:
-        specifier: workspace:*
-        version: link:../config
-
-  packages/ui:
+  packages/internal/ui:
     dependencies:
       "@hookform/resolvers":
         specifier: 3.3.3
@@ -265,10 +256,19 @@ importers:
         version: 18.2.18
       internal-config:
         specifier: workspace:*
-        version: link:../config
+        version: link:../../config
       shadcn-ui:
         specifier: 0.5.0
         version: 0.5.0(typescript@5.3.3)
+
+  packages/types:
+    devDependencies:
+      "@types/node":
+        specifier: 20.10.5
+        version: 20.10.5
+      internal-config:
+        specifier: workspace:*
+        version: link:../config
 
   packages/zod:
     devDependencies:

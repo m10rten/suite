@@ -1,6 +1,7 @@
 {
   "name": "@mvdlei/ui",
   "version": "0.0.3",
+  "private": true,
   "description": "React.js UI generic component set",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -153,7 +154,7 @@
     }
   },
   "publishConfig": {
-    "access": "public"
+    "access": "restricted"
   },
   "engines": {
     "node": ">=18.18.0",
