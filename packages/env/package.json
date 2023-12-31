@@ -17,9 +17,9 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@mvdlei/types": "workspace:*",
     "@types/node": "20.10.5",
-    "internal-config": "workspace:*",
-    "@mvdlei/types": "workspace:*"
+    "internal-config": "workspace:*"
   },
   "dependencies": {
     "@mvdlei/types": "^0.0.5"
@@ -46,13 +46,6 @@
       "types": "./dist/env.d.ts"
     },
     "./*": "./dist/*"
-  },
-  "typesVersions": {
-    "*": {
-      "env": [
-        "dist/env.d.ts"
-      ]
-    }
   },
   "publishConfig": {
     "access": "public"

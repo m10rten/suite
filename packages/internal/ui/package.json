@@ -3,9 +3,7 @@
   "version": "0.0.3",
   "private": true,
   "description": "React.js UI generic component set",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "src/index.ts",
   "scripts": {
     "build": "tsup --format cjs,esm --dts",
     "lint": "eslint src/**/*.ts",
@@ -124,35 +122,6 @@
     "LICENSE",
     "README.md"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json",
-    "./lib/utils": {
-      "import": "./dist/lib/utils.mjs",
-      "require": "./dist/lib/utils.js",
-      "types": "./dist/lib/utils.d.ts"
-    },
-    "./lib/hooks/use-toast": {
-      "import": "./dist/lib/hooks/use-toast.mjs",
-      "require": "./dist/lib/hooks/use-toast.js",
-      "types": "./dist/lib/hooks/use-toast.d.ts"
-    },
-    "./*": "./dist/*"
-  },
-  "typesVersions": {
-    "*": {
-      "lib/utils": [
-        "dist/lib/utils.d.ts"
-      ],
-      "lib/hooks/use-toast": [
-        "dist/lib/hooks/use-toast.d.ts"
-      ]
-    }
-  },
   "publishConfig": {
     "access": "restricted"
   },
