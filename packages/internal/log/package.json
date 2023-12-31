@@ -1,6 +1,7 @@
 {
   "name": "@mvdlei/log",
   "version": "0.0.0",
+  "private": true,
   "description": "<>",
   "main": "./src/index.ts",
   "scripts": {
@@ -25,7 +26,7 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "restricted"
   },
   "dependencies": {
     "winston": "3.11.0"
