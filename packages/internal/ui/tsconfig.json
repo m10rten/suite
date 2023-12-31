@@ -1,12 +1,12 @@
 {
-  "extends": "internal-config/tsconfig-base.json",
+  "extends": "internal-config/react-library.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   }
 }

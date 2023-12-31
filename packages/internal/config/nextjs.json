@@ -14,7 +14,13 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "strict": true,
-    "target": "ES6"
+    "target": "ES6",
+
+    "paths": {
+      "@mvdlei/ui/*": ["../../packages/internal/ui/*"],
+      "@mvdlei/ui/components/*": ["../../packages/internal/ui/components/ui/*"],
+      "@mvdlei/ui/components/ui/*": ["../../packages/internal/ui/components/ui/*"]
+    }
   },
   "include": ["src", "next-env.d.ts"],
   "exclude": ["node_modules"]

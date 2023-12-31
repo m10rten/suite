@@ -32,12 +32,12 @@ jobs:
         run: pnpm i --frozen-lockfile
       # lint
       - name: Typecheck 🧷
-        run: pnpm run typecheck
+        run: pnpm run packages:typecheck
       - name: Lint 🛫
-        run: pnpm run lint
+        run: pnpm run packages:lint
       # build
       - name: Build 🏗
-        run: pnpm run build
+        run: pnpm run packages:build
       # test
       - name: Test 🧪
-        run: pnpm run test
+        run: pnpm run packages:test

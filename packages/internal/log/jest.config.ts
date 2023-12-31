@@ -1,3 +1,3 @@
-import config from "internal-config/jest";
+import config from "../config/jest";
 
 export default config;
