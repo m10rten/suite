@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - "packages/**"
-      - ".github/main_push_packages.yaml"
+      - ".github/workflows/main_push_packages.yaml"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
