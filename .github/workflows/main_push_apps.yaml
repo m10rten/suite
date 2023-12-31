@@ -1,0 +1,41 @@
+name: Main (apps)
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/**"
+      - ".github/main_push_apps.yaml"
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: pnpm/action-setup@v2.4.0
+        with:
+          version: 8
+      - uses: actions/setup-node@v4.0.1
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+      # install
+      - run: pnpm i --frozen-lockfile
+        name: Install dependencies
+
+      - name: Generate deps 🍪
+        run: pnpm generate
+        env:
+          CI: true
+      - name: Verify Apps 🧷📦,⚡
+        run: pnpm turbo --filter "./apps/**" typecheck lint --concurrency 100%
+      - name: Check Apps and create build 🧪,🔨,
+        run: pnpm turbo --filter "./apps/**" build test --concurrency 100%
+        env:
+          CI: true

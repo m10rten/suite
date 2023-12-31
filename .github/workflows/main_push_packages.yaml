@@ -1,10 +1,11 @@
-name: Publish main
+name: Main (packages)
 on:
   push:
     branches:
       - main
     paths:
       - "packages/**"
+      - ".github/main_push_packages.yaml"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
