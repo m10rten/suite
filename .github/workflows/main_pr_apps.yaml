@@ -5,7 +5,7 @@ on:
       - main
       - dev
     paths:
-      - "apps/**"
+      # - "apps/**"
       - ".github/workflows/main_pr_apps.yaml"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}

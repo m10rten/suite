@@ -8,18 +8,22 @@
     "declaration": false,
     "declarationMap": false,
     "incremental": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "noEmit": true,
     "resolveJsonModule": true,
     "strict": true,
-    "target": "ES6",
-
+    "target": "ES5",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
     "paths": {
-      "@mvdlei/ui/*": ["../../packages/internal/ui/*"],
-      "@mvdlei/ui/components/*": ["../../packages/internal/ui/components/ui/*"],
-      "@mvdlei/ui/components/ui/*": ["../../packages/internal/ui/components/ui/*"]
+      "@/*": ["./src/*"],
+      "@ui/*": ["../../packages/ui/*"],
+      "@ui/components/*": ["../../packages/ui/components/ui/*"],
+      "@ui/components/ui/*": ["../../packages/ui/components/ui/*"]
     }
   },
   "include": ["src", "next-env.d.ts"],

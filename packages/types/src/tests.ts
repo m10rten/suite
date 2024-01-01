@@ -26,4 +26,4 @@ export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) ex
   ? I
   : never;
 
-export const doNotExecute = (func: () => any) => {};
+export const doNotExecute = (_func: () => any) => {};

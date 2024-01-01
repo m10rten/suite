@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - "apps/**"
+      # - "apps/**"
       - ".github/workflows/main_push_apps.yaml"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
