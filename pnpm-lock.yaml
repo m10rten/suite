@@ -74,7 +74,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/internal/log
       "@mvdlei/types":
-        specifier: workspace:^0.0.5
+        specifier: workspace:^0.0.6
         version: link:../../packages/types
       "@mvdlei/ui":
         specifier: workspace:*
