@@ -6,10 +6,7 @@
   "scripts": {
     "build": "pnpm typecheck && pnpm lint",
     "lint": "eslint --ignore-path ../../.gitignore --ext .js,.jsx,.ts,.tsx .",
-    "test": "jest",
-    "typecheck": "tsc --noEmit",
-    "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --passWithNoTests"
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
