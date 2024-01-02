@@ -1,5 +1,11 @@
 # @mvdlei/zod
 
+## 0.0.5
+
+### Patch Changes
+
+- 0ee7886: T class for Zod with Types for `Guard`, `Awaitable`, `Coerce` and `Check`
+
 ## 0.0.4
 
 ### Patch Changes
