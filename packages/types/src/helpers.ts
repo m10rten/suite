@@ -94,3 +94,23 @@ export type IsTrue<T extends true> = T;
  * @type {IsFalse} - Type alias for `false` type check
  */
 export type IsFalse<T extends false> = T;
+
+/**
+ * @type {Awaitable} - Type alias for awaitable types (e.g. `Promise` or `PromiseLike`)
+ */
+export type Awaitable<T> = Promise<T> | PromiseLike<T>;
+
+/**
+ * @type {Guard} - Type alias for type guards
+ */
+export type Guard<T> = (value: unknown) => value is T;
+
+/**
+ * @type {Coerce} - Type alias for type coercions
+ */
+export type Coerce<T> = (value: unknown) => T;
+
+/**
+ * @type {Check} - Type alias for type checks with boolean return
+ */
+export type Check<V, T> = V extends T ? true : false;
