@@ -1,6 +1,6 @@
 {
   "name": "showcase",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +13,7 @@
     "@mvdlei/env": "workspace:*",
     "@mvdlei/hooks": "workspace:*",
     "@mvdlei/log": "workspace:*",
-    "@mvdlei/types": "workspace:^0.0.5",
+    "@mvdlei/types": "workspace:^0.0.6",
     "@mvdlei/ui": "workspace:*",
     "next": "14.0.4",
     "react": "18.2.0",
