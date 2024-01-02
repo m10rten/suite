@@ -13,6 +13,9 @@ importers:
       "@ianvs/prettier-plugin-sort-imports":
         specifier: 4.1.1
         version: 4.1.1(prettier@3.1.1)
+      "@mvdlei/types":
+        specifier: 0.0.5
+        version: link:packages/types
       "@types/jest":
         specifier: 29.5.11
         version: 29.5.11
