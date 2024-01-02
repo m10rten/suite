@@ -47,20 +47,6 @@
       "import": "./dist/tests.mjs",
       "require": "./dist/tests.js",
       "types": "./dist/tests.d.ts"
-    },
-    "./*": "./dist/*"
-  },
-  "typesVersions": {
-    "*": {
-      "primitives": [
-        "dist/primitives.d.ts"
-      ],
-      "helpers": [
-        "dist/helpers.d.ts"
-      ],
-      "tests": [
-        "dist/tests.d.ts"
-      ]
     }
   },
   "publishConfig": {

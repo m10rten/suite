@@ -17,11 +17,12 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@mvdlei/types": "workspace:*",
     "@types/node": "20.10.5",
     "internal-config": "workspace:*"
   },
   "dependencies": {
-    "@mvdlei/types": "latest"
+    "@mvdlei/types": "^0.0.5"
   },
   "files": [
     "dist",
@@ -33,15 +34,16 @@
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
+      "default": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json",
     "./env": {
       "import": "./dist/env.mjs",
       "require": "./dist/env.js",
+      "default": "./dist/env.js",
       "types": "./dist/env.d.ts"
-    },
-    "./*": "./dist/*"
+    }
   },
   "publishConfig": {
     "access": "public"
