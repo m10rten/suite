@@ -6,6 +6,8 @@ on:
     paths:
       - "apps/**"
       - ".github/workflows/main_push_apps.yaml"
+      - pnpm-lock.yaml
+      - package.json
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
