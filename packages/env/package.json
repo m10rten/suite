@@ -17,12 +17,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@mvdlei/types": "workspace:*",
     "@types/node": "20.10.5",
     "internal-config": "workspace:*"
   },
-  "peerDependencies": {
-    "@mvdlei/types": "^0.0.5"
+  "dependencies": {
+    "@mvdlei/types": "latest"
   },
   "files": [
     "dist",

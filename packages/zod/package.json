@@ -66,6 +66,6 @@
     "url": "https://github.com/m10rten/suite/issues"
   },
   "dependencies": {
-    "@mvdlei/types": "workspace:*"
+    "@mvdlei/types": "latest"
   }
 }

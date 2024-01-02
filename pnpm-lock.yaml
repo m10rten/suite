@@ -121,10 +121,11 @@ importers:
         version: 5.3.3
 
   packages/env:
-    devDependencies:
+    dependencies:
       "@mvdlei/types":
-        specifier: workspace:*
+        specifier: latest
         version: link:../types
+    devDependencies:
       "@types/node":
         specifier: 20.10.5
         version: 20.10.5
@@ -343,7 +344,7 @@ importers:
   packages/zod:
     dependencies:
       "@mvdlei/types":
-        specifier: workspace:*
+        specifier: latest
         version: link:../types
     devDependencies:
       "@types/node":
