@@ -1,4 +1,3 @@
-import type { Prettify, Primitive } from "@mvdlei/types";
 /* eslint-disable no-console */
 import { z, type ZodError, type ZodObject, type ZodType } from "zod";
 
@@ -63,6 +62,8 @@ export interface LooseOptions<TEnv extends Record<string, ZodType>>
   runtime: Record<string, string | boolean | number | undefined>;
   source?: never;
 }
+
+type Primitive = string | boolean | number | undefined | null | symbol;
 
 export interface SourceOptions<TEnv extends Record<string, ZodType>>
   extends BaseOptions<TEnv> {
@@ -144,7 +145,7 @@ export function define<
   TEnv extends Record<string, ZodType> = NonNullable<unknown>,
 >(
   opts: EnvOptions<TPrefix, TPrefixed, TEnv>,
-): Readonly<Prettify<z.infer<ZodObject<TPrefixed>> & z.infer<ZodObject<TEnv>>>> {
+): Readonly<z.infer<ZodObject<TPrefixed>> & z.infer<ZodObject<TEnv>>> {
   const source = opts.source ?? opts.strict ?? opts.runtime ?? process.env;
 
   const emptyStringAsUndefined = opts.emptyStringAsUndefined ?? false;

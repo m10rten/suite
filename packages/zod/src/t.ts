@@ -1,4 +1,3 @@
-import { Falsy } from "@mvdlei/types";
 import { z } from "zod";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -111,6 +110,8 @@ export class To implements ITo {
     return z.any().readonly().parse(value);
   }
 }
+
+type Falsy = undefined | null | false | 0 | "";
 class Is implements IIs {
   public string(value: unknown): value is string {
     return z.string().safeParse(value).success;
