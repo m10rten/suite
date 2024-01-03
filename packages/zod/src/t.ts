@@ -31,7 +31,7 @@ export interface IIs {
   error: Guard<Error>;
   promise: Guard<Awaitable<unknown>>;
   falsy: Guard<Falsy>;
-  of: <C>(c: C, v: unknown) => v is C;
+  of: <C extends z.ZodTypeAny>(c: C, v: unknown) => v is C;
 }
 
 /**
@@ -52,36 +52,53 @@ export interface ITo {
 }
 
 /**
+ * Base class for `T`
+ */
+class B {
+  public pipe<R>(...fns: ((value: unknown) => R)[]): R {
+    return fns.reduce((prev, fn) => fn(prev), this as unknown as R);
+  }
+
+  public flow<R>(...fns: ((value: unknown) => Promise<R>)[]): Promise<R> {
+    return fns.reduce(async (prev, fn) => fn(await prev), this as unknown as Promise<R>);
+  }
+}
+
+/**
  * T.ts
  * Zod extended with a `T` property that can do magico.
  * @packageDocumentation
  * @module tzod
  */
-export class T implements IT {
+export class T extends B implements IT {
   public is = new Is();
   public to = new To();
 }
 const co = z.coerce;
 export class To implements ITo {
   public string(value: unknown): string {
-    return co.string().parse(value);
+    const s = co.string();
+    return s.safeParse(value).success ? s.parse(value) : String();
   }
   public number(value: unknown): number {
     const s = co.number();
     return s.safeParse(value).success ? s.parse(value) : NaN;
   }
   public boolean(value: unknown): boolean {
-    return co.boolean().parse(value);
+    const s = co.boolean();
+    return s.safeParse(value).success ? s.parse(value) : false;
   }
   public bigint(value: unknown): bigint {
     const s = co.bigint();
     return s.safeParse(value).success ? s.parse(value) : BigInt(NaN);
   }
   public date(value: unknown): Date {
-    return co.date().parse(value);
+    const s = co.date();
+    return s.safeParse(value).success ? s.parse(value) : new Date(NaN);
   }
   public error(value: unknown): Error {
-    return new Error(z.any().parse(value));
+    const s = z.any();
+    return s.safeParse(value).success ? new Error(z.any().parse(value)) : new Error();
   }
   public promise(value: unknown): Promise<unknown> {
     return new Promise((resolve) => resolve(z.any().parse(value)));
@@ -91,7 +108,8 @@ export class To implements ITo {
   }
   public array(value: unknown): unknown[] {
     if (!Array.isArray(value)) return new Array(value);
-    return z.array(z.any()).parse(value);
+    const s = z.array(z.any());
+    return s.safeParse(value).success ? s.parse(value) : new Array(value);
   }
   /**
    * Gives you the ability to parse a value to a ZodType
@@ -158,9 +176,8 @@ class Is implements IIs {
     return value instanceof Promise;
   }
 
-  public of = <CType>(c: CType, v: unknown): v is CType => {
-    // @ts-expect-error - I don't know how to fix this
-    return v instanceof c;
+  public of = <C extends z.ZodTypeAny>(c: C, v: unknown): v is C => {
+    return c.safeParse(v).success;
   };
 
   public falsy(value: unknown): value is Falsy {
@@ -176,6 +193,7 @@ class Is implements IIs {
 }
 
 export type Awaitable<T> = Promise<T> | PromiseLike<T>;
+
 export type Guard<T> = (value: unknown) => value is T;
 export type Coerce<T> = (value: unknown) => T;
 export type Check<V, T> = V extends T ? true : false;
@@ -183,9 +201,39 @@ export type Check<V, T> = V extends T ? true : false;
 export namespace T {
   export namespace Guards {
     export type IsString = Guard<string>;
+    export type IsNumber = Guard<number>;
+    export type IsNull = Guard<null>;
+    export type IsUndefined = Guard<undefined>;
+    export type IsBoolean = Guard<boolean>;
+    export type IsBigInt = Guard<bigint>;
+    export type IsSymbol = Guard<symbol>;
+    export type IsObject = Guard<object>;
+    export type IsFunction = Guard<(() => unknown) | Function | Awaitable<unknown>>;
+    export type IsAny = Guard<any>;
+    export type IsArray = Guard<unknown[]>;
+    export type IsDate = Guard<Date>;
+    export type IsError = Guard<Error>;
+    export type IsPromise = Guard<Awaitable<unknown>>;
+    export type IsFalsy = Guard<Falsy>;
+    // @ts-expect-error - I don't know how to fix this
+    export type Of<C> = <V>(v: V) => v is C;
   }
   export namespace Is {
     export type String<T> = Check<T, string>;
+    export type Number<T> = Check<T, number>;
+    export type Null<T> = Check<T, null>;
+    export type Undefined<T> = Check<T, undefined>;
+    export type Boolean<T> = Check<T, boolean>;
+    export type BigInt<T> = Check<T, bigint>;
+    export type Symbol<T> = Check<T, symbol>;
+    export type Object<T> = Check<T, object>;
+    export type Callable<T> = Check<T, (() => unknown) | Function | Awaitable<unknown>>;
+    export type Any<T> = Check<T, any>;
+    export type Array<T> = Check<T, unknown[]>;
+
+    export type Promise<T> = Check<T, Awaitable<unknown>>;
+
+    export type Of<C, V> = Check<V, C>;
   }
 }
 
@@ -193,3 +241,26 @@ export const t = new T();
 export const is = t.is;
 export const to = t.to;
 export default t;
+
+const User = z.object({
+  name: z.string(),
+  age: z.number(),
+});
+type User = z.infer<typeof User>;
+type test = T.Guards.Of<User>;
+const testUser = {
+  name: "hello",
+  age: 2,
+};
+const isUser: test = (v: unknown): v is User => {
+  return User.safeParse(v).success;
+};
+const isUser2 = t.is.of(User, testUser) as T.Is.Of<User, typeof testUser>;
+if (isUser2) {
+  // eslint-disable-next-line no-console
+  console.log(testUser.name);
+}
+if (isUser(testUser)) {
+  // eslint-disable-next-line no-console
+  console.log(testUser.name);
+}
