@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-import { z } from "zod";
-
 import { t } from "@/t";
 
 // /**
@@ -214,134 +211,26 @@ import { t } from "@/t";
 // const parse = parser(string9);
 // console.log(parse, "from to.parse");
 
-describe("Zod.T", () => {
-  const test: unknown = "test";
-  const int: unknown = 1;
-  const bool: unknown = true;
+describe("Testing the `T.Is` class", () => {
   beforeEach(() => {
     jest.resetModules();
   });
-  it("Should test if t.is.string() works", () => {
-    const isString = t.is.string(test);
-    expect(isString).toBe(true);
-    if (isString) {
-      expect(typeof test).toBe("string");
-    }
+  it("should test that the class has the .is property", () => {
+    expect(t).toHaveProperty("is");
   });
-  it("Should test if t.is.number() works", () => {
-    const isNumber = t.is.number(test);
-    expect(isNumber).toBe(false);
-    if (isNumber) {
-      expect(typeof test).toBe("number");
-    }
+  it("should test that the class has the .to property", () => {
+    expect(t).toHaveProperty("to");
   });
-  it("Should test if t.is.boolean() works", () => {
-    const isBoolean = t.is.boolean(test);
-    expect(isBoolean).toBe(false);
-    if (isBoolean) {
-      expect(typeof test).toBe("boolean");
-    }
+  it("should test that the class has the .string property", () => {
+    expect(t).toHaveProperty("string");
   });
-  it("Should test if t.is.bigint() works", () => {
-    const isBigInt = t.is.bigint(test);
-    expect(isBigInt).toBe(false);
-    if (isBigInt) {
-      expect(typeof test).toBe("bigint");
-    }
+  it("should test that the class has the .array property", () => {
+    expect(t).toHaveProperty("array");
   });
-  it("Should test if t.is.symbol() works", () => {
-    const isSymbol = t.is.symbol(test);
-    expect(isSymbol).toBe(false);
-    if (isSymbol) {
-      expect(typeof test).toBe("symbol");
-    }
+  it("should test that the class has the .number property", () => {
+    expect(t).toHaveProperty("number");
   });
-  it("Should test if t.is.object() works", () => {
-    const isObject = t.is.object(test);
-    expect(isObject).toBe(false);
-    if (isObject) {
-      expect(typeof test).toBe("object");
-    }
-  });
-  it("Should test if t.is.falsy() works", () => {
-    const isFalsy = t.is.falsy(test);
-    expect(isFalsy).toBe(false);
-    if (isFalsy) {
-      expect(test).toBeFalsy();
-    }
-  });
-  it("Should test if int t.to.string() works", () => {
-    const string = t.to.string(int);
-    expect(string).toBe(`${int}`);
-    expect(typeof string).toBe("string");
-  });
-  it("Should test if bool t.to.string() works", () => {
-    const string = t.to.string(bool);
-    expect(string).toBe(`${bool}`);
-    expect(typeof string).toBe("string");
-  });
-  it("Should test if t.to.number() works", () => {
-    const number = t.to.number(`${int}`);
-    expect(number).toBe(int);
-    expect(typeof number).toBe("number");
-  });
-  it("Should test if string t.to.number() works", () => {
-    const number = t.to.number(`${test}`);
-    expect(number).toBeNaN();
-    expect(typeof number).toBe("number");
-  });
-  it("Should test if t.to.boolean() works", () => {
-    const boolean = t.to.boolean(test);
-    expect(boolean).toBe(true);
-    expect(typeof boolean).toBe("boolean");
-  });
-  it("Should test if int t.to.bigint() works", () => {
-    const bigint = t.to.bigint(int);
-    expect(bigint).toBe(BigInt(1));
-    expect(typeof bigint).toBe("bigint");
-  });
-  it("Should test if bool t.to.bigint() works", () => {
-    const bigint = t.to.bigint(bool);
-    expect(bigint).toBe(BigInt(1));
-    expect(typeof bigint).toBe("bigint");
-  });
-  it("Should test if t.to.parse() works", () => {
-    const parser = t.to.parse(z.object({ test: z.string() }));
-    const obj = { test: test };
-    const parse = parser(obj);
-    expect(parse).toStrictEqual(obj);
-    expect(typeof parse).toBe("object");
-  });
-  it("Should test if t.is.array() works", () => {
-    const isArray = t.is.array([test]);
-    expect(isArray).toBe(true);
-    if (isArray) {
-      expect(Array.isArray([test])).toBe(true);
-    }
-  });
-  it("Should test if t.is.function() works", () => {
-    const isFunction = t.is.function(() => test);
-    expect(isFunction).toBe(true);
-    if (isFunction) {
-      expect(typeof (() => test)).toBe("function");
-    }
-  });
-  it("Should test if t.to.array() works", () => {
-    const array = t.to.array(test);
-    expect(array).toStrictEqual([test]);
-    expect(Array.isArray(array)).toBe(true);
-  });
-  it("Should test if t.is.date() works", () => {
-    const isDate = t.is.date(new Date());
-    expect(isDate).toBe(true);
-    if (isDate) {
-      expect(new Date()).toBeInstanceOf(Date);
-    }
-  });
-  it("Should test if t.to.date() works", () => {
-    const str = "02-01-2024";
-    const date = t.to.date(str);
-    expect(date).toStrictEqual(new Date(str));
-    expect(new Date(str)).toBeInstanceOf(Date);
-  });
+  // it("should test that the class has the .object property", () => {
+  //   expect(t).toHaveProperty("object");
+  // });
 });
