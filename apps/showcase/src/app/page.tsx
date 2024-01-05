@@ -1,7 +1,5 @@
 import { Button } from "@ui/components/ui/button";
 
-export const MetaData = {};
-
 export default function Home() {
   return (
     <div>
