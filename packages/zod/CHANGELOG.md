@@ -1,5 +1,11 @@
 # @mvdlei/zod
 
+## 0.1.0
+
+### Minor Changes
+
+- 6735087: Add `string`, `number`, `array`, `object` properties and Tests for T class and its properties
+
 ## 0.0.5
 
 ### Patch Changes
