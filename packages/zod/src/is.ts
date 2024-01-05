@@ -25,7 +25,15 @@ export interface IIs {
   error: Guard<Error>;
   promise: Guard<Awaitable<unknown>>;
   falsy: Guard<Falsy>;
-  of: <C extends z.ZodTypeAny>(c: C, v: unknown) => v is C;
+  schema: <C extends z.ZodTypeAny>(c: C, v: unknown) => v is C;
+  /**
+   * Because of the way `instanceof` works, you are required to pass the class or Object as second argument.
+   * The first argument is a class or object instance you want to check against.
+   * @param c
+   * @param v
+   * @returns
+   */
+  of: <C>(c: C, v: unknown) => v is C;
 }
 export class Is implements IIs {
   public string(value: unknown): value is string {
@@ -73,8 +81,13 @@ export class Is implements IIs {
     return value instanceof Promise;
   }
 
-  public of = <C extends z.ZodTypeAny>(c: C, v: unknown): v is C => {
+  public schema = <C extends z.ZodTypeAny>(c: C, v: unknown): v is C => {
     return c.safeParse(v).success;
+  };
+
+  public of = <C>(c: C, v: unknown): v is C => {
+    // @ts-expect-error - this is a hack to get it to work.
+    return v instanceof c;
   };
 
   public falsy(value: unknown): value is Falsy {
