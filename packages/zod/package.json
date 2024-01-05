@@ -72,6 +72,12 @@
       "require": "./dist/object.js",
       "default": "./dist/object.js",
       "types": "./dist/object.d.ts"
+    },
+    "./number": {
+      "import": "./dist/number.mjs",
+      "require": "./dist/number.js",
+      "default": "./dist/number.js",
+      "types": "./dist/number.d.ts"
     }
   },
   "typesVersions": {
@@ -93,6 +99,9 @@
       ],
       "object": [
         "dist/object.d.ts"
+      ],
+      "number": [
+        "dist/number.d.ts"
       ]
     }
   },

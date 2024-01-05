@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import { IArray, Array as TArray } from "./array";
+import { IArray, TArray } from "./array";
 import { IIs, Is } from "./is";
 import { INumber, TNumber } from "./number";
 import { IObject, TObject } from "./object";
