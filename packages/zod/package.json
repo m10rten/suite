@@ -37,20 +37,53 @@
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json",
-    "./schemas": {
-      "import": "./dist/schemas/index.mjs",
-      "require": "./dist/schemas/index.js",
-      "types": "./dist/schemas/index.d.ts"
+    "./t": {
+      "import": "./dist/t.mjs",
+      "require": "./dist/t.js",
+      "default": "./dist/t.js",
+      "types": "./dist/t.d.ts"
     },
-    "./*": "./dist/*"
+    "./is": {
+      "import": "./dist/is.mjs",
+      "require": "./dist/is.js",
+      "default": "./dist/is.js",
+      "types": "./dist/is.d.ts"
+    },
+    "./to": {
+      "import": "./dist/to.mjs",
+      "require": "./dist/to.js",
+      "default": "./dist/to.js",
+      "types": "./dist/to.d.ts"
+    },
+    "./string": {
+      "import": "./dist/string.mjs",
+      "require": "./dist/string.js",
+      "default": "./dist/string.js",
+      "types": "./dist/string.d.ts"
+    },
+    "./array": {
+      "import": "./dist/array.mjs",
+      "require": "./dist/array.js",
+      "default": "./dist/array.js",
+      "types": "./dist/array.d.ts"
+    }
   },
   "typesVersions": {
     "*": {
-      "schemas": [
-        "dist/schemas/index.d.ts"
-      ],
       "t": [
         "dist/t.d.ts"
+      ],
+      "is": [
+        "dist/is.d.ts"
+      ],
+      "to": [
+        "dist/to.d.ts"
+      ],
+      "string": [
+        "dist/string.d.ts"
+      ],
+      "array": [
+        "dist/array.d.ts"
       ]
     }
   },
