@@ -66,6 +66,12 @@
       "require": "./dist/array.js",
       "default": "./dist/array.js",
       "types": "./dist/array.d.ts"
+    },
+    "./object": {
+      "import": "./dist/object.mjs",
+      "require": "./dist/object.js",
+      "default": "./dist/object.js",
+      "types": "./dist/object.d.ts"
     }
   },
   "typesVersions": {
@@ -84,6 +90,9 @@
       ],
       "array": [
         "dist/array.d.ts"
+      ],
+      "object": [
+        "dist/object.d.ts"
       ]
     }
   },

@@ -71,13 +71,3 @@ export class String implements IString {
       : (value as never);
   }
 }
-
-// const str = new String();
-// const a = str.quote("hello");
-// const b = str.upper("hello");
-// const c = str.lower("HeLlO");
-// const d = str.reverse("hello");
-// const e = str.empty("");
-// const f = str.empty("hello");
-// const g = str.has("hello", "el");
-// const h = str.has("hello", "le");

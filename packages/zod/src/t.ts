@@ -5,6 +5,7 @@
 import { IArray, Array as TArray } from "./array";
 import { IIs, Is } from "./is";
 import { INumber } from "./number";
+import { TObject } from "./object";
 import { IString, String } from "./string";
 import { ITo, To } from "./to";
 
@@ -19,6 +20,7 @@ export interface IT {
   string: IString;
   array: IArray;
   number: INumber;
+  object: TObject;
 }
 
 // /**
@@ -46,6 +48,7 @@ export class T implements IT {
   public string = new String();
   public array = new TArray();
   public number = new Number();
+  public object = new TObject();
 }
 
 export const t = new T();
@@ -54,5 +57,6 @@ export const to = t.to;
 export const string = t.string;
 export const array = t.array;
 export const number = t.number;
+export const object = t.object;
 
 export default t;
