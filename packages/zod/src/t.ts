@@ -23,19 +23,6 @@ export interface IT {
   object: TObject;
 }
 
-// /**
-//  * Base class for `T`
-//  */
-// class B {
-//   public pipe<R>(...fns: ((value: unknown) => R)[]): R {
-//     return fns.reduce((prev, fn) => fn(prev), this as unknown as R);
-//   }
-
-//   public flow<R>(...fns: ((value: unknown) => Promise<R>)[]): Promise<R> {
-//     return fns.reduce(async (prev, fn) => fn(await prev), this as unknown as Promise<R>);
-//   }
-// }
-
 /**
  * T.ts
  * Zod extended with a `T` property that can do magico.

@@ -26,8 +26,7 @@ export namespace T {
     export type IsError = Guard<Error>;
     export type IsPromise = Guard<Awaitable<unknown>>;
     export type IsFalsy = Guard<Falsy>;
-    // @ts-expect-error - I don't know how to fix this
-    export type Of<C> = <V>(v: V) => v is C;
+    export type Of = <C>(c: C, v: unknown) => v is C;
   }
   export namespace Is {
     export type String<T> = Check<T, string>;
