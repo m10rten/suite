@@ -4,9 +4,9 @@
 
 import { IArray, Array as TArray } from "./array";
 import { IIs, Is } from "./is";
-import { INumber } from "./number";
-import { TObject } from "./object";
-import { IString, String } from "./string";
+import { INumber, TNumber } from "./number";
+import { IObject, TObject } from "./object";
+import { IString, String as TString } from "./string";
 import { ITo, To } from "./to";
 
 export * from "./g";
@@ -20,7 +20,7 @@ export interface IT {
   string: IString;
   array: IArray;
   number: INumber;
-  object: TObject;
+  object: IObject;
 }
 
 /**
@@ -32,9 +32,9 @@ export interface IT {
 export class T implements IT {
   public is = new Is();
   public to = new To();
-  public string = new String();
+  public string = new TString();
   public array = new TArray();
-  public number = new Number();
+  public number = new TNumber();
   public object = new TObject();
 }
 
