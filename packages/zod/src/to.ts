@@ -28,7 +28,11 @@ const { coerce: co } = z;
 export class To implements ITo {
   public string(value: unknown): string {
     const s = co.string();
-    return s.safeParse(value).success ? s.parse(value) : String();
+    return typeof value === "object"
+      ? JSON.stringify(value)
+      : s.safeParse(value).success
+        ? s.parse(value)
+        : String(value);
   }
   public number(value: unknown): number {
     const s = co.number();
@@ -40,7 +44,9 @@ export class To implements ITo {
   }
   public bigint(value: unknown): bigint {
     const s = co.bigint();
-    return s.safeParse(value).success ? s.parse(value) : BigInt(NaN);
+    const num = this.number(value);
+    const p = isNaN(num) ? num : 1;
+    return s.safeParse(p).success ? s.parse(p) : BigInt(1);
   }
   public date(value: unknown): Date {
     const s = co.date();

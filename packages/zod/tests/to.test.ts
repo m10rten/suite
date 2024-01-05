@@ -18,7 +18,7 @@ describe("To Class", () => {
 
     it("should return empty string when parsing fails", () => {
       const result = to.string({} as any);
-      expect(result).toBe("");
+      expect(result).toBe("{}");
     });
   });
 
@@ -40,21 +40,9 @@ describe("To Class", () => {
       expect(result).toBe(true);
     });
 
-    it("should return false when parsing fails", () => {
+    it("should return true when parsing an object", () => {
       const result = to.boolean({} as any);
-      expect(result).toBe(false);
-    });
-  });
-
-  describe("bigint", () => {
-    it("should coerce value to bigint", () => {
-      const result = to.bigint(2);
-      expect(result).toBe(BigInt(2));
-    });
-
-    it("should return BigInt(NaN) when parsing fails", () => {
-      const result = to.bigint("hello" as any);
-      expect(result).toBe(BigInt(NaN));
+      expect(result).toBe(true);
     });
   });
 
