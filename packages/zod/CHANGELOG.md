@@ -1,4 +1,4 @@
-# @mvdlei/zod
+# @mvdlei/tzod
 
 ## 0.1.0
 
