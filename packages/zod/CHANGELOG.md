@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.0.1
+
+### Patch Changes
+
+- fa2979e: Rename to TZod. Added `README.md`. Converted to `TString`. Updated exports from `t.ts`. Added inline Documentation.
+
 ## 0.1.0
 
 ### Minor Changes
