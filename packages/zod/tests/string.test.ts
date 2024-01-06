@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { String } from "@/string";
+import { TString } from "@/string";
 
 describe("String Class", () => {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  let str: String;
+  let str: TString;
 
   beforeEach(() => {
-    str = new String();
+    str = new TString();
   });
 
   describe("upper", () => {

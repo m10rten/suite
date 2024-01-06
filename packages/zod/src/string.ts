@@ -1,18 +1,31 @@
 import { z } from "zod";
 
 export interface IString {
+  /**
+   * Convert a string to uppercase
+   */
   upper: <T extends string>(value: T) => UpperCased<T>;
+  /**
+   * Convert a string to lowercase
+   */
   lower: <T extends string>(value: T) => LowerCased<T>;
+  /**
+   * Reverse a string
+   */
   reverse: <T extends string>(value: T) => Reversed<T>;
   /**
    * Warning, do not use this function for type checking because it does not use guards as the `t.is` property does.
    * Use `t.is.falsy(value)` instead.
-   * @param value
-   * @returns
    */
   empty: <T extends string>(value: T) => StringBase<T, Empty<T>>;
+  /**
+   * Check if a string has a substring
+   */
   has: <T extends string, U extends string>(value: T, search: U) => Has<T, U>;
 
+  /**
+   * Quote a string, eg. `quote("hello")` returns "\"hello\""
+   */
   quote: <T extends string>(value: T) => Quoted<T>;
 }
 
@@ -34,7 +47,12 @@ type StringBase<T, A> = T extends string ? A : never;
 type Empty<T> = T extends "" ? true : false;
 
 const s = z.string();
-export class String implements IString {
+
+/**
+ * TString class for string related methods, for use with `t.string`.
+ * Fully type safe return values
+ */
+export class TString implements IString {
   public upper<T extends string>(value: T): StringBase<T, UpperCased<T>> {
     return s.safeParse(value).success
       ? (s.transform((v) => v.toUpperCase()).parse(value) as StringBase<

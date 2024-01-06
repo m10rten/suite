@@ -77,8 +77,8 @@ export class To implements ITo {
   }
   /**
    * Gives you the ability to parse a value to a Readonly
-   * @param t
-   * @returns
+   * @param value {unknown}
+   * @returns {Readonly<unknown>}
    */
   public readonly(value: unknown): Readonly<unknown> {
     return z.any().readonly().parse(value);

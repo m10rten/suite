@@ -10,28 +10,74 @@ import type { Awaitable, Falsy, Guard } from "./g";
  * Interface for the `is` property of `T`
  */
 export interface IIs {
+  /**
+   * Check if a value is a string
+   */
   string: Guard<string>;
+  /**
+   * Check if a value is a number
+   */
   number: Guard<number>;
+  /**
+   * Check if a value is null
+   */
   null: Guard<null>;
+  /**
+   * Check if a value is undefined
+   */
   undefined: Guard<undefined>;
+  /**
+   * Check if a value is a boolean
+   */
   boolean: Guard<boolean>;
+  /**
+   * Check if a value is a bigint
+   */
   bigint: Guard<bigint>;
+  /**
+   * Check if a value is a symbol
+   */
   symbol: Guard<symbol>;
+  /**
+   * Check if a value is an object
+   */
   object: Guard<object>;
-  function: Guard<(() => unknown) | Function | Awaitable<unknown>>;
+  /**
+   * Check if a value is a function
+   */
+  function: Guard<(() => unknown) | Function | (() => Awaitable<unknown>)>;
+  /**
+   * Check if a value is any
+   */
   any: Guard<any>;
+  /**
+   * Check if a value is an array
+   */
   array: Guard<unknown[]>;
+  /**
+   * Check if a value is a date
+   */
   date: Guard<Date>;
+  /**
+   * Check if a value is an error
+   */
   error: Guard<Error>;
+  /**
+   * Check if a value is a promise, please note that this is not for async functions that do not return a promise.
+   */
   promise: Guard<Awaitable<unknown>>;
+  /**
+   * Check if a value is falsy
+   */
   falsy: Guard<Falsy>;
+  /**
+   * Check if a value is a zod schema
+   *
+   */
   schema: <C extends z.ZodTypeAny>(c: C, v: unknown) => v is C;
   /**
    * Because of the way `instanceof` works, you are required to pass the class or Object as second argument.
    * The first argument is a class or object instance you want to check against.
-   * @param c
-   * @param v
-   * @returns
    */
   of: <C>(c: C, v: unknown) => v is C;
 }

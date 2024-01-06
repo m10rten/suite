@@ -6,7 +6,7 @@ import { IArray, TArray } from "./array";
 import { IIs, Is } from "./is";
 import { INumber, TNumber } from "./number";
 import { IObject, TObject } from "./object";
-import { IString, String as TString } from "./string";
+import { IString, TString } from "./string";
 import { ITo, To } from "./to";
 
 export * from "./g";
@@ -30,20 +30,39 @@ export interface IT {
  * @module tzod
  */
 export class T implements IT {
+  /**
+   * `is` property for type checking
+   */
   public is = new Is();
+  /**
+   * `to` property for type casting
+   */
   public to = new To();
+  /**
+   * `string` property for string related methods
+   */
   public string = new TString();
+  /**
+   * `array` property for array related methods
+   */
   public array = new TArray();
+  /**
+   * `number` property for number related methods
+   */
   public number = new TNumber();
+  /**
+   * `object` property for object related methods
+   */
   public object = new TObject();
 }
 
+/**
+ * `t` usable instance of `T`
+ */
 export const t = new T();
-export const is = t.is;
-export const to = t.to;
-export const string = t.string;
-export const array = t.array;
-export const number = t.number;
-export const object = t.object;
+/**
+ * Exported properties of `t`
+ */
+export const { is, to, string, array, number, object } = t;
 
 export default t;

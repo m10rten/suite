@@ -1,4 +1,9 @@
 export interface IArray {
+  /**
+   * Shuffle an array
+   * @param array
+   * @returns Shuffled array
+   */
   shuffle: <T>(array: T[]) => T[];
 }
 

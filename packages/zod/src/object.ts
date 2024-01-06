@@ -1,20 +1,42 @@
+import type { Pretty } from "./g";
+
 export interface IObject {
+  /**
+   * Merge two objects
+   */
   merge: <T extends object, U extends object>(a: T, b: U) => Pretty<T & U>;
+  /**
+   * Get the keys of an object
+   */
   keys: <T extends object>(a: T) => (keyof T)[];
+  /**
+   * Freeze an object
+   */
   freeze: <T extends object>(a: T) => Readonly<T>;
+  /**
+   * Unfreeze an object
+   */
   unfreeze: <T extends object>(a: Readonly<T>) => T;
+  /**
+   * Filter an object by key and value
+   */
   filter: <T extends object>(
     a: T,
     fn: (key: keyof T, value: T[keyof T]) => boolean,
   ) => T;
+  /**
+   * Select keys from an object
+   */
   select: <T extends object, U extends keyof T>(a: T, b: U[]) => Pretty<Pick<T, U>>;
+  /**
+   * Exclude keys from an object
+   */
   exclude: <T extends object, U extends keyof T>(a: T, b: U[]) => Pretty<Omit<T, U>>;
-  // flatten: <T extends object>(a: T) => Pretty<Flatten<T>>;
 }
 
-// type Flatten<T> = T extends object ? { [K in keyof T]: T[K] } : T;
-
-type Pretty<T> = { [K in keyof T]: T[K] } & unknown;
+/**
+ * TObject class for object related methods
+ */
 export class TObject implements IObject {
   public merge<T extends object, U extends object>(a: T, b: U): Pretty<T & U> {
     return { ...a, ...b };
@@ -46,13 +68,4 @@ export class TObject implements IObject {
       Object.entries(a).filter(([key]) => !b.includes(key as U)),
     ) as Pretty<Omit<T, U>>;
   }
-  // public flatten<T extends object>(a: T): Pretty<Flatten<T>> {
-  //   return Object.fromEntries(
-  //     Object.entries(a).map(([key, value]) => {
-  //       return typeof value === "object"
-  //         ? Object.entries(value).map(([k, v]) => [`${key}.${k}`, v])
-  //         : [key, value];
-  //     }),
-  //   ) as Pretty<Flatten<T>>;
-  // }
 }
