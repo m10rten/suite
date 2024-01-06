@@ -1,12 +1,12 @@
 # tzod
 
-## 0.0.1
+## @mvdlei/tzod@0.0.1
 
 ### Patch Changes
 
 - fa2979e: Rename to `@mvdlei/tzod`. Added `README.md`. Converted to `TString`. Updated exports from `t.ts`. Added inline Documentation.
 
-## 0.1.0
+## @mvdlei/zod@0.1.0
 
 ### Minor Changes
 
@@ -40,4 +40,4 @@
 
 ### Patch Changes
 
-- 2e4d1e8: Initial Create
+- 2e4d1e8: Initial Create `@mvdlei/zod`
