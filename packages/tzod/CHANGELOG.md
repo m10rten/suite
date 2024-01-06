@@ -1,5 +1,11 @@
 # tzod
 
+## 0.1.0
+
+### Minor Changes
+
+- db90abd: Converted to `tzod`, was `@mvdlei/tzod`, before `@mvdlei/zod`.
+
 ## @mvdlei/tzod@0.0.1
 
 ### Patch Changes
