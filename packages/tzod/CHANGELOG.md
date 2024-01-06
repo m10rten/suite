@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.0.2
+
+### Patch Changes
+
+- a505197: Reverted back to `@mvdlei/tzod`
+
 ## @mvdlei/tzod@0.0.1
 
 ### Patch Changes
