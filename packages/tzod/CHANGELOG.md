@@ -1,10 +1,10 @@
-# @mvdlei/tzod
+# tzod
 
 ## 0.0.1
 
 ### Patch Changes
 
-- fa2979e: Rename to TZod. Added `README.md`. Converted to `TString`. Updated exports from `t.ts`. Added inline Documentation.
+- fa2979e: Rename to `@mvdlei/tzod`. Added `README.md`. Converted to `TString`. Updated exports from `t.ts`. Added inline Documentation.
 
 ## 0.1.0
 

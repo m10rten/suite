@@ -180,6 +180,18 @@ importers:
         specifier: workspace:*
         version: link:../internal/config
 
+  packages/tzod:
+    devDependencies:
+      "@types/node":
+        specifier: 20.10.5
+        version: 20.10.5
+      internal-config:
+        specifier: workspace:*
+        version: link:../internal/config
+      zod:
+        specifier: 3.22.4
+        version: 3.22.4
+
   packages/ui:
     dependencies:
       "@hookform/resolvers":
@@ -336,18 +348,6 @@ importers:
       shadcn-ui:
         specifier: 0.6.0
         version: 0.6.0(typescript@5.3.3)
-
-  packages/zod:
-    devDependencies:
-      "@types/node":
-        specifier: 20.10.5
-        version: 20.10.5
-      internal-config:
-        specifier: workspace:*
-        version: link:../internal/config
-      zod:
-        specifier: 3.22.4
-        version: 3.22.4
 
 packages:
   /@aashutoshrathi/word-wrap@1.2.6:
