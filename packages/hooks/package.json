@@ -8,10 +8,7 @@
   "scripts": {
     "build": "tsup --format cjs,esm --dts",
     "lint": "eslint src/**/*.ts",
-    "test": "jest",
-    "typecheck": "tsc --noEmit",
-    "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --passWithNoTests"
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -83,7 +80,36 @@
       "require": "./dist/use-event-listener.js",
       "types": "./dist/use-event-listener.d.ts"
     },
-    "./*": "./dist/*"
+    "./use-key": {
+      "import": "./dist/use-key.mjs",
+      "require": "./dist/use-key.js",
+      "types": "./dist/use-key.d.ts"
+    },
+    "./use-touch": {
+      "import": "./dist/use-touch.mjs",
+      "require": "./dist/use-touch.js",
+      "types": "./dist/use-touch.d.ts"
+    },
+    "./use-once": {
+      "import": "./dist/use-once.mjs",
+      "require": "./dist/use-once.js",
+      "types": "./dist/use-once.d.ts"
+    },
+    "./use-media-query": {
+      "import": "./dist/use-media-query.mjs",
+      "require": "./dist/use-media-query.js",
+      "types": "./dist/use-media-query.d.ts"
+    },
+    "./use-scroll": {
+      "import": "./dist/use-scroll.mjs",
+      "require": "./dist/use-scroll.js",
+      "types": "./dist/use-scroll.d.ts"
+    },
+    "./use-intersection-observer": {
+      "import": "./dist/use-intersection-observer.mjs",
+      "require": "./dist/use-intersection-observer.js",
+      "types": "./dist/use-intersection-observer.d.ts"
+    }
   },
   "typesVersions": {
     "*": {
@@ -113,6 +139,24 @@
       ],
       "use-event-listener": [
         "dist/use-event-listener.d.ts"
+      ],
+      "use-key": [
+        "dist/use-key.d.ts"
+      ],
+      "use-touch": [
+        "dist/use-touch.d.ts"
+      ],
+      "use-once": [
+        "dist/use-once.d.ts"
+      ],
+      "use-media-query": [
+        "dist/use-media-query.d.ts"
+      ],
+      "use-scroll": [
+        "dist/use-scroll.d.ts"
+      ],
+      "use-intersection-observer": [
+        "dist/use-intersection-observer.d.ts"
       ]
     }
   },

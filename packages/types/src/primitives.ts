@@ -49,6 +49,8 @@ export type Truthy<T> = T extends Falsy ? never : T;
 export type Tuple<T = unknown> = readonly T[];
 
 /**
- * @type {Nullish} - Type alias for null and undefined types
+ * @type {Union} - Type alias for union types
+ * @example
+ * type Foo = Union<string> // string | string[]
  */
-export type Nullish = null | undefined;
+export type Union<T = unknown> = T | T[];

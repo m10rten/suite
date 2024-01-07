@@ -30,23 +30,40 @@
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
+      "default": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json",
     "./helpers": {
       "import": "./dist/helpers.mjs",
       "require": "./dist/helpers.js",
+      "default": "./dist/helpers.js",
       "types": "./dist/helpers.d.ts"
     },
     "./primitives": {
       "import": "./dist/primitives.mjs",
       "require": "./dist/primitives.js",
+      "default": "./dist/primitives.js",
       "types": "./dist/primitives.d.ts"
     },
     "./tests": {
       "import": "./dist/tests.mjs",
       "require": "./dist/tests.js",
+      "default": "./dist/tests.js",
       "types": "./dist/tests.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "tests": [
+        "./dist/tests.d.ts"
+      ],
+      "helpers": [
+        "./dist/helpers.d.ts"
+      ],
+      "primitives": [
+        "./dist/primitives.d.ts"
+      ]
     }
   },
   "publishConfig": {

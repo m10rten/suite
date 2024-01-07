@@ -32,3 +32,5 @@ export function useCopyToClipboard(): [CopiedValue, CopyFn] {
 
   return [copiedText, copy] as const;
 }
+
+export default useCopyToClipboard;

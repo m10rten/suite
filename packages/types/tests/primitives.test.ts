@@ -3,7 +3,6 @@ import {
   Maybe,
   NonMaybe,
   Nullable,
-  Nullish,
   Possitive,
   Primitive,
   Tuple,
@@ -42,9 +41,5 @@ describe("Primitives", () => {
   test("Tuple", () => {
     const value: Tuple<number> = [1, 3];
     expect(value).toStrictEqual([1, 3]);
-  });
-  test("Nullish", () => {
-    const value: Nullish = null;
-    expect(value).toBe(null);
   });
 });

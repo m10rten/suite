@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 
+/**
+ * Use storage hook to store data in local or session storage
+ * @param storage Storage to use
+ * @returns Hook to store data in local or session storage { value (of the key), set(set the value), exists (if the key exists in the storage) }
+ */
 export function useStorage(storage: Storage) {
   return function useStorage<T>(key: string, initialValue: T) {
     const [storedValue, setStoredValue] = useState<T>(initialValue);

@@ -19,3 +19,5 @@ export function useDebounce<T>(value: T, delay: number | undefined = 500): T {
 
   return debouncedValue;
 }
+
+export default useDebounce;
