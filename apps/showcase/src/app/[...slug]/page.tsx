@@ -6,16 +6,24 @@ import { Mdx } from "@/components/mdx";
 export const generateStaticParams = async () =>
   allDocs.map((doc) => ({ package: doc._raw.flattenedPath }));
 
-export const generateMetadata = ({ params }: { params: { category: string } }) => {
-  const path = `${params.category}`;
+export const generateMetadata = ({ params }: { params: { slug: string[] } }) => {
+  const path = `${makePath(params.slug)}`;
   const doc = allDocs.find((doc) => doc._raw.flattenedPath === path);
   if (!doc) return notFound();
   return { title: doc.title };
 };
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
-  const path = `${params.category}`;
+const makePath = (strs: string[]) =>
+  strs
+    .map((s) => `/${s}`)
+    .join("")
+    .toLowerCase()
+    .replace("/", "");
+
+export default function DocsPage({ params }: { params: { slug: string[] } }) {
+  const path = `${makePath(params.slug)}`;
   const doc = allDocs.find((doc) => doc._raw.flattenedPath === path);
+
   if (!doc) return notFound();
 
   return (

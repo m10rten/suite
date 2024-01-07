@@ -358,3 +358,6 @@ html {
 body {
   @apply h-full w-full;
 }
+.container {
+  @apply max-sm:w-full max-sm:mx-auto max-sm:px-3;
+}
