@@ -353,7 +353,7 @@
 }
 
 html {
-  @apply antialiased h-screen w-screen overflow-hidden;
+  @apply antialiased h-screen w-screen overflow-x-hidden;
 }
 body {
   @apply h-full w-full;
