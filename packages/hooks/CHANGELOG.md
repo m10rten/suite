@@ -1,5 +1,11 @@
 # @mvdlei/hooks
 
+## 0.1.0
+
+### Minor Changes
+
+- ea6b974: Extended hooks with `use-key`, `use-once`, `use-scroll`, `use-touch`, `use-media-query`, `use-intersection-observer`. Also updated inline docs.
+
 ## 0.0.5
 
 ### Patch Changes
