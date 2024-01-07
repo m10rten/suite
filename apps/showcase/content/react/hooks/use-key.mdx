@@ -1,0 +1,47 @@
+---
+published: false
+title: useKey - Mvdlei Hooks
+category: react
+package: hooks
+description: useKey React hook for handling keyboard events.
+---
+
+# useKey
+
+React hook for handling keyboard events.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Usage
+
+```jsx
+import React from "react";
+import { useKey } from "@mvdlei/hooks";
+
+const App = () => {
+  const [count, setCount] = React.useState(0);
+
+  useKey("ArrowUp", () => setCount(count + 1));
+  useKey("ArrowDown", () => setCount(count - 1));
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useKey(key: string, callback: () => void, options?: Options): void;
+```
+
+### Links
+
+[`use-key.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-key.ts)

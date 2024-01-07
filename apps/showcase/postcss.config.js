@@ -1,1 +1,7 @@
-module.exports = require("@mvdlei/ui/postcss.config");
+/* eslint-disable no-undef */
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
