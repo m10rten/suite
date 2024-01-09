@@ -11,7 +11,7 @@ Personal Suite of Code for self-made packages and apps.
 
 ### Requirements
 
-To develop this `suite` you must have `pnpm` installed on your local system.
+To develop this `suite` you must have `node`, `npm` & `pnpm` installed on your local system.
 
 ### Dependencies
 
