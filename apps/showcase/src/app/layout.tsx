@@ -4,8 +4,8 @@ import "./globals.css";
 
 import { GeistSans } from "geist/font/sans";
 
-import Header from "@/components/header";
-import Providers from "@/components/providers";
+import Header from "#/header";
+import Providers from "#/providers";
 
 export const metadata: Metadata = {
   title: "Showcase Suite - Mvdlei",

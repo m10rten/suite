@@ -30,6 +30,11 @@ jobs:
       # install
       - name: Install dependencies 📦
         run: pnpm i --frozen-lockfile
+      # generate
+      - name: Generate deps 🍪
+        run: pnpm run apps:generate
+        env:
+          CI: true
       # lint
       - name: Typecheck 🧷
         run: pnpm run apps:typecheck

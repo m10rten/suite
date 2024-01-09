@@ -33,7 +33,7 @@ jobs:
         name: Install dependencies
 
       - name: Generate deps 🍪
-        run: echo "Generate deps 🍪" # instead of pnpm run generate
+        run: pnpm run packages:generate
         env:
           CI: true
 
