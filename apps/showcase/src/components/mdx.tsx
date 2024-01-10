@@ -117,8 +117,13 @@ const components = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code className={cn("relative rounded font-mono text-sm", className)} {...props} />
   ),
+
   Image,
-};
+  // MyCustomComponent::
+  MyCustomComponent: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
+    <div className={cn("text-red-500", className)} {...props} />
+  ),
+} as const;
 
 interface MdxProps {
   code: string;
