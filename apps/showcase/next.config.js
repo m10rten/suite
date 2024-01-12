@@ -4,7 +4,7 @@ const { withContentlayer } = require("next-contentlayer");
 const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
-  // transpilePackages: ["@mvdlei/ui"],
+  transpilePackages: ["@mvdlei/log", "@mvdlei/env"],
 };
 
 module.exports = withContentlayer(nextConfig);

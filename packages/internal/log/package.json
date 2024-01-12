@@ -4,6 +4,8 @@
   "private": true,
   "description": "<>",
   "main": "./index.ts",
+  "types": "./index.ts",
+  "module": "./index.ts",
   "scripts": {
     "build": "tsup --format cjs,esm --dts",
     "lint": "eslint **/*.ts",

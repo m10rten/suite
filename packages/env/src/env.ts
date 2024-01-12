@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import type { Prettify } from "@mvdlei/types";
 import { z, type ZodError, type ZodObject, type ZodType } from "zod";
 
 export type ErrorMessage<T extends string> = T;
@@ -145,7 +146,9 @@ export function define<
   TEnv extends Record<string, ZodType> = NonNullable<unknown>,
 >(
   opts: EnvOptions<TPrefix, TPrefixed, TEnv>,
-): Readonly<z.infer<ZodObject<TPrefixed>> & z.infer<ZodObject<TEnv>>> {
+): Prettify<
+  Readonly<Prettify<z.infer<ZodObject<TPrefixed>> & z.infer<ZodObject<TEnv>>>>
+> {
   const source = opts.source ?? opts.strict ?? opts.runtime ?? process.env;
 
   const emptyStringAsUndefined = opts.emptyStringAsUndefined ?? false;
@@ -208,5 +211,5 @@ export function define<
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
-  return env as any;
+  return env as unknown as any;
 }
