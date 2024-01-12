@@ -2,9 +2,9 @@
   "name": "@mvdlei/types",
   "version": "0.0.6",
   "description": "A Collection of Type Helpers, Primitives and Utilities for TypeScript, Node & Testing types.",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup --format cjs,esm --dts",
     "dev": "pnpm build --watch",
@@ -28,13 +28,13 @@
     "README.md"
   ],
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "default": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./package.json": "./package.json",
     "./helpers": {
       "import": "./dist/helpers.mjs",
       "require": "./dist/helpers.js",
@@ -57,13 +57,13 @@
   "typesVersions": {
     "*": {
       "tests": [
-        "./dist/tests.d.ts"
+        "dist/tests.d.ts"
       ],
       "helpers": [
-        "./dist/helpers.d.ts"
+        "dist/helpers.d.ts"
       ],
       "primitives": [
-        "./dist/primitives.d.ts"
+        "dist/primitives.d.ts"
       ]
     }
   },

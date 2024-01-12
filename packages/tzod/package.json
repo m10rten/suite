@@ -32,12 +32,12 @@
     "README.md"
   ],
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./package.json": "./package.json",
     "./t": {
       "import": "./dist/t.mjs",
       "require": "./dist/t.js",
