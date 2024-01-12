@@ -3,6 +3,7 @@
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
     "build": {
+      "dependsOn": ["^build"],
       "cache": true,
       "persistent": false
     },
@@ -24,6 +25,7 @@
       "persistent": false
     },
     "generate": {
+      "dependsOn": ["^generate"],
       "cache": true,
       "persistent": false
     },

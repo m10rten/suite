@@ -1,5 +1,8 @@
+"use client";
+
 import * as React from "react";
 import Image from "next/image";
+import { useKey, useOnce } from "@mvdlei/hooks";
 import { useMDXComponent } from "next-contentlayer/hooks";
 
 import { cn } from "@/lib/utils";
@@ -119,10 +122,34 @@ const components = {
   ),
 
   Image,
-  // MyCustomComponent::
-  MyCustomComponent: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <div className={cn("text-red-500", className)} {...props} />
-  ),
+  // useOnce hook example component::
+  UseOnceExample: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+    const [state, setState] = React.useState(0);
+    useOnce(() => {
+      setTimeout(() => {
+        setState(1);
+      }, 1000);
+    });
+
+    return (
+      <div className={cn("relative rounded font-mono text-sm", className)} {...props}>
+        {state} Will only update once
+      </div>
+    );
+  },
+  UseKeyExample: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+    useKey("h", () => {
+      alert("You pressed the h key!");
+    });
+
+    return (
+      <div
+        className={cn("relative rounded font-mono text-sm mt-2", className)}
+        {...props}>
+        Press the `h` key
+      </div>
+    );
+  },
 } as const;
 
 interface MdxProps {

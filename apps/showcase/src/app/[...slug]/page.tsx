@@ -27,7 +27,7 @@ export default function DocsPage({ params }: { params: { slug: string[] } }) {
   if (!doc) return notFound();
 
   return (
-    <div className="min-w-0 mx-auto w-full px-1 sm:px-2">
+    <div className="mx-auto w-full px-1 sm:px-2 pb-4">
       {/* <DocsPageHeader heading={doc.title} text={doc.description} /> */}
       <Mdx code={doc.body.code} />
     </div>

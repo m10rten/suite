@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply min-w-0;
+}
 @layer base {
   :root {
     /* Slate */

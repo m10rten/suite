@@ -43,7 +43,8 @@
     "apps:lint": "turbo run lint --filter=./apps/*",
     "release:build": "changeset version",
     "release:add": "changeset",
-    "release:pre": "changeset pre"
+    "release:pre": "changeset pre",
+    "clean": "bash scripts/clean.sh"
   },
   "devDependencies": {
     "@changesets/cli": "2.27.1",

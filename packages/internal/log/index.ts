@@ -23,9 +23,5 @@ export const defaultOptions = {
 } satisfies LoggerOptions;
 
 export const create = (options: LoggerOptions = defaultOptions) => {
-  return createLogger(options);
+  return createLogger({ ...options, ...defaultOptions });
 };
-
-const logger = create(defaultOptions);
-
-logger.info("Hello, world!");
