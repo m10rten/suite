@@ -1,6 +1,6 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((opts) => ({
-  entry: ["./src/**/*.{ts,tsx}"],
+  entry: ["./index.ts"],
   clean: !opts.watch,
 }));
