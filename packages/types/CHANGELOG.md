@@ -1,5 +1,11 @@
 # @mvdlei/types
 
+## 0.0.7
+
+### Patch Changes
+
+- dad8a3d: Updated package.json and small changes to source
+
 ## 0.0.6
 
 ### Patch Changes
