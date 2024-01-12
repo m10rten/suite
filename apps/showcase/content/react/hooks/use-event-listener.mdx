@@ -1,0 +1,67 @@
+---
+published: false
+title: useEventListener - Mvdlei Hooks
+category: react
+package: hooks
+description: useEventListener React hook for handling keyboard events.
+---
+
+# useEventListener
+
+React hook for handling keyboard events.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+<UseEventListenerExample />
+
+## Usage
+
+```jsx
+import React from "react";
+import { useEventListener } from "@mvdlei/hooks";
+
+const App = () => {
+  const [state, setState] = React.useState(0);
+  useEventListener("click", () => {
+    setState((prev) => prev + 1);
+  });
+
+  return (
+    <div className={cn("relative rounded font-mono text-sm mt-2", className)} {...props}>
+      Click anywhere! {state}
+    </div>
+  );
+};
+```
+
+## Reference
+
+```tsx
+useEventListener<
+  KW extends keyof WindowEventMap,
+  KH extends keyof HTMLElementEventMap,
+  KM extends keyof MediaQueryListEventMap,
+  T extends HTMLElement | MediaQueryList | void = void,
+>(
+  eventName: KW | KH | KM,
+  handler: (
+    event:
+      | WindowEventMap[KW]
+      | HTMLElementEventMap[KH]
+      | MediaQueryListEventMap[KM]
+      | Event,
+  ) => void,
+  element?: RefObject<T>,
+  options?: boolean | AddEventListenerOptions,
+): void;
+```
+
+### Links
+
+[`use-event-listener.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-event-listener.ts)

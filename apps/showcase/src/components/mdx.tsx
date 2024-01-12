@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { useKey, useOnce } from "@mvdlei/hooks";
+import { useEventListener, useKey, useOnce } from "@mvdlei/hooks";
 import { useMDXComponent } from "next-contentlayer/hooks";
 
 import { cn } from "@/lib/utils";
@@ -147,6 +147,23 @@ const components = {
         className={cn("relative rounded font-mono text-sm mt-2", className)}
         {...props}>
         Press the `h` key
+      </div>
+    );
+  },
+  UseEventListenerExample: ({
+    className,
+    ...props
+  }: React.HTMLAttributes<HTMLElement>) => {
+    const [state, setState] = React.useState(0);
+    useEventListener("click", () => {
+      setState((prev) => prev + 1);
+    });
+
+    return (
+      <div
+        className={cn("relative rounded font-mono text-sm mt-2", className)}
+        {...props}>
+        Click anywhere! {state}
       </div>
     );
   },
