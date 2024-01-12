@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.0.3
+
+### Patch Changes
+
+- dad8a3d: Updated package.json and small changes to source
+
 ## 0.0.2
 
 ### Patch Changes

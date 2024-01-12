@@ -1,5 +1,13 @@
 # @mvdlei/env
 
+## 0.0.6
+
+### Patch Changes
+
+- dad8a3d: Updated package.json and small changes to source
+- Updated dependencies [dad8a3d]
+  - @mvdlei/types@0.0.7
+
 ## 0.0.5
 
 ### Patch Changes
