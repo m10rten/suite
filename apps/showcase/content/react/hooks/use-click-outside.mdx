@@ -1,0 +1,58 @@
+---
+published: true
+title: useOnClickOutside - Mvdlei Hooks
+category: react
+package: hooks
+description: useOnClickOutside React hook for detecting clicks outside of a component.
+---
+
+# useOnClickOutside
+
+React hook for detecting clicks outside of a component.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+{/* *<UseOnClickOutsideExample /> */}
+
+## Usage
+
+```jsx
+import React, { useRef } from "react";
+import { useOnClickOutside } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const myRef = useRef(null);
+
+  useOnClickOutside(myRef, (event) => {
+    console.log("Clicked outside the component!");
+  });
+
+  return <div ref={myRef}>My Component</div>;
+};
+```
+
+## Reference
+
+```ts
+useOnClickOutside<T extends HTMLElement = HTMLElement>(
+  ref: React.RefObject<T>,
+  handler: (event: MouseEvent) => void,
+  mouseEvent: "mousedown" | "mouseup" = "mousedown",
+): void;
+```
+
+### Parameters
+
+- `ref`: Ref of the component.
+- `handler`: Handler to be called when a click outside occurs.
+- `mouseEvent`: Mouse event to listen to, defaults to "mousedown".
+
+### Links
+
+[`use-on-click-outside.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-on-click-outside.ts)

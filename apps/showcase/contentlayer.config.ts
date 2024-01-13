@@ -26,7 +26,7 @@ export const Doc = defineDocumentType(() => ({
     published: {
       type: "boolean",
       required: true,
-      default: false,
+      default: true,
       description: "Whether the Doc post is public or private",
     },
     tags: {

@@ -1,0 +1,77 @@
+---
+published: true
+title: useIntersectionObserver - Mvdlei Hooks
+category: react
+package: hooks
+description: useIntersectionObserver React hook for detecting when an element is visible in the viewport.
+---
+
+# useIntersectionObserver
+
+React hook for detecting when an element is visible in the viewport using Intersection Observer.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+{/* *<UseObserverExample /> */}
+
+## Usage
+
+```jsx
+import React, { useRef } from "react";
+import { useIntersectionObserver } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const elementRef = useRef(null);
+  const intersectionEntry = useIntersectionObserver(elementRef, {
+    threshold: 0.5,
+    root: null,
+    rootMargin: "0%",
+    freezeOnceVisible: true,
+  });
+
+  return (
+    <div ref={elementRef}>
+      {intersectionEntry && (
+        <p>Element is {intersectionEntry.isIntersecting ? "visible" : "not visible"}!</p>
+      )}
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useIntersectionObserver(
+  elementRef: React.RefObject<Element>,
+  args: {
+    threshold?: number;
+    root?: Element | null;
+    rootMargin?: string;
+    freezeOnceVisible?: boolean;
+  },
+): IntersectionObserverEntry | undefined;
+```
+
+### Parameters
+
+- `elementRef`: Ref object of the element to observe.
+- `args`: Configuration options for Intersection Observer.
+  - `threshold`: The ratio of the target's visibility the observer's visibility changes.
+  - `root`: The element that is used as the viewport for checking visibility.
+  - `rootMargin`: Margin around the root.
+  - `freezeOnceVisible`: Flag to freeze the entry once it becomes visible.
+
+### Return Value
+
+The `IntersectionObserverEntry` for the observed element, or `undefined` if Intersection Observer is not supported.
+
+### Links
+
+[`use-intersection-observer.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-intersection-observer.ts)

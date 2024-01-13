@@ -1,0 +1,63 @@
+---
+published: true
+title: useDebounce - Mvdlei Hooks
+category: react
+package: hooks
+description: useDebounce React hook for debouncing a value for a given delay.
+---
+
+# useDebounce
+
+React hook for debouncing a value for a given delay.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+{/* *<UseDebounceExample /> */}
+
+## Usage
+
+```jsx
+import React, { useState } from "react";
+import { useDebounce } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const [inputValue, setInputValue] = useState("");
+  const debouncedValue = useDebounce(inputValue, 500);
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  return (
+    <div>
+      <input type="text" value={inputValue} onChange={handleInputChange} />
+      <p>Debounced Value: {debouncedValue}</p>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useDebounce<T>(value: T, delay: number | undefined = 500): T;
+```
+
+### Parameters
+
+- `value`: The value to debounce.
+- `delay`: The delay in milliseconds, defaults to 500.
+
+### Return Value
+
+The debounced value.
+
+### Links
+
+[`use-debounce.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-debounce.ts)

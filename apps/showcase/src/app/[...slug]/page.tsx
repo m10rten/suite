@@ -9,7 +9,7 @@ export const generateStaticParams = async () =>
 export const generateMetadata = ({ params }: { params: { slug: string[] } }) => {
   const path = `${makePath(params.slug)}`;
   const doc = allDocs.find((doc) => doc._raw.flattenedPath === path);
-  if (!doc) return notFound();
+  if (!doc || (doc?.published !== null && doc?.published === false)) return notFound();
   return { title: doc.title };
 };
 
@@ -24,7 +24,7 @@ export default function DocsPage({ params }: { params: { slug: string[] } }) {
   const path = `${makePath(params.slug)}`;
   const doc = allDocs.find((doc) => doc._raw.flattenedPath === path);
 
-  if (!doc) return notFound();
+  if (!doc || (doc?.published !== null && doc?.published === false)) return notFound();
 
   return (
     <div className="mx-auto w-full px-1 sm:px-2 pb-4">

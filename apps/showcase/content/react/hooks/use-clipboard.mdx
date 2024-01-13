@@ -1,0 +1,68 @@
+---
+published: true
+title: useCopyToClipboard - Mvdlei Hooks
+category: react
+package: hooks
+description: useCopyToClipboard React hook for copying a value to the clipboard.
+---
+
+# useCopyToClipboard
+
+React hook for copying a value to the clipboard.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+{/* *<UseClipboardExample /> */}
+
+## Usage
+
+```jsx
+import React from "react";
+import { useCopyToClipboard } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const [copiedText, copy] = useCopyToClipboard();
+
+  const handleCopyClick = async () => {
+    const textToCopy = "Hello, clipboard!";
+    const success = await copy(textToCopy);
+
+    if (success) {
+      console.log("Text copied successfully!");
+    } else {
+      console.error("Failed to copy text to clipboard.");
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={handleCopyClick}>Copy to Clipboard</button>
+      <p>Copied Text: {copiedText}</p>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useCopyToClipboard(): [CopiedValue, CopyFn];
+```
+
+### Return Value
+
+An array containing the copied value (`CopiedValue`) and the copy function (`CopyFn`).
+
+### Parameters
+
+None.
+
+### Links
+
+[`use-copy-to-clipboard.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-copy-to-clipboard.ts)
