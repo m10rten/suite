@@ -1,7 +1,7 @@
 {
   "name": "@mvdlei/log",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "<>",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -10,10 +10,7 @@
     "build": "tsup --format cjs,esm --dts",
     "dev": "pnpm build --watch",
     "lint": "eslint **/*.ts",
-    "test": "jest",
-    "typecheck": "tsc --noEmit",
-    "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --passWithNoTests"
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -28,8 +25,17 @@
     "LICENSE",
     "README.md"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "dependencies": {
     "winston": "3.11.0"

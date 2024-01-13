@@ -75,7 +75,7 @@ importers:
         version: link:../../packages/hooks
       "@mvdlei/log":
         specifier: workspace:^
-        version: link:../../packages/internal/log
+        version: link:../../packages/log
       "@mvdlei/types":
         specifier: workspace:^
         version: link:../../packages/types
@@ -312,7 +312,7 @@ importers:
 
   packages/internal/config: {}
 
-  packages/internal/log:
+  packages/log:
     dependencies:
       winston:
         specifier: 3.11.0
@@ -323,7 +323,7 @@ importers:
         version: 20.11.0
       internal-config:
         specifier: workspace:*
-        version: link:../config
+        version: link:../internal/config
 
   packages/types:
     devDependencies:
