@@ -21,10 +21,10 @@ export function useStorage(storage: Storage) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialValue]);
 
-    return {
-      value: storedValue,
-      set: setValue,
-      exists: storage.getItem(key) !== null && storage.getItem(key) !== undefined,
-    } as const;
+    return [
+      storedValue,
+      setValue,
+      storage.getItem(key) !== null && storage.getItem(key) !== undefined,
+    ] as const;
   };
 }

@@ -1,0 +1,58 @@
+---
+published: true
+title: useScroll - Mvdlei Hooks
+category: react
+package: hooks
+description: useScroll React hook for detecting when the user scrolls past a certain threshold.
+---
+
+# useScroll
+
+React hook for detecting when the user scrolls past a certain threshold.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+## Usage
+
+```jsx
+import React from "react";
+import { useScroll } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const hasScrolledPastThreshold = useScroll(200);
+
+  return (
+    <div>
+      <p>
+        {hasScrolledPastThreshold
+          ? "Scrolled Past Threshold"
+          : "Not Scrolled Past Threshold"}
+      </p>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useScroll(threshold: number): boolean;
+```
+
+### Parameters
+
+- `threshold`: The threshold to be scrolled past.
+
+### Return Value
+
+A boolean indicating whether the user has scrolled past the specified threshold or not.
+
+### Links
+
+[`use-scroll.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-scroll.ts)

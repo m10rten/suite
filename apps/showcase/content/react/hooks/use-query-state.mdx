@@ -1,0 +1,59 @@
+---
+published: true
+title: useQueryState - Mvdlei Hooks
+category: react
+package: hooks
+description: useQueryState React hook for managing a query state using react-router-dom.
+---
+
+# useQueryState
+
+React hook for managing a query state using `react-router-dom`.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+## Usage
+
+```jsx
+import React from "react";
+import { useQueryState } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const [queryValue, setQueryValue] = useQueryState("myKey", {
+    defaultValue: "defaultValue",
+  });
+
+  return (
+    <div>
+      <p>Query Value: {queryValue}</p>
+      <button onClick={() => setQueryValue("new value")}>Set New Value</button>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+// key will be used as the query key in the URL
+useQueryState(key: string, init?: URLSearchParamsInit): [string, (value: URLSearchParamsInit) => void];
+```
+
+### Parameters
+
+- `key`: The key to use for the query.
+- `init`: Initial URLSearchParamsInit.
+
+### Return Value
+
+An array containing the stateful value and a setter function.
+
+### Links
+
+[`use-query-state.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-query-state.ts)

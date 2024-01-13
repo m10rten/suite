@@ -1,0 +1,60 @@
+---
+published: true
+title: useStorage - Mvdlei Hooks
+category: react
+package: hooks
+description: useStorage React hook for storing data in local or session storage.
+---
+
+# useStorage
+
+React hook for storing data in local or session storage.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+## Usage
+
+```jsx
+import React from "react";
+import { useStorage } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const [value, setStoredValue, valueExists] = useStorage(window.localStorage)(
+    "myKey",
+    "defaultValue",
+  );
+
+  return (
+    <div>
+      <p>Stored Value: {storedValue}</p>
+      <button onClick={() => setStoredValue("new value")}>Set New Value</button>
+      <p>Value Exists in Storage: {valueExists ? "Yes" : "No"}</p>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useStorage(storage: Storage): <T>(key: string, initialValue: T) => [T, (value: T) => void, boolean];
+
+```
+
+### Parameters
+
+- `storage`: The storage object to use (`localStorage` or `sessionStorage`).
+
+### Return Value
+
+A function that, when called with a key and initial value, returns an object containing the stateful value, a setter function, and a boolean indicating if the value exists in the storage before the first render.
+
+### Links
+
+[`use-storage.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-storage.ts)

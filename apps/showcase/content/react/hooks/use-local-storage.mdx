@@ -1,0 +1,64 @@
+---
+published: true
+title: useLocalStorage - Mvdlei Hooks
+category: react
+package: hooks
+description: useLocalStorage React hook for managing state in local storage.
+---
+
+# useLocalStorage
+
+React hook for managing state in local storage using `useStorage`.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+## Usage
+
+```jsx
+import React from "react";
+import { useLocalStorage } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const [storedValue, setStoredValue, valueExists] = useLocalStorage(
+    "myKey",
+    "defaultValue",
+  );
+
+  return (
+    <div>
+      <p>Stored Value: {storedValue}</p>
+      <button onClick={() => setStoredValue("new value")}>Set New Value</button>
+      <p>Value Exists in Storage: {valueExists ? "Yes" : "No"}</p>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void, boolean];
+```
+
+## Dependencies
+
+- [`use-storage.ts`](./use-storage)
+
+### Parameters
+
+- `key`: The key to use for the storage.
+- `initialValue`: The initial value to use.
+
+### Return Value
+
+An array containing the stateful value, a setter function, and a boolean indicating if the value exists in the storage before the first render.
+
+### Links
+
+[`use-local-storage.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-local-storage.ts)

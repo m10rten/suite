@@ -1,0 +1,62 @@
+---
+published: true
+title: useMediaQuery - Mvdlei Hooks
+category: react
+package: hooks
+description: useMediaQuery React hook for detecting the device type and dimensions.
+---
+
+# useMediaQuery
+
+React hook for detecting the device type and dimensions.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Example
+
+## Usage
+
+```jsx
+import React from "react";
+import { useMediaQuery } from "@mvdlei/hooks";
+
+const MyComponent = () => {
+  const { device, width, height, isMobile, isTablet, isDesktop } = useMediaQuery();
+
+  return (
+    <div>
+      <p>Device Type: {device}</p>
+      <p>Width: {width}</p>
+      <p>Height: {height}</p>
+      <p>Is Mobile: {isMobile.toString()}</p>
+      <p>Is Tablet: {isTablet.toString()}</p>
+      <p>Is Desktop: {isDesktop.toString()}</p>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useMediaQuery(): {
+  device: "mobile" | "tablet" | "desktop" | null;
+  width: number | null;
+  height: number | null;
+  isMobile: boolean;
+  isTablet: boolean;
+  isDesktop: boolean;
+};
+```
+
+### Return Value
+
+An object containing the detected device type, width, height, and boolean values indicating if it's mobile, tablet, or desktop.
+
+### Links
+
+[`use-media-query.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-media-query.ts)
