@@ -1,5 +1,11 @@
 # @mvdlei/hooks
 
+## 0.1.1
+
+### Patch Changes
+
+- dad8a3d: Updated package.json and small changes to source
+
 ## 0.1.0
 
 ### Minor Changes
