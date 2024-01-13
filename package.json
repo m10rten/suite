@@ -19,6 +19,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "serve": "turbo run start",
     "eslint": "eslint .",
     "lint": "turbo run lint",
     "test": "turbo run test",
