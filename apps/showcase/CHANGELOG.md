@@ -1,5 +1,12 @@
 # showcase
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [826a941]
+  - @mvdlei/log@0.0.1
+
 ## 0.1.3
 
 ### Patch Changes
