@@ -71,6 +71,31 @@ pnpm dev
 pnpm start
 ```
 
+### Creating a new package
+
+```sh
+pnpm package:create <package-name> <internal: true|false: default=false>
+```
+
+### Cleaning your workspace
+
+```sh
+pnpm clean
+```
+
+### Remaking the workspace
+
+```sh
+pnpm remake
+```
+
+### Running reset
+
+```sh
+# this wil run `clean` and `remake`
+pnpm reset
+```
+
 ## Making Changes
 
 1. Fork the repository on GitHub (see [Fork A Repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo))
