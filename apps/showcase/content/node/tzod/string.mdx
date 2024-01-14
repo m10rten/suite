@@ -1,0 +1,88 @@
+---
+published: true
+title: TString - Mvdlei Tzod
+category: node
+package: tzod
+description: TString class with string-related methods for use with `t.string`.
+---
+
+# TString - Mvdlei Tzod
+
+TString class for string-related methods, for use with `t.string`. Fully type-safe return values.
+
+## Installation
+
+```bash
+npm install @mvdlei/tzod
+```
+
+## Methods
+
+### `upper`
+
+```typescript
+upper<T extends string>(value: T): StringBase<T, UpperCased<T>>;
+```
+
+Converts a string to uppercase.
+
+### `lower`
+
+```typescript
+lower<T extends string>(value: T): StringBase<T, LowerCased<T>>;
+```
+
+Converts a string to lowercase.
+
+### `reverse`
+
+```typescript
+reverse<T extends string>(value: T): StringBase<T, Reversed<T>>;
+```
+
+Reverses a string.
+
+### `empty`
+
+```typescript
+empty<T extends string>(value: T): StringBase<T, Empty<T>>;
+```
+
+Checks if a string is empty.
+
+### `has`
+
+```typescript
+has<T extends string, U extends string>(value: T, search: U): Has<T, U>;
+```
+
+Checks if a string contains a substring.
+
+### `quote`
+
+```typescript
+quote<T extends string>(value: T): StringBase<T, Quoted<T>>;
+```
+
+Quotes a string, e.g., `quote("hello")` returns "\"hello\"".
+
+## Example
+
+```typescript
+import { t } from "@mvdlei/tzod";
+
+// or import { string } from "@mvdlei/tzod";
+
+const stringValue = "Hello World";
+
+const upperCaseValue = t.string.upper(stringValue); // "HELLO WORLD"
+const lowerCaseValue = t.string.lower(stringValue); // "hello world"
+const reversedValue = t.string.reverse(stringValue); // "dlroW olleH"
+const isEmpty = t.string.empty(""); // true
+const hasSubstring = t.string.has(stringValue, "World"); // true
+const quotedValue = t.string.quote(stringValue); // "\"Hello World\""
+```
+
+### Links
+
+[`string.ts`](https://github.com/m10rten/suite/tree/main/packages/tzod/src/string.ts)
