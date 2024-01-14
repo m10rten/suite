@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.0.5
+
+### Patch Changes
+
+- aad9c4b: Add `email` check to `TString` class.
+
 ## 0.0.4
 
 ### Patch Changes
