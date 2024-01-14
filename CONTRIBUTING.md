@@ -15,6 +15,7 @@ Repository URL: [https://github.com/m10rten/suite](https://github.com/m10rten/su
 - [Prettier](https://prettier.io/)
 - [Husky](https://typicode.github.io/husky/#/)
 - [Turbo](https://turbo.build/)
+- [Zod](https://zod.dev/)
 
 ## Getting Started
 
@@ -74,7 +75,7 @@ pnpm start
 ### Creating a new package
 
 ```sh
-pnpm package:create <package-name> <internal: true|false: default=false>
+pnpm packages:create <package-name> <internal: true|false: default=false>
 ```
 
 ### Cleaning your workspace
