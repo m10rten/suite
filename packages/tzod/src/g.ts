@@ -4,6 +4,17 @@
 
 import type { Awaitable, Check, Falsy, Guard } from "@mvdlei/types";
 
+import type {
+  Email as TEmail,
+  Empty as TEmpty,
+  Has as THas,
+  LowerCased as TLowerCased,
+  Quoted as TQuoted,
+  Reverse as TReverse,
+  Reversed as TReversed,
+  UpperCased as TUpperCased,
+} from "./string";
+
 export namespace T {
   export namespace Guards {
     export type IsString = Guard<string>;
@@ -39,5 +50,18 @@ export namespace T {
     export type Promise<T> = Check<T, Awaitable<unknown>>;
 
     export type Of<C, V> = Check<V, C>;
+  }
+
+  export namespace String {
+    export namespace Is {
+      export type Email<T> = TEmail<T>;
+      export type Upper<T> = TUpperCased<T>;
+      export type Lower<T> = TLowerCased<T>;
+      export type Empty<T> = TEmpty<T>;
+      export type Has<T extends string, U extends string> = THas<T, U>;
+      export type Quoted<T extends string> = TQuoted<T>;
+      export type Reverse<T extends string> = TReverse<T>;
+      export type Reversed<T extends string> = TReversed<T>;
+    }
   }
 }

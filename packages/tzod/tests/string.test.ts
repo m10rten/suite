@@ -80,4 +80,16 @@ describe("String Class", () => {
       expect(result).toBe(123);
     });
   });
+
+  describe("email", () => {
+    it("should return true for a valid email address", () => {
+      const result = str.email("test@test.ts");
+      expect(result).toBe(true);
+    });
+
+    it("should return false for an invalid email address", () => {
+      const result = str.email("test@test");
+      expect(result).toBe(false);
+    });
+  });
 });

@@ -27,24 +27,37 @@ export interface IString {
    * Quote a string, eg. `quote("hello")` returns "\"hello\""
    */
   quote: <T extends string>(value: T) => Quoted<T>;
+
+  /**
+   * Check if string matches email regex
+   */
+  email: <T>(value: T) => boolean;
 }
 
-type Reverse<T extends string> = T extends `${infer F}${infer R}`
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type Email<T> = T extends `${infer _F}@${infer _R}.${infer _E}` ? true : false;
+
+export type Reverse<T extends string> = T extends `${infer F}${infer R}`
   ? `${Reverse<R>}${F}`
   : T;
-type Reversed<T> = T extends `${infer F}` ? `${Reverse<F>}` : T;
-type LowerCased<T> = T extends `${infer F}` ? `${Lowercase<F>}` : T;
 
-type Quoted<T extends string> = T extends `${infer F}` ? `"${F}"` : T;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type Has<T extends string, U extends string> = T extends `${infer _F}${U}${infer _R}`
-  ? true
-  : false;
+export type Reversed<T> = T extends `${infer F}` ? `${Reverse<F>}` : T;
 
-type UpperCased<T> = T extends `${infer F}` ? `${Uppercase<F>}` : T;
+export type LowerCased<T> = T extends `${infer F}` ? `${Lowercase<F>}` : T;
 
-type StringBase<T, A> = T extends string ? A : never;
-type Empty<T> = T extends "" ? true : false;
+export type Quoted<T extends string> = T extends `${infer F}` ? `"${F}"` : T;
+
+export type Has<
+  T extends string,
+  U extends string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+> = T extends `${infer _F}${U}${infer _R}` ? true : false;
+
+export type UpperCased<T> = T extends `${infer F}` ? `${Uppercase<F>}` : T;
+
+export type StringBase<T, A> = T extends string ? A : never;
+
+export type Empty<T> = T extends "" ? true : false;
 
 const s = z.string();
 
@@ -87,5 +100,8 @@ export class TString implements IString {
     return s.safeParse(value).success
       ? (s.transform((v) => `"${v}"`).parse(value) as StringBase<T, Quoted<T>>)
       : (value as never);
+  }
+  public email<T>(value: T) {
+    return s.email().safeParse(value).success;
   }
 }
