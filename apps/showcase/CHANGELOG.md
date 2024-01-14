@@ -1,5 +1,12 @@
 # showcase
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [2cf7040]
+  - @mvdlei/tzod@0.0.4
+
 ## 0.1.4
 
 ### Patch Changes

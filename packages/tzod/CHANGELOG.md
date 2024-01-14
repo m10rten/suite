@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.0.4
+
+### Patch Changes
+
+- 2cf7040: Added `clone`, `random`, `sort` methods to TArray class.
+
 ## 0.0.3
 
 ### Patch Changes
