@@ -1,0 +1,58 @@
+---
+published: true
+title: T - Mvdlei Utils
+category: utils
+package: tzod
+description: T utility class with extended functionalities.
+---
+
+# T - Mvdlei Utils
+
+Utility class with extended functionalities.
+
+## Installation
+
+```bash
+npm install @mvdlei/tzod
+```
+
+## Example
+
+```typescript
+import { t } from "@mvdlei/tzod";
+
+const shuffled = t.array.shuffle([1, 2, 3, 4, 5]); // for example: [ 2, 1, 4, 5, 3 ]
+const random = t.array.random([1, 2, 3, 4, 5]); // for example: 3
+const cloned = t.array.clone([1, 2, 3, 4, 5]); // exact match: [ 1, 2, 3, 4, 5 ]
+const sorted = t.array.sort([1, 2, 4, 3, 5], null, "desc"); // sorted descending: [ 5, 4, 3, 2, 1 ]
+const sortedByKey = t.array.sort([{ id: 1 }, { id: 3 }, { id: 2 }], "id"); // sorted by key: [ { id: 1 }, { id: 2 }, { id: 3 } ]
+```
+
+## Reference
+
+```typescript
+interface IArray {
+  shuffle: <T>(array: T[]) => T[];
+  random: <T>(array: T[]) => T;
+  clone: <T>(array: T[]) => T[];
+  sort: <T, K extends keyof T>(array: T[], key?: K | null, order?: "asc" | "desc") => T[];
+}
+
+class TArray implements IArray {
+  shuffle<T>(array: T[]): T[];
+  random<T>(array: T[]): T;
+  clone<T>(array: T[]): T[];
+  sort<T, K extends keyof T>(array: T[], key?: K | null, order?: "asc" | "desc"): T[];
+}
+
+const array: TArray;
+```
+
+### Properties
+
+- `array`: An instance of `TArray` providing array-related utility methods.
+
+### Links
+
+[`array.ts`](https://github.com/m10rten/suite/tree/main/packages/utils/src/array.ts)
+[`t.ts`](https://github.com/m10rten/suite/tree/main/packages/utils/src/t.ts)

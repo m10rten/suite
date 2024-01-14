@@ -2,9 +2,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-namespace */
 
+import type { Awaitable, Coerce } from "@mvdlei/types";
 import { z } from "zod";
-
-import { Awaitable, Coerce } from "./g";
 
 /**
  * Interface for the `to` property of `T`
@@ -26,31 +25,29 @@ export interface ITo {
 const { coerce: co } = z;
 
 export class To implements ITo {
+  private _safe_to = <S extends z.ZodType, V, F extends V>(
+    s: S,
+    v: V,
+    f: F,
+  ): z.infer<S> | F => (s.safeParse(v).success ? s.parse(v) : f);
+
   public string(value: unknown): string {
-    const s = co.string();
-    return typeof value === "object"
-      ? JSON.stringify(value)
-      : s.safeParse(value).success
-        ? s.parse(value)
-        : String(value);
+    if (typeof value === "object") return JSON.stringify(value);
+    return this._safe_to(co.string(), value, String(value));
   }
   public number(value: unknown): number {
-    const s = co.number();
-    return s.safeParse(value).success ? s.parse(value) : NaN;
+    return this._safe_to(co.number(), value, NaN);
   }
   public boolean(value: unknown): boolean {
-    const s = co.boolean();
-    return s.safeParse(value).success ? s.parse(value) : false;
+    return this._safe_to(co.boolean(), value, false);
   }
   public bigint(value: unknown): bigint {
-    const s = co.bigint();
-    const num = this.number(value);
-    const p = isNaN(num) ? num : 1;
-    return s.safeParse(p).success ? s.parse(p) : BigInt(1);
+    if (typeof value === "bigint") return value;
+    if (isNaN(this.number(value))) return BigInt(1);
+    return this._safe_to(co.bigint(), value, BigInt(1));
   }
   public date(value: unknown): Date {
-    const s = co.date();
-    return s.safeParse(value).success ? s.parse(value) : new Date(NaN);
+    return this._safe_to(co.date(), value, new Date(NaN));
   }
   public error(value: unknown): Error {
     const s = z.any();
@@ -64,8 +61,7 @@ export class To implements ITo {
   }
   public array(value: unknown): unknown[] {
     if (!Array.isArray(value)) return new Array(value);
-    const s = z.array(z.any());
-    return s.safeParse(value).success ? s.parse(value) : new Array(value);
+    return this._safe_to(z.array(z.any()), value, new Array(value));
   }
   /**
    * Gives you the ability to parse a value to a ZodType

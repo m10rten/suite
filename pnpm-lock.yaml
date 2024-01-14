@@ -335,6 +335,10 @@ importers:
         version: link:../internal/config
 
   packages/tzod:
+    dependencies:
+      "@mvdlei/types":
+        specifier: workspace:*
+        version: link:../types
     devDependencies:
       "@types/node":
         specifier: 20.11.0

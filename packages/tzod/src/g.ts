@@ -1,37 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-namespace */
-/**
- * Pretty a type for better readability
- */
-export type Pretty<T> = { [K in keyof T]: T[K] } & unknown;
 
-/**
- * Falsy values
- */
-export type Falsy = undefined | null | false | 0 | "";
-/**
- * Awaitable type for type casting in TypeScript
- * @template T
- */
-export type Awaitable<T> = Promise<T> | PromiseLike<T>;
-
-/**
- * Guard type for type narrowing in TypeScript
- * @template T
- */
-export type Guard<T> = (value: unknown) => value is T;
-/**
- * Coerce type for type casting in TypeScript
- * @template T
- */
-export type Coerce<T> = (value: unknown) => T;
-/**
- * Check type for type checking in TypeScript
- * @template V
- * @template T
- */
-export type Check<V, T> = V extends T ? true : false;
+import type { Awaitable, Check, Falsy, Guard } from "@mvdlei/types";
 
 export namespace T {
   export namespace Guards {

@@ -2,9 +2,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-namespace */
 
+import type { Awaitable, Falsy, Guard } from "@mvdlei/types";
 import { z } from "zod";
-
-import type { Awaitable, Falsy, Guard } from "./g";
 
 /**
  * Interface for the `is` property of `T`

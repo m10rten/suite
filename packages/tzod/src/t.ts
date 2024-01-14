@@ -15,11 +15,29 @@ export * from "./g";
  * Interface for the `T` class
  */
 export interface IT {
+  /**
+   * `is` property for type checking
+   */
   is: IIs;
+  /**
+   * `to` property for type casting
+   */
   to: ITo;
+  /**
+   * `string` property for string related methods
+   */
   string: IString;
+  /**
+   * `array` property for array related methods
+   */
   array: IArray;
+  /**
+   * `number` property for number related methods
+   */
   number: INumber;
+  /**
+   * `object` property for object related methods
+   */
   object: IObject;
 }
 
@@ -30,29 +48,11 @@ export interface IT {
  * @module tzod
  */
 export class T implements IT {
-  /**
-   * `is` property for type checking
-   */
   public is = new Is();
-  /**
-   * `to` property for type casting
-   */
   public to = new To();
-  /**
-   * `string` property for string related methods
-   */
   public string = new TString();
-  /**
-   * `array` property for array related methods
-   */
   public array = new TArray();
-  /**
-   * `number` property for number related methods
-   */
   public number = new TNumber();
-  /**
-   * `object` property for object related methods
-   */
   public object = new TObject();
 }
 
