@@ -1,4 +1,4 @@
-# suite
+# code suite
 
 Personal Suite of Code for self-made packages and apps, written in TypeScript, build by [`m10rten`](https://github.com/m10rten/)
 
