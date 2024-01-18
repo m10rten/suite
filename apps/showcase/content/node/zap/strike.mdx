@@ -22,7 +22,13 @@ The `Strike` class allows you to make requests to a single endpoint. It provides
 
 Strike follows the Restful API conventions. _So far no customization is allowed_.
 
+### Differences from **Zap**
+
+With the `Strike` module you can define 1 model and make REST requests to it. With the `Zap` module you can define 1 action and use that to make a specific request.
+
 ## Usage
+
+Under the hood, `Strike` uses the `zap` module to make requests. The `zap` module is a wrapper around the `fetch` API. It is recommended to read the [zap documentation](./simple) before using `Strike`.
 
 ### Creating a Strike Instance
 
