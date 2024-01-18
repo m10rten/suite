@@ -27,9 +27,9 @@ export default function DocsPage({ params }: { params: { slug: string[] } }) {
   if (!doc || (doc?.published !== null && doc?.published === false)) return notFound();
 
   return (
-    <div className="mx-auto w-full px-1 sm:px-2 pb-4">
+    <section className="mx-auto w-full px-1 sm:px-2 pb-4">
       {/* <DocsPageHeader heading={doc.title} text={doc.description} /> */}
       <Mdx code={doc.body.code} />
-    </div>
+    </section>
   );
 }

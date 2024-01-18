@@ -359,5 +359,9 @@ html {
   @apply antialiased h-screen w-screen overflow-x-hidden;
 }
 body {
-  @apply h-full w-full;
+  @apply h-full w-full flex flex-col justify-normal relative;
+}
+
+main {
+  @apply w-full pt-16 flex-1;
 }

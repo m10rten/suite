@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { GeistSans } from "geist/font/sans";
 
+import Footer from "#/footer";
 import Header from "#/header";
 import Providers from "#/providers";
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

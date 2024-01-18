@@ -4,7 +4,7 @@ import ThemeSwitch from "#/theme-switch";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 w-full border-b py-2 px-4 z-50 backdrop-blur-md bg-background/80 shadow-sm">
+    <header className="fixed top-0 w-full border-b py-2 px-4 z-50 backdrop-blur-md bg-background/80 shadow-sm">
       <nav className="w-full justify-between flex items-center my-1 sm:container">
         <span className="flex font-mono text-lg">
           <span className="hidden sm:block">Mvdlei / </span>
