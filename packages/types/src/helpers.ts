@@ -12,6 +12,22 @@ export type Prettify<T> = {
 } & unknown;
 
 /**
+ * @type {WithRequired} - Type alias for required properties
+ *
+ * @example
+ * ```ts
+ * interface User {
+ *  name: string;
+ *  age: number;
+ * }
+ *
+ * type Optional = Partial<User>;
+ * type UserWithRequiredAge = WithRequired<Optional, 'age'>;
+ * ```
+ */
+export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
+/**
  * @type {Mutable} - Type alias for mutable types
  */
 export type Mutable<T> = {

@@ -1,0 +1,103 @@
+---
+published: true
+title: Strike - @mvdlei/zap
+category: node
+package: zap
+description: Strike class for making requests to a single endpoint.
+---
+
+# Strike - @mvdlei/zap
+
+Strike class for making requests to a single endpoint.
+
+## Installation
+
+```bash
+npm install @mvdlei/zap
+```
+
+## Overview
+
+The `Strike` class allows you to make requests to a single endpoint. It provides methods for common CRUD operations, including getting a single item, creating a new item, listing items, updating an item, and deleting an item.
+
+Strike follows the Restful API conventions. _So far no customization is allowed_.
+
+## Usage
+
+### Creating a Strike Instance
+
+```typescript
+import { Strike } from "@mvdlei/zap";
+
+const s = new Strike({
+  baseUrl: "https://example.com/api",
+});
+```
+
+### Creating a Strike Request
+
+```typescript
+const strikeRequest = s.make("/users", z.object({ id: z.string(), name: z.string() }));
+```
+
+### Making Requests
+
+```typescript
+const userId = "1";
+
+const getItem = await strikeRequest.get(userId);
+console.log("Get Item:", getItem);
+
+const newItem = await strikeRequest.new({ id: "2", name: "John Doe" });
+console.log("New Item:", newItem);
+
+const listItems = await strikeRequest.list({ limit: 10, offset: 0 });
+console.log("List Items:", listItems);
+
+const updatedItem = await strikeRequest.update(userId, { name: "Updated Name" });
+console.log("Updated Item:", updatedItem);
+
+await strikeRequest.delete(userId);
+console.log("Item Deleted");
+```
+
+### Example
+
+```typescript
+import Strike from "@mvdlei/zap";
+import { z } from "zod";
+
+const s = new Strike({
+  baseUrl: "https://jsonplaceholder.typicode.com",
+});
+
+const strikeRequest = s.make(
+  "/todos",
+  z.object({
+    userId: z.number(),
+    id: z.number(),
+    title: z.string(),
+    completed: z.boolean(),
+  }),
+);
+
+const main = async () => {
+  const getted = await strikeRequest.get("1");
+  console.log("Getted", getted);
+
+  const posted = await strikeRequest.new({ title: "test", completed: false, userId: 1 });
+  console.log("Posted", posted);
+
+  const listed = await strikeRequest.list({ limit: 2, offset: 3 });
+  console.log("Listed", listed);
+
+  const updated = await strikeRequest.update("1", { title: "test2" });
+  console.log("Updated", updated);
+};
+
+main();
+```
+
+### Links
+
+[`strike.ts`](https://github.com/m10rten/suite/tree/main/packages/zap/src/strike.ts)

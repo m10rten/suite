@@ -47,7 +47,8 @@
     "release:pre": "changeset pre",
     "clean": "bash scripts/clean.sh",
     "reset": "pnpm clean && pnpm remake",
-    "remake": "pnpm install && pnpm build"
+    "remake": "pnpm install && pnpm build",
+    "outdated": "turbo outdated"
   },
   "devDependencies": {
     "@changesets/cli": "2.27.1",

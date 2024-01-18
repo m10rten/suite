@@ -1,16 +1,24 @@
 import { logger } from "@mvdlei/log";
 import { z } from "zod";
 
-type Azod = z.AnyZodObject;
+type Azod = z.AnyZodObject | z.ZodArray<z.AnyZodObject>;
+export type AnyInput = z.infer<Azod | z.ZodString | z.ZodNumber>;
+export type AnyOutput =
+  | Azod
+  | z.ZodString
+  | z.ZodNumber
+  | z.ZodBoolean
+  | z.ZodNull
+  | z.ZodUndefined;
 
-export type Call<TInput extends Azod, TOutput extends Azod> = (
-  input?: (z.infer<TInput> | Record<string, string>) | undefined,
+export type Call<TInput extends AnyInput, TOutput extends AnyOutput> = (
+  input?: TInput | undefined,
 ) => Results<TOutput>;
 
-export type Results<TOutput extends Azod> = Promise<z.infer<TOutput>>;
+export type Results<TOutput extends AnyOutput> = Promise<z.infer<TOutput>>;
 
 export interface IZap {
-  define: <TInput extends Azod, TOutput extends Azod>(
+  define: <TInput extends AnyInput, TOutput extends AnyOutput>(
     options: DefineOptions<TInput, TOutput>,
   ) => Call<TInput, TOutput>;
 
@@ -46,7 +54,7 @@ const defaultOptions = {
 
 export type RestMethod = (typeof RestMethods)[keyof typeof RestMethods];
 
-const RestMethods = {
+export const RestMethods = {
   GET: "GET",
   POST: "POST",
   PUT: "PUT",
@@ -73,7 +81,7 @@ export class Zap implements IZap {
     this.baseUrl ??= baseUrl;
     this.timeout ??= timeout;
   }
-  define<TInput extends Azod, TOutput extends Azod>(
+  define<TInput extends AnyInput, TOutput extends AnyOutput>(
     options: DefineOptions<TInput, TOutput>,
   ): Call<TInput, TOutput> {
     return async (input) => {
@@ -96,12 +104,16 @@ export class Zap implements IZap {
         url: urlWithParams,
         method: options.method ?? "POST",
         timeout: ms,
+        input: JSON.stringify(input),
       });
+
+      const withOrWithoutBody =
+        options.method === RestMethods.GET ? {} : { body: JSON.stringify(input) };
       const response = await fetch(
         options?.method === RestMethods.GET ? urlWithParams : url,
         {
+          ...withOrWithoutBody,
           method: options.method ?? "POST",
-          body: JSON.stringify(input),
           signal: controller.signal,
           headers: {
             "Content-Type": "application/json",
