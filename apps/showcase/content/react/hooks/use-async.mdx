@@ -1,0 +1,141 @@
+---
+published: true
+title: useAsync Hook
+category: react
+package: hooks
+description: React hook for executing asynchronous functions with loading, error, and result states.
+---
+
+# useAsync Hook
+
+A React hook for executing asynchronous functions with loading, error, and result states.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Usage
+
+```tsx
+import { useAsync } from "@mvdlei/hooks";
+
+const asyncFn = async () => {
+  // Async operation logic
+};
+
+const MyComponent = () => {
+  const { execute, loading, error, result } = useAsync(asyncFn);
+
+  return (
+    <div>
+      <button onClick={() => execute()}>Execute Async Function</button>
+
+      {loading && <p>Loading...</p>}
+
+      {error && <p>Error: {error.message}</p>}
+
+      {result && <p>Result: {result}</p>}
+    </div>
+  );
+};
+```
+
+### Options
+
+The `useAsync` hook accepts the following options:
+
+- `onError`: A callback to execute when an error occurs.
+- `onSuccess`: A callback to execute when the promise resolves successfully.
+
+Pass the options as the second argument:
+
+```tsx
+const { execute, loading, error, result } = useAsync(asyncFn, { onError, onSuccess });
+```
+
+### Dependencies
+
+You can provide dependencies to the `useCallback` hook by passing them as the third argument:
+
+```tsx
+const { execute, loading, error, result } = useAsync(asyncFn, undefined, [dependency]);
+```
+
+## API
+
+### `useAsync`
+
+```tsx
+function useAsync<R, A, F extends (...args: A[]) => R>(
+  fn: F,
+  options?: Partial<IUseAsyncOptions<R>>,
+  dependencies?: React.DependencyList,
+): {
+  execute: (...args: Parameters<F>) => Promise<void>;
+  loading: boolean;
+  error: Error | null;
+  result: R | null;
+};
+```
+
+#### Forcing return type
+
+If you want to force the return type of the asynchronous function, you can do so by providing a generic type argument:
+
+```tsx
+const { execute, loading, error, result } = useAsync<string>(asyncFn);
+```
+
+This will enforce that the return type of the asynchronous function is `string`.
+
+It will not validate the return type of the asynchronous function at runtime. It is only a compile-time check.
+
+### Parameters
+
+- `fn`: The asynchronous function to execute.
+- `options`: Options to customize the behavior of the hook.
+- `dependencies`: Dependencies to pass to the `useCallback` hook.
+
+### Return Value
+
+An object with the following properties:
+
+- `execute`: A function to trigger the execution of the asynchronous function.
+- `loading`: A boolean indicating whether the function is currently executing.
+- `error`: An error object if an error occurred during execution, otherwise `null`.
+- `result`: The result of the asynchronous function if it executed successfully, otherwise `null`.
+
+## Example
+
+```tsx
+import { useAsync } from "@mvdlei/hooks";
+
+const fetchData = async (): Promise<string> => {
+  // Simulate asynchronous operation
+  return new Promise<string>((resolve) => {
+    setTimeout(() => resolve("Data fetched successfully"), 1000);
+  });
+};
+
+const MyComponent = () => {
+  const { execute, loading, error, result } = useAsync(fetchData);
+
+  return (
+    <div>
+      <button onClick={() => execute()}>Fetch Data</button>
+
+      {loading && <p>Loading...</p>}
+
+      {error && <p>Error: {error.message}</p>}
+
+      {result && <p>Result: {result}</p>}
+    </div>
+  );
+};
+```
+
+### Links
+
+[`use-async.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-async.ts)

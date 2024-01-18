@@ -5,6 +5,7 @@
 export * from "./use-key";
 export * from "./use-once";
 export * from "./use-touch";
+export * from "./use-async";
 export * from "./use-scroll";
 export * from "./use-storage";
 export * from "./use-debounce";
