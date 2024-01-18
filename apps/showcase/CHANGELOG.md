@@ -1,5 +1,15 @@
 # showcase
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [ab5cdb2]
+  - @mvdlei/types@0.0.8
+  - @mvdlei/zap@0.0.2
+  - @mvdlei/env@0.0.7
+  - @mvdlei/tzod@0.0.6
+
 ## 0.1.6
 
 ### Patch Changes
