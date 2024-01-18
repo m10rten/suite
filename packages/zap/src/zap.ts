@@ -18,18 +18,33 @@ export type Call<TInput extends AnyInput, TOutput extends AnyOutput> = (
 export type Results<TOutput extends AnyOutput> = Promise<z.infer<TOutput>>;
 
 export interface IZap {
+  /**
+   * Define a new call to an endpoint.
+   *
+   * Make sure to set the baseUrl before using this method if you want to use the baseUrl.
+   * @param options - Options for the call
+   * @returns {Call<TInput, TOutput>} - Call instance
+   */
   define: <TInput extends AnyInput, TOutput extends AnyOutput>(
     options: DefineOptions<TInput, TOutput>,
   ) => Call<TInput, TOutput>;
 
   /**
    * Set options safely, only overriding the ones that are passed and are not set already.
+   *
+   * Please note that this will not override the baseUrl if it is already set.
+   *
+   * Setting the baseUrl will only be affecting the calls made after this is called.
    * @param options
    * @returns
    */
   set: (options: Partial<IZapOptions>) => void;
   /**
    * Set options unsafely, overriding the ones that are passed and are not set already.
+   *
+   *  Please note that this **will** override the baseUrl if it is already set.
+   *
+   * Setting the baseUrl will only be affecting the calls made after this is called.
    * @param options
    * @returns
    */
