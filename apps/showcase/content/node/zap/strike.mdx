@@ -29,7 +29,8 @@ Strike follows the Restful API conventions. _So far no customization is allowed_
 ```typescript
 import { Strike } from "@mvdlei/zap";
 
-const s = new Strike({
+// There is no exported `strike` instance because we cannot guess the baseUrl.
+const strike = new Strike({
   baseUrl: "https://example.com/api",
 });
 ```
@@ -37,15 +38,16 @@ const s = new Strike({
 ### Creating a Strike Request
 
 ```typescript
-const strikeRequest = s.make("/users", z.object({ id: z.string(), name: z.string() }));
+const strikeRequest = strike.make(
+  "/users",
+  z.object({ id: z.string(), name: z.string() }),
+);
 ```
 
 ### Making Requests
 
 ```typescript
-const userId = "1";
-
-const getItem = await strikeRequest.get(userId);
+const getItem = await strikeRequest.get("1");
 console.log("Get Item:", getItem);
 
 const newItem = await strikeRequest.new({ id: "2", name: "John Doe" });
@@ -64,14 +66,14 @@ console.log("Item Deleted");
 ### Example
 
 ```typescript
-import Strike from "@mvdlei/zap";
+import { Strike } from "@mvdlei/zap";
 import { z } from "zod";
 
 const s = new Strike({
   baseUrl: "https://jsonplaceholder.typicode.com",
 });
 
-const strikeRequest = s.make(
+const todos = s.make(
   "/todos",
   z.object({
     userId: z.number(),
@@ -82,16 +84,16 @@ const strikeRequest = s.make(
 );
 
 const main = async () => {
-  const getted = await strikeRequest.get("1");
+  const getted = await todos.get("1");
   console.log("Getted", getted);
 
-  const posted = await strikeRequest.new({ title: "test", completed: false, userId: 1 });
+  const posted = await todos.new({ title: "test", completed: false, userId: 1 });
   console.log("Posted", posted);
 
-  const listed = await strikeRequest.list({ limit: 2, offset: 3 });
+  const listed = await todos.list({ limit: 2, offset: 3 });
   console.log("Listed", listed);
 
-  const updated = await strikeRequest.update("1", { title: "test2" });
+  const updated = await todos.update("1", { title: "test2" });
   console.log("Updated", updated);
 };
 
