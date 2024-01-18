@@ -1,5 +1,11 @@
 # @mvdlei/hooks
 
+## 0.1.2
+
+### Patch Changes
+
+- 4bd68ac: Added `use-async` hook.
+
 ## 0.1.1
 
 ### Patch Changes
