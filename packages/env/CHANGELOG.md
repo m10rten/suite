@@ -1,5 +1,12 @@
 # @mvdlei/env
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [ab5cdb2]
+  - @mvdlei/types@0.0.8
+
 ## 0.0.6
 
 ### Patch Changes

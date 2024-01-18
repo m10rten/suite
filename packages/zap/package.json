@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/zap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple fetch wrapper with a focus on type safety and error handling, built on top of zod. Use it like a Zap!",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

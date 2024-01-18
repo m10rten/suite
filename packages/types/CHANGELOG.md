@@ -1,5 +1,11 @@
 # @mvdlei/types
 
+## 0.0.8
+
+### Patch Changes
+
+- ab5cdb2: Added `Strike` to `zap` and `WithRequired` type to helpers.
+
 ## 0.0.7
 
 ### Patch Changes
