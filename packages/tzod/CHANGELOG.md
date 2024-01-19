@@ -1,5 +1,12 @@
 # @mvdlei/tzod
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [ac89037]
+  - @mvdlei/types@0.0.9
+
 ## 0.0.6
 
 ### Patch Changes
