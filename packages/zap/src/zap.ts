@@ -171,6 +171,11 @@ export class Zap implements IZap {
  * This instance does not have a baseUrl set, so you will need to set it manually on each call or use `zap.set({ baseUrl: "https://example.com" })` to set it globally for all calls on this instance.
  */
 export const zap = new Zap();
+export default Zap;
+
+/**
+ * Test code:
+ */
 
 // const zap = new Zap({ baseUrl: "http://10.255.255.1", timeout: 3000 });
 
@@ -240,5 +245,3 @@ export const zap = new Zap();
 // };
 
 // main();
-
-export default Zap;

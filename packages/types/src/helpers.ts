@@ -28,6 +28,22 @@ export type Prettify<T> = {
 export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 
 /**
+ * @type {ExtractKeys} - Type alias for extracting keys from an object
+ * @template T - Object type
+ * @example
+ * ```ts
+ * interface User {
+ *  name: string;
+ *  age: number;
+ * }
+ * type UserKeys = ExtractKeys<User>; // 'name' | 'age'
+ * ```
+ */
+export type ExtractKeys<T> = T extends { [K in keyof T]: infer _ }
+  ? Extract<keyof T, string>
+  : never;
+
+/**
  * @type {Mutable} - Type alias for mutable types
  */
 export type Mutable<T> = {

@@ -22,16 +22,14 @@ export type NotAvailableOrOptions<I extends Azod, O extends Azod> =
       available?: true | null | undefined;
     } & Partial<DefineOptions<I, O>>);
 
-export type StrikeRequestOptions<I extends Azod, O extends Azod> = Partial<
-  RoutesOptions<I, O>
->;
+export type StrikeRequestOptions<I extends Azod, O extends Azod> = RoutesOptions<I, O>;
 
 export type RoutesOptions<I extends Azod, O extends Azod> = {
-  get?: NotAvailableOrOptions<I, O>;
-  new?: NotAvailableOrOptions<I, O>;
-  list?: NotAvailableOrOptions<I, O>;
-  update?: NotAvailableOrOptions<I, O>;
-  delete?: NotAvailableOrOptions<I, O>;
+  get: NotAvailableOrOptions<I, O>;
+  new: NotAvailableOrOptions<I, O>;
+  list: NotAvailableOrOptions<I, O>;
+  update: NotAvailableOrOptions<I, O>;
+  delete: NotAvailableOrOptions<I, O>;
 };
 
 export type IStrikeOptions = WithRequired<Partial<IZapOptions>, "baseUrl">;
@@ -105,7 +103,7 @@ export interface ListOptions {
 }
 type Azod = z.ZodTypeAny;
 
-class StrikeRequest<
+export class StrikeRequest<
   TModel extends Azod,
   TInput extends Azod = TModel,
   TOutput extends Azod = TModel,
@@ -184,35 +182,30 @@ export default Strike;
 /**
  * Test code:
  */
-const s = new Strike({
-  baseUrl: "https://jsonplaceholder.typicode.com",
-});
-const a = s.make(
-  "/todos",
-  z.object({
-    userId: z.number(),
-    id: z.number(),
-    title: z.string(),
-    completed: z.boolean(),
-  }),
-  {
-    get: {
-      input: z.string(),
-    },
-  },
-);
+// const s = new Strike({
+//   baseUrl: "https://jsonplaceholder.typicode.com",
+// });
+// const a = s.make(
+//   "/todos",
+//   z.object({
+//     userId: z.number(),
+//     id: z.number(),
+//     title: z.string(),
+//     completed: z.boolean(),
+//   }),
+// );
 
-const main = async () => {
-  const getted = await a.get("1");
-  console.log("getted", getted);
-  const posted = await a.new({ title: "test", completed: false, userId: 1 });
-  console.log("posted", posted);
+// const main = async () => {
+//   const getted = await a.get("1");
+//   console.log("getted", getted);
+//   const posted = await a.new({ title: "test", completed: false, userId: 1 });
+//   console.log("posted", posted);
 
-  const listed = await a.list({ limit: 2, offset: 3 });
-  console.log("listed", listed);
+//   const listed = await a.list({ limit: 2, offset: 3 });
+//   console.log("listed", listed);
 
-  const updated = await a.update("1", { title: "test2" });
-  console.log("updated", updated);
-};
+//   const updated = await a.update("1", { title: "test2" });
+//   console.log("updated", updated);
+// };
 
-main();
+// main();

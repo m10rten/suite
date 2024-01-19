@@ -1,0 +1,110 @@
+---
+published: true
+title: Cloud - @mvdlei/zap
+category: node
+package: zap
+description: A submodule in the Zap package providing a cloud instance for an intuitive and easy to use API.
+---
+
+# Cloud - @mvdlei/zap
+
+This submodule in the Zap package provides a cloud instance for building an intuitive and easy-to-use API. It includes functionality to define and execute requests on different models within a cloud environment.
+
+## Installation
+
+```bash
+npm install @mvdlei/zap
+```
+
+## Usage
+
+### `Cloud` Class
+
+The `Cloud` class is used to create a cloud instance, allowing you to define and execute requests on different models within the cloud environment.
+
+#### Example
+
+```tsx
+import { Cloud, z } from "@mvdlei/zap";
+
+const todoSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  completed: z.boolean(),
+});
+
+// Initialize Cloud instance
+const cloud = Cloud.init({
+  baseUrl: "https://jsonplaceholder.typicode.com",
+});
+
+// Define a cloud structure with models and paths
+const storm = cloud.storm({
+  todo: {
+    schema: todoSchema,
+    path: "/todos",
+  },
+});
+```
+
+### API
+
+#### `Cloud.init(options: ICloudInitOptions): Cloud`
+
+The `init` method is a static method of the `Cloud` class used to initialize a new `Cloud` instance with the provided options.
+
+```tsx
+import { Cloud } from "@mvdlei/zap";
+
+const cloud = Cloud.init({
+  baseUrl: "https://jsonplaceholder.typicode.com",
+});
+```
+
+#### `cloud.storm<T>(structure: T): Record<ExtractKeys<T>, IStrikeRequest<Azod>>`
+
+The `storm` method is used to define and create a cloud structure with models and paths. It returns a record of requests that can be executed on the defined models.
+
+- `structure`: An object defining the cloud structure with models and paths.
+
+```tsx
+const storm = cloud.storm({
+  todo: {
+    schema: todoSchema,
+    path: "/todos",
+  },
+});
+```
+
+### Methods
+
+After defining a storm with your new cloud instance, you can execute requests on the defined models.
+
+These will then make a `StrikeRequest` with `Zap` under the hood.
+
+#### `storm.<model>.get(id: string): Promise<GetResponse<Schema>>`
+
+The `get` method is used to execute a `GET` request on the defined model.
+
+- `id`: The id of the model to get.
+
+```tsx
+const todo = await storm.todo.get("1");
+// will make a GET request to https://jsonplaceholder.typicode.com/todos/1
+```
+
+### Types
+
+#### `ICloudInitOptions`
+
+A type representing the options for initializing a `Cloud` instance.
+
+```tsx
+const options: ICloudInitOptions = {
+  baseUrl: "https://jsonplaceholder.typicode.com",
+};
+```
+
+## Links
+
+[`cloud.ts`](https://github.com/m10rten/suite/tree/main/packages/zap/src/cloud.ts)
