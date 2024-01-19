@@ -1,7 +1,7 @@
 import { logger } from "@mvdlei/log";
 import { z } from "zod";
 
-type Azod = z.AnyZodObject | z.ZodArray<z.AnyZodObject>;
+type Azod = z.ZodTypeAny;
 export type AnyInput = z.infer<Azod | z.ZodString | z.ZodNumber>;
 export type AnyOutput =
   | Azod
@@ -82,11 +82,18 @@ export const RestMethods = {
 
 export type DefineOptions<Input, Output> = {
   url: string;
-  method?: RestMethod;
-  input?: Input;
   output: Output;
   headers?: Record<string, string>;
-};
+} & (
+  | {
+      method?: "GET";
+      input?: Input;
+    }
+  | {
+      input: Input;
+      method?: RestMethod;
+    }
+);
 
 export class Zap implements IZap {
   private baseUrl: string | undefined;

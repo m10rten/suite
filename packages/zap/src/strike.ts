@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import type { WithRequired } from "@mvdlei/types";
 import { z } from "zod";
 
-import { RestMethods, Zap, type IZapOptions } from "./zap";
+import { DefineOptions, RestMethods, Zap, type IZapOptions } from "./zap";
 
 export interface IStrike {
   /**
@@ -10,11 +11,30 @@ export interface IStrike {
    * @param model - Zod model for this model, e.g. `z.object({ id: z.string(), name: z.string() })` for User model
    * @returns {IStrikeRequest<TModel>} - StrikeRequest instance
    */
-  make: <TModel extends z.AnyZodObject>(
-    path: string,
-    model: TModel,
-  ) => IStrikeRequest<TModel>;
+  make: <TModel extends Azod>(path: string, model: TModel) => IStrikeRequest<TModel>;
 }
+
+export type NotAvailableOrOptions<I extends Azod, O extends Azod> =
+  | {
+      available: false;
+    }
+  | ({
+      available?: true | null | undefined;
+    } & Partial<DefineOptions<I, O>>);
+
+export type StrikeRequestOptions<I extends Azod, O extends Azod> = Partial<
+  RoutesOptions<I, O>
+>;
+
+export type RoutesOptions<I extends Azod, O extends Azod> = {
+  get?: NotAvailableOrOptions<I, O>;
+  new?: NotAvailableOrOptions<I, O>;
+  list?: NotAvailableOrOptions<I, O>;
+  update?: NotAvailableOrOptions<I, O>;
+  delete?: NotAvailableOrOptions<I, O>;
+};
+
+export type IStrikeOptions = WithRequired<Partial<IZapOptions>, "baseUrl">;
 
 /**
  * Strike is a class that allows you to make requests to a single endpoint.
@@ -25,16 +45,24 @@ export interface IStrike {
 export class Strike {
   private zap: Zap;
 
-  constructor(options?: WithRequired<Partial<IZapOptions>, "baseUrl">) {
+  constructor(options?: IStrikeOptions) {
     this.zap = new Zap(options);
   }
 
-  make<TModel extends z.AnyZodObject>(path: string, model: TModel) {
-    return new StrikeRequest(this.zap, path, model);
+  make<TModel extends Azod, TInput extends Azod = TModel, TOutput extends Azod = TModel>(
+    path: string,
+    model: TModel,
+    options?: RoutesOptions<TInput, TOutput>,
+  ) {
+    return new StrikeRequest(this.zap, path, model, options);
   }
 }
 
-export interface IStrikeRequest<TModel extends z.AnyZodObject> {
+export interface IStrikeRequest<
+  TModel extends Azod,
+  // TInput extends Azod = TModel,
+  // TOutput extends Azod = TModel,
+> {
   /**
    * Get a single item
    * @param id - Item id
@@ -75,28 +103,40 @@ export interface ListOptions {
   limit?: number;
   offset?: number;
 }
-class StrikeRequest<TModel extends z.AnyZodObject> implements IStrikeRequest<TModel> {
+type Azod = z.ZodTypeAny;
+
+class StrikeRequest<
+  TModel extends Azod,
+  TInput extends Azod = TModel,
+  TOutput extends Azod = TModel,
+> implements IStrikeRequest<TModel>
+{
   constructor(
     private zap: Zap,
     private path: string,
     private model: TModel,
+    private options?: StrikeRequestOptions<TInput, TOutput>,
   ) {}
 
   get = async (id: string) => {
+    if (this.options?.get?.available === false)
+      throw new Error("Get method not available");
     return this.zap.define({
       url: `${this.path}/${id}`,
       method: RestMethods.GET,
       input: z.string(),
-      output: this.model,
+      output: this.options?.get?.output ?? this.model,
     })();
   };
 
   new = async (input: Omit<z.infer<TModel>, "id">) => {
+    if (this.options?.new?.available === false)
+      throw new Error("New method not available");
     return this.zap.define({
       url: this.path,
       method: RestMethods.POST,
       input,
-      output: this.model,
+      output: this.options?.new?.output ?? this.model,
     })(input);
   };
 
@@ -141,30 +181,38 @@ class StrikeRequest<TModel extends z.AnyZodObject> implements IStrikeRequest<TMo
  */
 export default Strike;
 
-// const s = new Strike({
-//   baseUrl: "https://jsonplaceholder.typicode.com",
-// });
-// const a = s.make(
-//   "/todos",
-//   z.object({
-//     userId: z.number(),
-//     id: z.number(),
-//     title: z.string(),
-//     completed: z.boolean(),
-//   }),
-// );
+/**
+ * Test code:
+ */
+const s = new Strike({
+  baseUrl: "https://jsonplaceholder.typicode.com",
+});
+const a = s.make(
+  "/todos",
+  z.object({
+    userId: z.number(),
+    id: z.number(),
+    title: z.string(),
+    completed: z.boolean(),
+  }),
+  {
+    get: {
+      input: z.string(),
+    },
+  },
+);
 
-// const main = async () => {
-//   const getted = await a.get("1");
-//   console.log("getted", getted);
-//   const posted = await a.new({ title: "test", completed: false, userId: 1 });
-//   console.log("posted", posted);
+const main = async () => {
+  const getted = await a.get("1");
+  console.log("getted", getted);
+  const posted = await a.new({ title: "test", completed: false, userId: 1 });
+  console.log("posted", posted);
 
-//   const listed = await a.list({ limit: 2, offset: 3 });
-//   console.log("listed", listed);
+  const listed = await a.list({ limit: 2, offset: 3 });
+  console.log("listed", listed);
 
-//   const updated = await a.update("1", { title: "test2" });
-//   console.log("updated", updated);
-// };
+  const updated = await a.update("1", { title: "test2" });
+  console.log("updated", updated);
+};
 
-// main();
+main();
