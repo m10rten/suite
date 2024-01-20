@@ -69,6 +69,41 @@ await strikeRequest.delete(userId);
 console.log("Item Deleted");
 ```
 
+### Suggestions
+
+#### Grouping
+
+With this module you can group your requests by endpoint. This is useful when you have multiple endpoints in your API.
+
+```typescript
+import { Strike } from "@mvdlei/zap";
+import { z } from "zod";
+
+const s = new Strike({
+  baseUrl: "https://jsonplaceholder.typicode.com",
+});
+
+const todos = s.make(
+  "/todos",
+  z.object({
+    userId: z.number(),
+    id: z.number(),
+    title: z.string(),
+    completed: z.boolean(),
+  }),
+);
+
+const router = {
+  todos,
+  //...other endpoints
+};
+
+const main = async () => {
+  const result = await router.todos.get("123");
+  console.log("result", result);
+};
+```
+
 ### Example
 
 ```typescript

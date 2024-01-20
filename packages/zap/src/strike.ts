@@ -14,22 +14,22 @@ export interface IStrike {
   make: <TModel extends Azod>(path: string, model: TModel) => IStrikeRequest<TModel>;
 }
 
-export type NotAvailableOrOptions<I extends Azod, O extends Azod> =
-  | {
-      available: false;
-    }
-  | ({
-      available?: true | null | undefined;
-    } & Partial<DefineOptions<I, O>>);
+// export type NotAvailableOrOptions<I extends Azod, O extends Azod> =
+//   | {
+//       available: false;
+//     }
+//   | ({
+//       available?: true | null | undefined;
+//     } & Partial<DefineOptions<I, O>>);
 
 export type StrikeRequestOptions<I extends Azod, O extends Azod> = RoutesOptions<I, O>;
 
 export type RoutesOptions<I extends Azod, O extends Azod> = {
-  get: NotAvailableOrOptions<I, O>;
-  new: NotAvailableOrOptions<I, O>;
-  list: NotAvailableOrOptions<I, O>;
-  update: NotAvailableOrOptions<I, O>;
-  delete: NotAvailableOrOptions<I, O>;
+  get: Partial<DefineOptions<I, O>>;
+  new: Partial<DefineOptions<I, O>>;
+  list: Partial<DefineOptions<I, O>>;
+  update: Partial<DefineOptions<I, O>>;
+  delete: Partial<DefineOptions<I, O>>;
 };
 
 export type IStrikeOptions = WithRequired<Partial<IZapOptions>, "baseUrl">;
@@ -117,8 +117,6 @@ export class StrikeRequest<
   ) {}
 
   get = async (id: string) => {
-    if (this.options?.get?.available === false)
-      throw new Error("Get method not available");
     return this.zap.define({
       url: `${this.path}/${id}`,
       method: RestMethods.GET,
@@ -128,8 +126,6 @@ export class StrikeRequest<
   };
 
   new = async (input: Omit<z.infer<TModel>, "id">) => {
-    if (this.options?.new?.available === false)
-      throw new Error("New method not available");
     return this.zap.define({
       url: this.path,
       method: RestMethods.POST,
@@ -185,6 +181,7 @@ export default Strike;
 // const s = new Strike({
 //   baseUrl: "https://jsonplaceholder.typicode.com",
 // });
+
 // const a = s.make(
 //   "/todos",
 //   z.object({
@@ -195,16 +192,20 @@ export default Strike;
 //   }),
 // );
 
+// const cloud = {
+//   todos: a,
+// };
+
 // const main = async () => {
-//   const getted = await a.get("1");
+//   const getted = await cloud.todos.get("1");
 //   console.log("getted", getted);
-//   const posted = await a.new({ title: "test", completed: false, userId: 1 });
+//   const posted = await cloud.todos.new({ title: "test", completed: false, userId: 1 });
 //   console.log("posted", posted);
 
-//   const listed = await a.list({ limit: 2, offset: 3 });
+//   const listed = await cloud.todos.list({ limit: 2, offset: 3 });
 //   console.log("listed", listed);
 
-//   const updated = await a.update("1", { title: "test2" });
+//   const updated = await cloud.todos.update("1", { title: "test2" });
 //   console.log("updated", updated);
 // };
 
