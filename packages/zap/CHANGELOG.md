@@ -1,5 +1,13 @@
 # @mvdlei/zap
 
+## 0.0.3
+
+### Patch Changes
+
+- ac89037: Added `Cloud` class and basic storm call to make 1 'router' to use in your entire app.
+- Updated dependencies [ac89037]
+  - @mvdlei/types@0.0.9
+
 ## 0.0.2
 
 ### Patch Changes

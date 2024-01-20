@@ -1,5 +1,11 @@
 # @mvdlei/types
 
+## 0.0.9
+
+### Patch Changes
+
+- ac89037: Add ExtractKeys typehelper for generic methods requiring typesafety on records
+
 ## 0.0.8
 
 ### Patch Changes
