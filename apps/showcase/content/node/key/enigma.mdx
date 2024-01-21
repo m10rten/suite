@@ -1,0 +1,128 @@
+---
+published: true
+title: Enigma - Mvdlei
+category: node
+package: key
+description: A submodule in the Key package providing an Enigma class for encryption and decryption.
+---
+
+# Enigma - @mvdlei/kwy
+
+Explore the utility functions and classes provided by Mvdlei.
+
+## Installation
+
+```bash
+npm install @mvdlei/key
+```
+
+## Usage
+
+### `Enigma` Class
+
+The `Enigma` class is used to create an instance of the Enigma cipher, allowing you to encrypt and decrypt messages.
+
+#### Example
+
+```tsx
+import { Enigma } from "@mvdlei/key";
+
+// Initialize Enigma instance
+const enigma = Enigma.init(options);
+```
+
+### API
+
+#### `Enigma.init(options: EnigmaOptions): Enigma`
+
+The `init` method is a static method of the `Enigma` class used to initialize a new `Enigma` instance with the provided options.
+
+```tsx
+import { Enigma } from "@mvdlei/key";
+
+const enigma = Enigma.init(options);
+```
+
+#### `EnigmaOptions` type
+
+The `EnigmaOptions` type is used to define the options for the `Enigma` class.
+
+```tsx
+import { EnigmaOptions } from "@mvdlei/key";
+
+const options: EnigmaOptions = {
+  privateKey: "privateKey",
+  salt: "salt",
+  prefix: "ddm_",
+};
+
+const enigma = Enigma.init(options);
+```
+
+##### `privateKey` property
+
+The `privateKey` property is used to define the private key for the `Enigma` instance.
+
+This property is required and must be a string.
+
+This property is kept private and is not exposed in the `Enigma` instance.
+
+##### `salt` property
+
+The `salt` property is used to define the salt for the `Enigma` instance.
+
+This property is required and must be a string.
+
+This property is kept private and is not exposed in the `Enigma` instance.
+
+##### `prefix` property
+
+The `prefix` property is used to define the prefix for the `Enigma` instance.
+
+This property is required with a length of 4 characters, including a trailing underscore. The default value is `key_`.
+
+#### `Enigma.encrypt(message: string): string`
+
+The `encrypt` method is used to encrypt a message.
+
+```tsx
+import { Enigma } from "@mvdlei/key";
+
+const encryptedMessage = enigma.encrypt("message");
+```
+
+#### `Enigma.decrypt(message: string): {decrypted: string, fingerprint: string}`
+
+The `decrypt` method is used to decrypt a message.
+
+```tsx
+import { Enigma } from "@mvdlei/key";
+
+const decryptedMessage = enigma.decrypt("encryptedMessage");
+```
+
+#### `Enigma.verify(key: string): boolean`
+
+The `verify` method is used to verify a key.
+
+```tsx
+import { Enigma } from "@mvdlei/key";
+
+const verified = enigma.verify("key");
+```
+
+#### `Enigma.create(): string`
+
+The `create` method is used to create a key.
+
+Each key is unique and can be used in your application, for example, as an API key for a user.
+
+```tsx
+import { Enigma } from "@mvdlei/key";
+
+const key = enigma.create();
+```
+
+## Links
+
+[`enigma.ts`](https://github.com/m10rten/suite/tree/main/packages/key/src/enigma.ts)

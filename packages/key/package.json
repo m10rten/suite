@@ -1,8 +1,7 @@
 {
-  "name": "@mvdlei/template",
+  "name": "@mvdlei/key",
   "version": "0.0.0",
   "description": "<>",
-  "private": true,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -19,24 +18,29 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "20.11.5",
-    "internal-config": "workspace:*"
+    "internal-config": "workspace:*",
+    "zod": "3.22.4"
+  },
+  "peerDependencies": {
+    "zod": "3.22.4"
   },
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./package.json": "./package.json",
-    "./*": "./dist/*"
+    "./enigma": {
+      "import": "./dist/enigma.mjs",
+      "require": "./dist/enigma.js",
+      "types": "./dist/enigma.d.ts"
+    }
   },
   "files": [
     "dist",
     "package.json",
     "LICENSE",
     "README.md"
-  ],
-  "publishConfig": {
-    "access": "restricted"
-  }
+  ]
 }
