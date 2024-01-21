@@ -7,6 +7,19 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 - Packages
 - Apps
 
+### Packages
+
+- `@mvdlei/zap` - A utility class for `fetch` with `zod`. Includes `Strike` and `Zap`.
+- `@mvdlei/key` - A utility class for encryption and decryption. Includes `Enigma`.
+- `@mvdlei/tzod` - A utility class for `zod`. Includes `T` class.
+- `@mvdlei/env` - A utility for environment variables.
+- `@mvdlei/log` - A logger for Node.
+- `@mvdlei/types` - A collection of types used in the packages in this repository.
+
+### Apps
+
+- `showcase` - A showcase of the packages in this repository.
+
 ## Installation
 
 ### Requirements
@@ -21,15 +34,15 @@ Install the dependencies with the following command:
 pnpm install
 ```
 
-### Build
+### Running scripts
 
-Build all the available projects with the following command:
+To run the scripts in this repository, use the following command:
 
 ```bash
-pnpm build
+pnpm run <script>
 ```
 
-This will run `turbo` in the projects and execute the steps in parallel.
+Where `<script>` is the name of the script you want to run. Check `pnpm run` for a list of available scripts.
 
 ## Namespace
 

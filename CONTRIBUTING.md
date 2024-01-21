@@ -16,8 +16,11 @@ Repository URL: [https://github.com/m10rten/suite](https://github.com/m10rten/su
 - [Husky](https://typicode.github.io/husky/#/)
 - [Turbo](https://turbo.build/)
 - [Zod](https://zod.dev/)
+- [Docker](https://www.docker.com/)
 
 ## Getting Started
+
+To get started with this repository, follow the steps below.
 
 ### Prerequisites
 
@@ -97,6 +100,22 @@ pnpm remake
 pnpm reset
 ```
 
+### Database(s)
+
+Databases on localhost are managed with [Docker](https://www.docker.com/).
+
+#### Starting the database(s)
+
+```sh
+pnpm db:up
+```
+
+#### Stopping the database(s)
+
+```sh
+pnpm db:down
+```
+
 ## Making Changes
 
 1. Fork the repository on GitHub (see [Fork A Repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo))
@@ -106,6 +125,20 @@ pnpm reset
 5. Push your changes to your forked repository on GitHub
 6. Open a pull request on GitHub and describe your changes in detail (Wait for GitHub Actions to run the necessary checks)
 7. Wait for the pull request to be reviewed and merged by a maintainer
+
+### Cloning
+
+To clone, first fork the repository on GitHub, then clone your forked repository to your local machine.
+
+```sh
+git clone <your-forked-repository-url>
+```
+
+### Opening a Pull Request
+
+You can then open a pull request on GitHub to merge your changes into the main repository.
+
+> Please note that any PR's with changes on .changeset files will be rejected.
 
 ## License
 

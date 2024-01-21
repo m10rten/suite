@@ -42,6 +42,8 @@
     "apps:test": "turbo run test --filter=./apps/*",
     "apps:build": "turbo run build --filter=./apps/*",
     "apps:lint": "turbo run lint --filter=./apps/*",
+    "db:up": "docker-compose -p suite up  -d",
+    "db:down": "docker-compose down",
     "release:build": "changeset version",
     "release:add": "changeset",
     "release:pre": "changeset pre",
