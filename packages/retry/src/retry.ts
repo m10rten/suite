@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 export type IRetryDelay =
   | number
   | {
@@ -102,26 +101,26 @@ export class Retry implements IRetry {
   }
 }
 
-/**
- * Test code:
- */
-const main = async () => {
-  const r = Retry.init({
-    forever: true,
-  });
+// /**
+//  * Test code:
+//  */
+// const main = async () => {
+//   const r = Retry.init({
+//     forever: true,
+//   });
 
-  const fn = async () => {
-    console.log("start");
-    const random = Math.random();
-    if (random > 0.3) {
-      throw new Error("error");
-    }
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("end");
-    return "ok";
-  };
+//   const fn = async () => {
+//     console.log("start");
+//     const random = Math.random();
+//     if (random > 0.3) {
+//       throw new Error("error");
+//     }
+//     await new Promise((resolve) => setTimeout(resolve, 1000));
+//     console.log("end");
+//     return "ok";
+//   };
 
-  const res = await r.retry(fn);
-  console.log(res);
-};
-main();
+//   const res = await r.retry(fn);
+//   console.log(res);
+// };
+// main();
