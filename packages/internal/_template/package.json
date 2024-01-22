@@ -27,8 +27,14 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./package.json": "./package.json",
-    "./*": "./dist/*"
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "<name>": [
+        "dist/<name>.d.ts"
+      ]
+    }
   },
   "files": [
     "dist",

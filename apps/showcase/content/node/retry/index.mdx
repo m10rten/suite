@@ -1,0 +1,109 @@
+---
+published: true
+title: Retry - Mvdlei
+module: retry
+category: node
+description: Retry asynchronous operations with customizable options.
+---
+
+# Retry - @mvdlei/retry
+
+The `retry` package provides a utility for retrying asynchronous operations with customizable options.
+
+## Installation
+
+```bash
+npm install @mvdlei/retry
+```
+
+## Example
+
+```typescript
+import { IRetryOptions, Retry } from "@mvdlei/retry";
+
+const main = async () => {
+  const r = Retry.init({
+    forever: true,
+  });
+
+  const fn = async () => {
+    console.log("start");
+    const random = Math.random();
+    if (random > 0.3) {
+      throw new Error("error");
+    }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log("end");
+    return "ok";
+  };
+
+  const res = await r.retry(fn);
+  console.log(res);
+};
+main();
+```
+
+## API Reference
+
+### `IRetryOptions`
+
+Options for configuring the retry behavior.
+
+- `attempts`: The maximum number of retry attempts.
+- `delay`: The delay between retry attempts. It can be a number or an object with `min`, `max`, and `default` values.
+- `factor`: The exponential factor for calculating delays.
+- `minDelay`: The minimum delay between retries.
+- `maxDelay`: The maximum delay between retries.
+- `exponential`: Flag to indicate whether to use exponential backoff.
+- `forever`: Flag to retry forever until successful.
+- `randomize`: Flag to randomize the delay between retries.
+
+> Delays are in milliseconds.
+
+#### Default Options
+
+```typescript
+{
+  attempts: 3,
+  factor: 2,
+  delay: 1_000,
+  minDelay: 1_000,
+  maxDelay: 15_000,
+  exponential: true,
+  forever: false,
+  randomize: false,
+}
+```
+
+### `IRetry`
+
+Interface defining the retry utility.
+
+#### `retry<T>(fn: () => Promise<T>, options?: IRetryOptions): Promise<T>`
+
+Retry a function until it succeeds or the maximum number of attempts is reached.
+
+- `fn`: The function to retry.
+- `options`: Optional retry options.
+
+#### `retry<T>(fn: () => Promise<T>): Promise<T>`
+
+Retry a function until it succeeds or the maximum number of attempts is reached.
+
+- `fn`: The function to retry.
+
+Default options are used, or the options provided in `Retry.init()`.
+
+### `Retry` Class
+
+The `Retry` class implements the `IRetry` interface.
+
+#### `Retry.init(options?: Partial<IRetryOptions>): IRetry`
+
+Static method to initialize a new `Retry` instance with the provided options.
+
+- `options`: Optional retry options.
+
+## Links
+
+[`retry.ts`](https://github.com/m10rten/suite/tree/main/packages/retry/src/retry.ts)
