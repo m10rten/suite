@@ -1,0 +1,63 @@
+{
+  "name": "@mvdlei/pg-toggle",
+  "version": "0.0.0",
+  "description": "Postgres feature toggle, easy to use, just connect and toggle.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup --format cjs,esm --dts && bash ./scripts/post-build.sh",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --passWithNoTests",
+    "db:generate": "drizzle-kit generate:pg"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "20.11.5",
+    "drizzle-kit": "0.20.13",
+    "drizzle-orm": "0.29.3",
+    "internal-config": "workspace:*",
+    "postgres": "3.4.3",
+    "zod": "3.22.4"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "0.29.3",
+    "postgres": "3.4.3",
+    "zod": "3.22.4"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./toggle": {
+      "import": "./dist/toggle.mjs",
+      "require": "./dist/toggle.js",
+      "types": "./dist/toggle.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "toggle": [
+        "dist/toggle.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "@mvdlei/log": "workspace:*",
+    "@mvdlei/retry": "workspace:*"
+  }
+}

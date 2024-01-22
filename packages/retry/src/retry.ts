@@ -27,7 +27,7 @@ const defaultOptions: IRetryOptions = {
   randomize: false,
 };
 export interface IRetry {
-  retry<T>(fn: () => Promise<T>, options?: IRetryOptions): Promise<T>;
+  retry<T>(fn: () => Promise<T>, options?: Partial<IRetryOptions>): Promise<T>;
 }
 
 export class Retry implements IRetry {
