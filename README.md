@@ -15,6 +15,7 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 - `@mvdlei/env` - A utility for environment variables.
 - `@mvdlei/log` - A logger for Node.
 - `@mvdlei/types` - A collection of types used in the packages in this repository.
+- `@mvdlei/retry` - A utility for retrying operations.
 
 ### Apps
 
