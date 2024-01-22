@@ -67,10 +67,13 @@ export class Retry implements IRetry {
     fn: () => Promise<T>,
     options: Partial<IRetryOptions> = defaultOptions,
   ): Promise<T> {
-    const { attempts, delay, factor, minDelay, maxDelay, exponential, randomize } = {
+    const merged: IRetryOptions = {
       ...defaultOptions,
       ...this.options,
       ...options,
+    };
+    const { attempts, delay, factor, minDelay, maxDelay, exponential, randomize } = {
+      ...merged,
     };
 
     const delayTime = this.getDelayTime(
@@ -92,8 +95,7 @@ export class Retry implements IRetry {
       }
       await new Promise((resolve) => setTimeout(resolve, delayTime));
       return this.retry(fn, {
-        ...options,
-        ...this.options,
+        ...merged,
         attempts: newAttempts,
       });
     }
