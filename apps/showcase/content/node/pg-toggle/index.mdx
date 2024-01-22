@@ -1,0 +1,136 @@
+---
+published: true
+title: Toggle - Mvdlei
+package: pg-toggle
+category: node
+description: Feature toggles with PostgreSQL.
+---
+
+# Toggle - @mvdlei/pg-toggle
+
+The `pg-toggle` package provides a simple feature toggle implementation with PostgreSQL as the backend.
+
+## Installation
+
+```bash
+npm install @mvdlei/pg-toggle
+```
+
+## Dependencies
+
+The `pg-toggle` package depends on the following packages:
+
+- `@mvdlei/retry`
+- `drizzle-orm`
+- `postgres-js`
+
+## Example
+
+```typescript
+import { IToggle, Toggle } from "@mvdlei/pg-toggle";
+
+const main = async () => {
+  try {
+    // Initialize Toggle with PostgreSQL connection options
+    const toggle: IToggle = await Toggle.init({
+      databaseUrl: "postgres://username:password@localhost:5432/database",
+    });
+
+    // Create a set of toggles
+    const toggles = await toggle.create({
+      FEATURE_A: true,
+      FEATURE_B: false,
+    });
+
+    console.log("Toggles created:", toggles);
+
+    // Get the status of a toggle
+    const featureAStatus = await toggle.get("FEATURE_A");
+    console.log("Feature A is enabled:", featureAStatus);
+
+    // Set the status of a toggle
+    const newFeatureStatus = await toggle.set("NEW_FEATURE", true);
+    console.log("New feature status:", newFeatureStatus);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+main();
+```
+
+## API Reference
+
+### `IToggle`
+
+The `IToggle` interface defines the contract for the Toggle class.
+
+#### `create<T extends Record<string, boolean>>(toggles: T): Promise<T & Record<string, boolean>>`
+
+Create a set of toggles in the database.
+
+- `toggles`: An object with toggle names as keys and boolean values indicating the toggle status.
+
+#### `get(name: string): Promise<boolean>`
+
+Get the status of a toggle by name.
+
+- `name`: The name of the toggle.
+
+#### `set(name: string, enabled: boolean): Promise<boolean>`
+
+Set the status of a toggle by name. Updates if the toggle exists, creates it otherwise.
+
+- `name`: The name of the toggle.
+- `enabled`: The new status of the toggle.
+
+### `Toggle` Class
+
+The `Toggle` class implements the `IToggle` interface.
+
+#### `Toggle.init(options: IClientOptions): Promise<IToggle>`
+
+Static method to initialize a new `Toggle` instance with the provided PostgreSQL connection options.
+
+- `options`: PostgreSQL connection options.
+
+### Example
+
+#### Basic Usage
+
+```typescript
+import { IToggle, Toggle } from "@mvdlei/pg-toggle";
+
+const main = async () => {
+  try {
+    // Initialize Toggle with PostgreSQL connection options
+    const toggle: IToggle = await Toggle.init({
+      databaseUrl: "postgres://username:password@localhost:5432/database",
+    });
+
+    // Create a set of toggles
+    const toggles = await toggle.create({
+      FEATURE_A: true,
+      FEATURE_B: false,
+    });
+
+    console.log("Toggles created:", toggles);
+
+    // Get the status of a toggle
+    const featureAStatus = await toggle.get("FEATURE_A");
+    console.log("Feature A is enabled:", featureAStatus);
+
+    // Set the status of a toggle
+    const newFeatureStatus = await toggle.set("NEW_FEATURE", true);
+    console.log("New feature status:", newFeatureStatus);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+main();
+```
+
+## Links
+
+[`toggle.ts`](https://github.com/m10rten/suite/tree/main/packages/pg-toggle/src/toggle.ts)

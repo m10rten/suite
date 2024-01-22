@@ -1,0 +1,85 @@
+---
+title: Env - Mvdlei
+published: true
+category: node
+package: env
+description: Utility functions for environment variables.
+---
+
+# `@mvdlei/env`
+
+The `@mvdlei/env` package provides a utility function `define` for defining and validating environment variables in TypeScript using the Zod schema.
+
+## Installation
+
+```bash
+npm install @mvdlei/env
+```
+
+## Dependencies
+
+The `@mvdlei/env` package depends on the following packages:
+
+- `zod`
+
+## Usage
+
+This package is usable in React and Node.
+
+But be aware to set your `source` property correctly, with `vite` you should use `import.meta.env` and with `next` you should use `process.env`.
+
+### Example
+
+An example as used in the `showcase` app (here).
+
+```typescript
+import { define } from "@mvdlei/env";
+import { type Level } from "@mvdlei/log";
+import { t } from "@mvdlei/tzod";
+import { z } from "zod";
+
+// Define environment variables
+export const env = define({
+  env: {
+    NODE_ENV: z
+      .string()
+      .default("development")
+      .transform((val) => t.string.lower(val)),
+  },
+  prefix: "INTERNAL_",
+  prefixed: {
+    INTERNAL_LOG_LEVEL: z
+      .enum(["error", "warn", "info", "http", "verbose", "debug", "silly"] as const)
+      .default("info")
+      .transform((val) => t.string.lower(val) as Level),
+  },
+});
+
+// Access environment variables
+const nodeEnv = env.NODE_ENV; // "development"
+const logLevel = env.INTERNAL_LOG_LEVEL; // "info"
+```
+
+## API Reference
+
+### `define(options: EnvOptions<TPrefix, TPrefixed, TEnv>): Readonly<z.infer<ZodObject<TPrefixed>> & z.infer<ZodObject<TEnv>>>`
+
+The `define` function is used to define and validate environment variables based on the provided options.
+
+#### Options
+
+- `env`: An object representing the schema for general environment variables.
+- `prefix`: A prefix for client-side variables.
+- `prefixed`: An object representing the schema for client-side environment variables.
+- `isClient`: A boolean indicating whether the app is running on the client (default: `typeof window !== "undefined"`).
+- `onValidationError`: A callback function called when validation fails.
+- `onInvalidAccess`: A callback function called when a server-side environment variable is accessed on the client.
+- `validate`: A boolean indicating whether to skip validation of environment variables (default: `false`).
+- `emptyStringAsUndefined`: A boolean indicating whether to treat empty strings as `undefined` (default: `false`).
+- `strict`: An object representing the schema for strict runtime environment variables.
+- `runtime`: Runtime environment variables to use for validation.
+- `source`: Be aware that this is where the environment variables are read from. So using `process.env` will not work in the browser.
+
+## Links
+
+- [`env.ts`](https://github.com/m10rten/suite/blob/main/packages/env/src/env.ts)
