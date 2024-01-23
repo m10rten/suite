@@ -177,7 +177,7 @@ export function define<
   const onValidationError =
     opts.onValidationError ??
     ((error: ZodError) => {
-      console.error("❌ Invalid environment variables:", error.flatten().fieldErrors);
+      console.error("Invalid environment variables:", error.flatten().fieldErrors);
       throw new Error("Invalid environment variables");
     });
 
@@ -186,7 +186,7 @@ export function define<
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ((_variable: string) => {
       throw new Error(
-        "❌ Attempted to access a server-side environment variable on the client",
+        "Attempted to access a server-side environment variable on the client",
       );
     });
 
@@ -206,7 +206,7 @@ export function define<
       ) {
         return onInvalidAccess(prop);
       }
-      return target[prop as keyof typeof target];
+      return Reflect.get(target, prop);
     },
   });
 

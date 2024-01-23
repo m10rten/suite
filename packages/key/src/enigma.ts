@@ -19,53 +19,33 @@ export interface IEnigma {
    * Method to create a key, random each time it is called.
    * @param options - Options for the key.
    */
-  create(options: IKeyOptions): string;
+  create(options?: IKeyOptions): string;
   /**
    * Method to verify a key, verifies the signature/fingerprint/hash.
    * @param key
    * @param options
    */
-  verify(key: string, options: IKeyOptions): boolean;
+  verify(key: string, options?: IKeyOptions): boolean;
   /**
    * Method to encrypt data.
    * @param data
    * @param options
    */
-  encrypt(data: string, options: IKeyOptions): string;
+  encrypt(data: string, options?: IKeyOptions): string;
   /**
    * Method to decrypt data.
    * @param key
    * @param options
-   */
-  decrypt(key: string, options: IKeyOptions): { decrypted: string; fingerprint: string };
-
-  /**
-   * Method to create a key, random each time it is called.
-   */
-  create(): string;
-  /**
-   * Method to verify a key, verifies the signature/fingerprint/hash.
-   * @param key
-   */
-  verify(key: string): boolean;
-  /**
-   * Method to encrypt data.
-   * @param data
-   */
-  encrypt(data: string): string;
-  /**
-   * Method to decrypt data.
-   * @param key
    */
   decrypt(key: string): { decrypted: string; fingerprint: string };
 }
 
 export type IKeyOptions = {
-  algorithm: Readonly<"aes-256-cbc">;
+  algorithm: Readonly<"sha256" | "sha512" | "sha1">;
   digest: Readonly<crypto.BinaryToTextEncoding>;
 };
 const defaults = {
-  algorithm: "aes-256-cbc",
+  algorithm: "sha1",
   digest: "hex",
 } satisfies IKeyOptions;
 
@@ -84,20 +64,24 @@ export class Enigma implements IEnigma {
   }
 
   encrypt(data: string, options: Readonly<IKeyOptions> = defaults): string {
-    const { privateKey, salt } = this.config;
-    const { digest, algorithm } = options;
-    const key = crypto.scryptSync(privateKey, salt, 32);
-    const iv = crypto.randomBytes(16);
-    const cipher = crypto.createCipheriv(algorithm, key, iv);
-    const encrypted = Buffer.concat([
-      cipher.update(`${salt}${splitter}${data}`),
-      cipher.final(),
-    ]);
-    const signature = encrypted.toString(digest);
-    return `${signature}${splitter}${iv.toString(digest)}`;
+    try {
+      const { privateKey, salt } = this.config;
+      const { digest } = options;
+      const key = crypto.scryptSync(privateKey, salt, 32);
+      const iv = crypto.randomBytes(16);
+      const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+      const encrypted = Buffer.concat([
+        cipher.update(`${salt}${splitter}${data}`),
+        cipher.final(),
+      ]);
+      const signature = encrypted.toString(digest);
+      return `${signature}${splitter}${iv.toString(digest)}`;
+    } catch (error) {
+      throw new Error("Failed to encrypt data.");
+    }
   }
 
-  decrypt(key: string, options: IKeyOptions = defaults) {
+  decrypt(key: string) {
     try {
       const { privateKey, salt } = this.config;
       // if key is prefixed, remove it + splitter
@@ -109,8 +93,9 @@ export class Enigma implements IEnigma {
 
       const keyBuffer = Buffer.from(signature!, "hex");
       const ivBuffer = Buffer.from(iv!, "hex");
+
       const decipher = crypto.createDecipheriv(
-        options.algorithm,
+        "aes-256-cbc",
         crypto.scryptSync(privateKey, salt, 32),
         ivBuffer,
       );
@@ -131,9 +116,9 @@ export class Enigma implements IEnigma {
     try {
       const { prefix } = this.config;
 
-      const r = crypto.randomBytes(4);
+      const r = crypto.randomBytes(16);
 
-      const hash = crypto.createHash("sha512");
+      const hash = crypto.createHash(options.algorithm);
       hash.update(r);
       hash.update(Date.now().toString());
 
