@@ -45,7 +45,7 @@ describe("Enigma", () => {
   describe("custom options", () => {
     it("should use custom options for encryption", () => {
       const customOptions: IKeyOptions = {
-        algorithm: "aes-256-cbc",
+        algorithm: "sha1",
         digest: "hex",
       };
 
