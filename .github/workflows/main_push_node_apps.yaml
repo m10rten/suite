@@ -1,11 +1,11 @@
-name: Main (apps)
+name: Main (apps) Node
 on:
   push:
     branches:
       - main
     paths:
-      - "apps/**"
-      - ".github/workflows/main_push_apps.yaml"
+      - "apps/showcase/**"
+      - ".github/workflows/main_push_node_apps.yaml"
       - pnpm-lock.yaml
       - package.json
 

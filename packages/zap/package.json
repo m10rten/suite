@@ -9,6 +9,7 @@
     "build": "tsup --format cjs,esm --dts",
     "lint": "eslint src/**/*.ts",
     "test": "jest",
+    "dev": "tsup --watch --format cjs,esm --dts",
     "typecheck": "tsc --noEmit",
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --passWithNoTests"

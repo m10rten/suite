@@ -288,6 +288,9 @@ importers:
 
   packages/hooks:
     devDependencies:
+      "@mvdlei/zap":
+        specifier: workspace:*
+        version: link:../zap
       "@types/node":
         specifier: 20.11.5
         version: 20.11.5

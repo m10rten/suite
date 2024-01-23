@@ -17,6 +17,16 @@ services:
       - redis_data:/data
     ports:
       - "6379:6379"
+  go:
+    container_name: go
+    build:
+      context: ./apps/go
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
 
 volumes:
   postgres_data: {}

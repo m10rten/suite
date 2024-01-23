@@ -61,11 +61,11 @@ export interface IZapOptions {
   timeout?: number;
 }
 
-const defaultOptions = {
+const defaultOptions: IZapOptions = {
   baseUrl: undefined,
   // interceptors: [],
   timeout: undefined,
-} satisfies IZapOptions;
+};
 
 export type RestMethod = (typeof RestMethods)[keyof typeof RestMethods];
 
@@ -103,6 +103,9 @@ export class Zap implements IZap {
     this.baseUrl ??= baseUrl;
     this.timeout ??= timeout;
   }
+  static init(options: IZapOptions = defaultOptions): Zap {
+    return new Zap(options);
+  }
   define<TInput extends AnyInput, TOutput extends AnyOutput>(
     options: DefineOptions<TInput, TOutput>,
   ): Call<TInput, TOutput> {
@@ -110,6 +113,7 @@ export class Zap implements IZap {
       const controller = new AbortController();
       const ms = this.timeout ?? 15_000;
       const url = this.baseUrl ? `${this.baseUrl}${options.url}` : options.url;
+
       // add query params
       const params = new URLSearchParams(input as Record<string, string>);
       const urlWithParams = `${url}?${params.toString()}`;
@@ -143,9 +147,12 @@ export class Zap implements IZap {
           },
         },
       );
+
       clearTimeout(timeout);
+
       const result = await response.json();
       const parsed = options.output.safeParse(result);
+
       if (parsed.success) {
         return parsed.data;
       }

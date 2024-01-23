@@ -1,12 +1,12 @@
-name: CI (apps)
+name: CI (apps) Node
 on:
   pull_request:
     branches:
       - main
       - dev
     paths:
-      - "apps/**"
-      - ".github/workflows/main_pr_apps.yaml"
+      - "apps/showcase/**"
+      - ".github/workflows/main_pr_node_apps.yaml"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
