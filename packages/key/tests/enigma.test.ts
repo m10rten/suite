@@ -51,7 +51,7 @@ describe("Enigma", () => {
 
       const data = "Custom Options Test";
       const encrypted = enigma.encrypt(data, customOptions);
-      const decrypted = enigma.decrypt(encrypted, customOptions);
+      const decrypted = enigma.decrypt(encrypted);
 
       expect(decrypted.decrypted).toBe(data);
     });
