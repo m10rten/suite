@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
-          cache: go
+          cache: true
       # install
       - run: go mod download
         name: Install dependencies
