@@ -4,8 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>API</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        min-width: 0px;
+        font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #101010;
+        color: #fefefe;
+        max-width: 100vw;
+        overflow-x: hidden;
+        height: 100vh;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      h1 {
+        font-weight: 600;
+        line-height: 1.5;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      p {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: center;
+      }
+      a {
+        color: #fefefe;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
-    <p>Not found</p>
+    <main>
+      <h1>API</h1>
+      <p>Golang API hosted on Vercel.</p>
+      <p>
+        Go to
+        <a
+          href="https://api.suite.mvdlei.nl/api"
+          target="_blank"
+          rel="noopener noreferrer"
+          >api.suite.mvdlei.nl/api</a
+        >
+        for an overview.
+      </p>
+    </main>
   </body>
 </html>
