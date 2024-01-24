@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	H "github.com/m10rten/suite/api"
+	H "github.com/m10rten/suite/apps/api/api"
 )
 
 func main() {
