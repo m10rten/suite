@@ -1,17 +1,19 @@
-name: Main (apps) Go
+name: Go (pr)
 on:
-  push:
+  pull_request:
     branches:
       - main
     paths:
-      - "apps/go/**"
+      - "api/**"
+      - "cmd/**"
+      - "pkg/**"
       - ".github/workflows/main_push_go_apps.yaml"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 defaults:
   run:
-    working-directory: ./apps/go
+    working-directory: ./
 
 jobs:
   build:
@@ -31,6 +33,7 @@ jobs:
         name: Install dependencies
 
       - name: Build
+        working-directory: ./cmd
         # Build the main.go file in the apps/go directory
         run: go build -o main .
         env:

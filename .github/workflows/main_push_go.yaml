@@ -1,0 +1,40 @@
+name: Go (push)
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "api/**"
+      - "cmd/**"
+      - "pkg/**"
+      - ".github/workflows/main_push_go_apps.yaml"
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        go-version: [1.21.x]
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache: true
+      # install
+      - run: go mod download
+        name: Install dependencies
+
+      - name: Build
+        working-directory: ./cmd
+        # Build the main.go file in the apps/go directory
+        run: go build -o main .
+        env:
+          CI: true

@@ -11,7 +11,10 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy source files
-COPY . .
+COPY ./api ./api
+COPY ./cmd ./cmd
+COPY ./cmd/main.go ./main.go
+COPY ./pkg ./pkg
 
 # Build the application
 RUN go build -o main .

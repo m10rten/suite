@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	util "github.com/m10rten/suite/pkg"
 )
 
 var (
@@ -17,6 +18,28 @@ func registerRouter(r *gin.RouterGroup) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
+	})
+
+	r.GET("/api/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "ok",
+		})
+	})
+
+	// Route for square root calculation
+	r.GET("/api/square/:num", func(c *gin.Context) {
+		num := c.Param("num")
+		n, err := util.ToInt(num)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"result": util.Square(n),
+		})
+		return
 	})
 }
 

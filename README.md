@@ -4,10 +4,11 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 
 ## Contents
 
-- Packages
-- Apps
+- Packages - Containing `Node` packages
+- Apps - Containing frontend applications
+- `pkg` - Folder containing the packages for `Go`
 
-### Packages
+### `Packages`
 
 - `@mvdlei/zap` - A utility class for `fetch` with `zod`. Includes `Strike` and `Zap`.
 - `@mvdlei/key` - A utility class for encryption and decryption. Includes `Enigma`.
@@ -18,15 +19,23 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 - `@mvdlei/retry` - A utility for retrying operations.
 - `@mvdlei/pg-toggle` - A utility for feature toggles with PostgreSQL, made with `drizzle-orm`.
 
-### Apps
+### `Apps`
 
 - `showcase` - A showcase of the packages in this repository.
+
+### `pkg`
+
+- `util` - A utility module for `Go`.
 
 ## Installation
 
 ### Requirements
 
-To develop this `suite` you must have `node`, `npm` & `pnpm` installed on your local system.
+To develop this `suite` you must have `node`, `npm` | `pnpm` installed on your local system.
+
+To run the `Go` packages you must have `Go` installed on your local system.
+
+To run docker containers you must have `docker` installed on your local system.
 
 ### Dependencies
 
