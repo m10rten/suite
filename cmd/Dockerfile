@@ -13,7 +13,7 @@ RUN go mod download
 # Copy source files
 COPY ./api ./api
 COPY ./cmd ./cmd
-COPY ./cmd/main.go ./main.go
+COPY ./cmd/api.go ./api.go
 COPY ./pkg ./pkg
 
 # Build the application

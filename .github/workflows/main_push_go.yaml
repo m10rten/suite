@@ -35,6 +35,6 @@ jobs:
       - name: Build
         working-directory: ./cmd
         # Build the main.go file in the apps/go directory
-        run: go build -o main .
+        run: go build .
         env:
           CI: true
