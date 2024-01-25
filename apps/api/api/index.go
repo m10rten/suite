@@ -7,10 +7,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 	util "github.com/m10rten/suite/pkg"
+	Z "github.com/m10rten/suite/pkg/z"
 )
 
 var (
 	app *gin.Engine
+	z  Z.Z
 )
 
 func registerRouter(r *gin.RouterGroup) {
@@ -39,7 +41,34 @@ func registerRouter(r *gin.RouterGroup) {
 		c.JSON(http.StatusOK, gin.H{
 			"result": util.Square(n),
 		})
-		return
+	})
+
+	r.POST("/api/validate", func(c *gin.Context) {
+		schema := z.Object(map[string]Z.Validator{
+			"name": z.String(),
+			"age":  z.Number(),
+		})
+
+		// get data from request body
+		var unknownData map[string]interface{}
+		if err := c.BindJSON(&unknownData); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// validate data
+		data, success, err := schema.Parse(unknownData)
+		if success {
+			c.JSON(http.StatusOK, gin.H{
+				"result": data,
+			})
+			return
+		}
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 	})
 }
 
