@@ -21,7 +21,7 @@ services:
     container_name: go-api
     build:
       context: ./
-      dockerfile: ./cmd/Dockerfile
+      dockerfile: ./cmd/api/Dockerfile
     ports:
       - "8080:8080"
     depends_on:
