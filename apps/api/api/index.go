@@ -6,12 +6,13 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	Z "github.com/m10rten/suite/pkg"
 	util "github.com/m10rten/suite/pkg"
 )
 
 var (
 	app *gin.Engine
-	z  util.Z
+	z  Z.Z
 )
 
 func registerRouter(r *gin.RouterGroup) {
