@@ -7,12 +7,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	util "github.com/m10rten/suite/pkg"
-	Z "github.com/m10rten/suite/pkg/z"
 )
 
 var (
 	app *gin.Engine
-	z  Z.Z
+	z  util.Z
 )
 
 func registerRouter(r *gin.RouterGroup) {
@@ -44,7 +43,7 @@ func registerRouter(r *gin.RouterGroup) {
 	})
 
 	r.POST("/api/validate", func(c *gin.Context) {
-		schema := z.Object(map[string]Z.Validator{
+		schema := z.Object(map[string]util.Validator{
 			"name": z.String(),
 			"age":  z.Number(),
 		})
