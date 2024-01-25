@@ -1,6 +1,6 @@
 module github.com/m10rten/suite
 
-go 1.21.6
+go 1.21.1
 
 require github.com/gin-gonic/gin v1.9.1
 
