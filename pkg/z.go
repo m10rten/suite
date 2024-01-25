@@ -1,4 +1,4 @@
-package z
+package util
 
 import (
 	"errors"
