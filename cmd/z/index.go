@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	Z "github.com/m10rten/suite/pkg"
+	Z "github.com/m10rten/suite/pkg/z"
 )
 
 func main() {

@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	Z "github.com/m10rten/suite/pkg"
 	util "github.com/m10rten/suite/pkg"
+	Z "github.com/m10rten/suite/pkg/z"
 )
 
 var (
@@ -44,7 +44,7 @@ func registerRouter(r *gin.RouterGroup) {
 	})
 
 	r.POST("/api/validate", func(c *gin.Context) {
-		schema := z.Object(map[string]util.Validator{
+		schema := z.Object(map[string]Z.Validator{
 			"name": z.String(),
 			"age":  z.Number(),
 		})
