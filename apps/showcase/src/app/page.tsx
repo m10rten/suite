@@ -1,9 +1,8 @@
+"use client";
+
 import Link from "next/link";
 
-import { winston } from "@/lib/winston";
 import { Button } from "#/ui/button";
-
-winston.info("Hello from the showcase app!");
 
 export default function Home() {
   return (

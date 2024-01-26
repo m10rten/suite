@@ -1,3 +1,5 @@
+"use client";
+
 import { useStorage } from "./use-storage";
 
 /**
@@ -8,5 +10,5 @@ import { useStorage } from "./use-storage";
  * Returns a stateful value, a setter and a boolean to indicate if the value exists in the storage before the first render.
  */
 export function useLocalStorage<T>(key: string, initialValue: T) {
-  return useStorage(window.localStorage)(key, initialValue);
+  return useStorage(window?.localStorage)(key, initialValue);
 }

@@ -1,0 +1,118 @@
+---
+title: Z Go pkg - Mvdlei
+description: Go(lang) pkg z
+published: true
+package: z
+category: go
+---
+
+# Z - Go
+
+A simple variant of `Zod` but for Go.
+
+## Installation
+
+```bash
+go get github.com/m10rten/suite/pkg
+```
+
+## Usage
+
+```go
+package main
+
+import (
+  "fmt"
+
+  z "github.com/m10rten/suite/pkg"
+)
+
+var (
+  z = Z.Z
+)
+
+func main() {
+  schema := z.Object(map[string]Z.Validator{
+		"name": z.String(),
+		"age":  z.Number(),
+	})
+
+	unknownData := map[string]interface{}{
+		"name": "John",
+		"age":  25,
+	}
+	data, success, err := schema.Parse(unknownData)
+}
+```
+
+## API
+
+### Z
+
+#### Z.Z
+
+```go
+func (z Z) Z() Z
+```
+
+### StringValidator
+
+#### Z.String
+
+```go
+func (z Z) String() StringValidator
+```
+
+#### StringValidator.Parse
+
+```go
+func (sv StringValidator) Parse(input interface{}) (interface{}, bool, error)
+```
+
+### NumberValidator
+
+#### Z.Number
+
+```go
+func (z Z) Number() NumberValidator
+```
+
+#### NumberValidator.Parse
+
+```go
+func (nv NumberValidator) Parse(input interface{}) (interface{}, bool, error)
+```
+
+### ObjectValidator
+
+#### Z.Object
+
+```go
+func (z Z) Object(schema map[string]Validator) ObjectValidator
+```
+
+#### ObjectValidator.Parse
+
+```go
+func (ov ObjectValidator) Parse(input interface{}) (map[string]interface{}, bool, error)
+```
+
+### ParsedData
+
+```go
+type ParsedData map[string]interface{}
+```
+
+### Validator
+
+This is what you need to implement to create a custom validator.
+
+```go
+type Validator interface {
+  Parse(interface{}) (interface{}, bool, error)
+}
+```
+
+## Links
+
+- [z.go](https://github.com/m10rten/suite/blob/main/pkg/z.go)
