@@ -29,11 +29,11 @@ export interface IUseAsyncOptions<R> {
  * const { execute, loading, error, result } = useAsync(asyncFn, undefined, [dependency]);
  * ```
  */
-export function useAsync<R, A, F extends (...args: A[]) => R>(
+export function useAsync<R, A>(
   /**
    * The function to execute.
    */
-  fn: F,
+  fn: (...args: A[]) => R,
   /**
    * Options to pass to the hook.
    */
@@ -48,7 +48,7 @@ export function useAsync<R, A, F extends (...args: A[]) => R>(
   const [result, setResult] = React.useState<R | null>(null);
 
   const execute = React.useCallback(
-    async (...args: Parameters<F>) => {
+    async (...args: Parameters<typeof fn>) => {
       setLoading(true);
       setError(null);
       setResult(null);

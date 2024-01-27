@@ -1,16 +1,15 @@
 import { useState } from "react";
 
-type CopiedValue = string | null;
-type CopyFn = (text: string) => Promise<boolean>; // Return success
-
 /**
+ * Use copy to clipboard hook to copy a value to the clipboard
+ *
  * @description {useCopyToClipboard} - Copy a value to the clipboard
- * @returns {[CopiedValue, CopyFn]} - The copied value and the copy function
+ * @returns  - The copied value and the copy function
  */
-export function useCopyToClipboard(): [CopiedValue, CopyFn] {
-  const [copiedText, setCopiedText] = useState<CopiedValue>(null);
+export function useCopyToClipboard() {
+  const [copied, setCopiedText] = useState<string | null>(null);
 
-  const copy: CopyFn = async (text) => {
+  const copy = async (text: string) => {
     if (!navigator?.clipboard) {
       // eslint-disable-next-line no-console
       console.warn("Clipboard not supported");
@@ -30,7 +29,7 @@ export function useCopyToClipboard(): [CopiedValue, CopyFn] {
     }
   };
 
-  return [copiedText, copy] as const;
+  return [copied, copy] as const;
 }
 
 export default useCopyToClipboard;

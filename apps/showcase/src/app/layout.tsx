@@ -10,7 +10,7 @@ import Providers from "#/providers";
 
 export const metadata: Metadata = {
   title: "Showcase Suite - Mvdlei",
-  description: "Showcase Suite for packages and apps by Mvdlei",
+  description: "Showcase Suite for packages and apps by Mvdlei - @m10rten",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -2,6 +2,8 @@ import { useCallback } from "react";
 import { useSearchParams, type URLSearchParamsInit } from "react-router-dom";
 
 /**
+ * Required to be wrapped in a Router component
+ *
  * @description {useQueryState} - A hook to manage a query state
  * @param key - The key to use for the query
  * @param init - The initial value to use
