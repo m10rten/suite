@@ -212,4 +212,17 @@ describe("Is Class", () => {
       expect(() => is.of(Object, { test: "test" })).not.toThrow();
     });
   });
+
+  describe("browser", () => {
+    it("should always return false", () => {
+      const result = is.browser();
+      expect(result).toBe(false);
+    });
+  });
+  describe("server", () => {
+    it("should always return true", () => {
+      const result = is.server();
+      expect(result).toBe(true);
+    });
+  });
 });

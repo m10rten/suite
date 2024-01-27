@@ -79,6 +79,20 @@ export interface IIs {
    * The first argument is a class or object instance you want to check against.
    */
   of: <C>(c: C, v: unknown) => v is C;
+
+  /**
+   * Check if the current environment is the browser or not.
+   *
+   * Uses `typeof window === "undefined"` as check.
+   */
+  server: () => boolean;
+
+  /**
+   * Check if the current environment is the browser or not.
+   *
+   * Uses `typeof window !== "undefined"` as check.
+   */
+  browser: () => boolean;
 }
 export class Is implements IIs {
   public string(value: unknown): value is string {
@@ -144,5 +158,13 @@ export class Is implements IIs {
       value === 0 ||
       value === ""
     );
+  }
+
+  public server(): boolean {
+    return typeof window === "undefined";
+  }
+
+  public browser(): boolean {
+    return !this.server();
   }
 }

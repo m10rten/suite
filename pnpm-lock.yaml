@@ -276,7 +276,7 @@ importers:
   packages/env:
     dependencies:
       "@mvdlei/types":
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../types
     devDependencies:
       "@types/node":

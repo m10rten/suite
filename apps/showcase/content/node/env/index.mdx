@@ -22,7 +22,63 @@ The `@mvdlei/env` package depends on the following packages:
 
 - `zod`
 
-## Usage
+## Usages
+
+### Usage `Env`
+
+This package is usable in React and Node.
+
+But be aware to set your `source` property correctly, with `vite` you should use `import.meta.env` and with `next` you should use `process.env`.
+
+### Example
+
+```ts
+import { Env } from "@mvdlei/env";
+
+const value = Env.get("NODE_ENV");
+// ^ This is not type safe, because the type is `Primitive | undefined`
+```
+
+### With options
+
+```ts
+import { Env } from "@mvdlei/env";
+
+const env = Env.init({
+  // default options:
+  source: process.env,
+  strict: false,
+});
+
+const value = env.get("NODE_ENV");
+```
+
+#### Strict mode
+
+```ts
+const env = Env.init({
+  strict: true,
+});
+
+const value = env.get("DOES_NOT_EXIST");
+// ^ This will throw an error, because the variable does not exist
+// Default error message: "Environment variable 'DOES_NOT_EXIST' is not defined"
+// Do have note that setting your own `KEY` to `undefined` will also throw this error.
+```
+
+### Usage `Env.set`
+
+```ts
+import { Env } from "@mvdlei/env";
+
+const env = Env.init({
+  source: process.env,
+});
+
+env.set("NODE_ENV", "production");
+```
+
+### Usage `define`
 
 This package is usable in React and Node.
 

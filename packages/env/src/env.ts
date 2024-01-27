@@ -65,7 +65,11 @@ export interface LooseOptions<TEnv extends Record<string, ZodType>>
 }
 
 type Primitive = string | boolean | number | undefined | null | symbol;
-
+type IEnvSource =
+  | NodeJS.Process["env"]
+  | {
+      [key: string]: Primitive;
+    };
 export interface SourceOptions<TEnv extends Record<string, ZodType>>
   extends BaseOptions<TEnv> {
   strict?: never;
@@ -74,11 +78,7 @@ export interface SourceOptions<TEnv extends Record<string, ZodType>>
    * Be aware that this is where the environment variables are read from.
    * So using process.env will not work in the browser.
    */
-  source?:
-    | NodeJS.Process["env"]
-    | {
-        [key: string]: Primitive;
-      };
+  source?: IEnvSource;
 }
 
 export interface StrictOptions<
@@ -212,4 +212,85 @@ export function define<
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
   return env as unknown as any;
+}
+
+export interface IEnv {
+  /**
+   * Get an environment variable.
+   *
+   * Will throw an error if the variable is not set and `strict` is enabled.
+   */
+  get<T extends string>(key: T): Primitive;
+
+  /**
+   * Set an environment variable.
+   *
+   * Will throw an error if the variable is already set and `strict` is enabled.
+   */
+  set<T extends string>(key: T, value: Primitive): void;
+}
+
+export interface IEnvOptions {
+  source?: IEnvSource;
+  strict?: boolean;
+}
+
+const defaultOptions: IEnvOptions = {
+  strict: false,
+  source: process.env,
+};
+
+export class Env {
+  public static define = define;
+
+  /**
+   * Create a new Env instance.
+   *
+   * Use this to get and set environment variables.
+   *
+   * @param options - Options to use when creating the instance.
+   *
+   * {@link IEnvOptions} for more information.
+   *
+   * Options:
+   * - `source` - The source to use when getting and setting environment variables.
+   * - `strict` - Whether to enforce that all environment variables are set.
+   *
+   * @example
+   * ```ts
+   * const env = Env.init();
+   *
+   * env.get("NODE_ENV"); // "development"
+   * ```
+   */
+  public static init(options?: Partial<IEnvOptions>) {
+    return new Env(options);
+  }
+
+  private constructor(private readonly options: IEnvOptions = defaultOptions) {}
+
+  public get<T extends string>(key: T): Primitive {
+    const source = this.options?.source ?? process.env;
+    const value = source[key];
+    if (value === undefined && this.options?.strict) {
+      throw new Error(`Environment variable "${key}" is not set`);
+    }
+    return value;
+  }
+
+  public static get<T extends string>(key: T): Primitive {
+    return Env.init().get(key);
+  }
+
+  public set<T extends string>(key: T, value: Primitive): void {
+    const source = this.options.source ?? process.env;
+    if (source[key] && this.options?.strict) {
+      throw new Error(`Environment variable "${key}" is already set`);
+    }
+    source[key] = value;
+  }
+
+  public static set<T extends string>(key: T, value: Primitive): void {
+    return Env.init().set(key, value);
+  }
 }

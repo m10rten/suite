@@ -1,0 +1,291 @@
+---
+published: true
+title: Is Class - Mvdlei Tzod
+category: node
+package: tzod
+description: Is Class for type checking with string, number, null, undefined, boolean, bigint, symbol, object, function, any, array, date, error, promise, falsy, schema, and environment checks (browser and server).
+---
+
+# Is Class
+
+The `Is` class provides a set of utility methods for type checking in TypeScript. It includes checks for basic types like string, number, null, undefined, boolean, bigint, symbol, object, function, any, array, date, error, promise, falsy, and custom checks using Zod schemas. Additionally, it provides methods for checking the execution environment (browser or server).
+
+## Usage
+
+### Importing the Is Class
+
+```typescript
+import { Is } from "@mvdlei/tzod/is";
+```
+
+### Creating an Instance
+
+```typescript
+const is = new Is();
+```
+
+Or get from the singleton `t` instance:
+
+```typescript
+import { t } from "@mvdlei/tzod";
+
+const is = t.is;
+```
+
+## Methods
+
+### String Check
+
+#### `string(value: unknown): value is string`
+
+Checks if the value is a string.
+
+Example:
+
+```typescript
+const result = is.string("Hello");
+// result is true
+```
+
+### Number Check
+
+#### `number(value: unknown): value is number`
+
+Checks if the value is a number.
+
+Example:
+
+```typescript
+const result = is.number(42);
+// result is true
+```
+
+### Null Check
+
+#### `null(value: unknown): value is null`
+
+Checks if the value is null.
+
+Example:
+
+```typescript
+const result = is.null(null);
+// result is true
+```
+
+### Undefined Check
+
+#### `undefined(value: unknown): value is undefined`
+
+Checks if the value is undefined.
+
+Example:
+
+```typescript
+const result = is.undefined(undefined);
+// result is true
+```
+
+### Boolean Check
+
+#### `boolean(value: unknown): value is boolean`
+
+Checks if the value is a boolean.
+
+Example:
+
+```typescript
+const result = is.boolean(true);
+// result is true
+```
+
+### BigInt Check
+
+#### `bigint(value: unknown): value is bigint`
+
+Checks if the value is a bigint.
+
+Example:
+
+```typescript
+const result = is.bigint(BigInt(42));
+// result is true
+```
+
+### Symbol Check
+
+#### `symbol(value: unknown): value is symbol`
+
+Checks if the value is a symbol.
+
+Example:
+
+```typescript
+const result = is.symbol(Symbol("Hello"));
+// result is true
+```
+
+### Object Check
+
+#### `object(value: unknown): value is object`
+
+Checks if the value is an object.
+
+Example:
+
+```typescript
+const result = is.object({ key: "value" });
+// result is true
+```
+
+### Array Check
+
+#### `array(value: unknown): value is unknown[]`
+
+Checks if the value is an array.
+
+Example:
+
+```typescript
+const result = is.array([1, 2, 3]);
+// result is true
+```
+
+### Function Check
+
+#### `function(value: unknown): value is ((...args: unknown[]) => unknown) | Function`
+
+Checks if the value is a function.
+
+Example:
+
+```typescript
+const result = is.function(() => {});
+// result is true
+```
+
+### Any Check
+
+#### `any(value: unknown): value is any`
+
+Always returns true.
+
+Example:
+
+```typescript
+const result = is.any("Hello");
+// result is true
+```
+
+### Date Check
+
+#### `date(value: unknown): value is Date`
+
+Checks if the value is a Date.
+
+Example:
+
+```typescript
+const result = is.date(new Date());
+// result is true
+```
+
+### Error Check
+
+#### `error(value: unknown): value is Error`
+
+Checks if the value is an Error.
+
+Example:
+
+```typescript
+const result = is.error(new Error("Something went wrong"));
+// result is true
+```
+
+### Promise Check
+
+#### `promise(value: unknown): value is Promise<unknown>`
+
+Checks if the value is a Promise.
+
+Example:
+
+```typescript
+const result = is.promise(new Promise(() => {}));
+// result is true
+```
+
+### Falsy Check
+
+#### `falsy(value: unknown): value is Falsy`
+
+Checks if the value is falsy.
+
+Example:
+
+```typescript
+const result = is.falsy(null);
+// result is true
+```
+
+### Schema Check
+
+#### `schema(schema: ZodTypeAny, value: unknown): value is ZodTypeAny`
+
+Checks if the value adheres to a Zod schema.
+
+Example:
+
+```typescript
+import { z } from "zod";
+
+const schema = z.string();
+const result = is.schema(schema, "Hello");
+// result is true
+```
+
+### Of Check
+
+#### `of<T>(constructor: T, value: unknown): value is T`
+
+Checks if the value is an instance of a class or object.
+
+Example:
+
+```typescript
+class MyClass {
+  constructor(public readonly name: string) {}
+}
+
+const result = is.of(MyClass, new MyClass("Instance of MyClass"));
+// result is true
+```
+
+### Browser Check
+
+#### `browser(): boolean`
+
+Checks if the code is running in a browser.
+
+Example:
+
+```typescript
+const result = is.browser();
+```
+
+### Server Check
+
+#### `server(): boolean`
+
+Checks if the code is running without a browser.
+
+Example:
+
+```typescript
+const result = is.server();
+```
+
+## Links
+
+[`is.ts`](https://github.com/m10rten/suite/tree/main/packages/tzod/src/is.ts)

@@ -18,7 +18,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@mvdlei/types": "workspace:^"
+    "@mvdlei/types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "20.11.5",
