@@ -26,6 +26,7 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 ### `pkg`
 
 - `util` - A utility module for `Go`.
+  - Includes a very basic Zod-like Z instance with `.Object` and `.String`/`.Number`.
 
 ## Installation
 
