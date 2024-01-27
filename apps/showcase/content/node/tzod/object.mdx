@@ -1,0 +1,138 @@
+---
+published: true
+title: TObject - Mvdlei Tzod
+category: node
+package: tzod
+description: TObject class with object merging, key operations, and filtering methods.
+---
+
+# TObject Class
+
+The `TObject` class provides utility methods for handling objects, including merging, key operations, freezing, unfreezing, and filtering.
+
+## Usage
+
+### Using the `object` from the `t` Object
+
+```typescript
+import { t } from "@mvdlei/tzod";
+
+const object = t.object;
+```
+
+### Creating an Instance
+
+```typescript
+import { TObject } from "@mvdlei/tzod/object";
+
+const object = new TObject();
+```
+
+## Methods
+
+### Merge
+
+#### `merge<T extends object, U extends object>(a: T, b: U): Prettify<T & U>`
+
+Merges two objects.
+
+> Note: This method does not mutate the original objects.
+> And will overwrite the values of the first object with the values of the second object if they have the same keys.
+
+Example:
+
+```typescript
+const a = { a: 1 };
+const b = { b: 2 };
+const result = tObject.merge(a, b);
+// result is { a: 1, b: 2 }
+```
+
+### Keys
+
+#### `keys<T extends object>(a: T): (keyof T)[]`
+
+Gets the keys of an object.
+
+Example:
+
+```typescript
+const a = { a: 1, b: 2 };
+const result = tObject.keys(a);
+// result is ["a", "b"]
+```
+
+### Freeze
+
+#### `freeze<T extends object>(a: T): Readonly<T>`
+
+Freezes an object.
+
+Example:
+
+```typescript
+const a = { a: 1, b: 2 };
+const result = tObject.freeze(a);
+// result is a frozen object
+```
+
+### Unfreeze
+
+#### `unfreeze<T extends object>(a: Readonly<T>): T`
+
+Unfreezes a frozen object.
+
+Example:
+
+```typescript
+const a = { a: 1, b: 2 };
+const frozenObj = Object.freeze(a);
+const result = tObject.unfreeze(frozenObj);
+// result is an unfrozen object
+```
+
+### Filter
+
+#### `filter<T extends object>(a: T, fn: (key: keyof T, value: T[keyof T]) => boolean): Prettify<Partial<T>>`
+
+Filters an object by key and value.
+
+Example:
+
+```typescript
+const a = { a: 1, b: 2, c: 3 };
+const result = tObject.filter(a, (_key, value) => value > 1);
+// result is { b: 2, c: 3 }
+```
+
+### Select
+
+#### `select<T extends object, U extends keyof T>(a: T, b: U[]): Prettify<Pick<T, U>>`
+
+Selects keys from an object.
+
+Example:
+
+```typescript
+const a = { a: 1, b: 2, c: 3 };
+const result = tObject.select(a, ["a", "c"]);
+// result is { a: 1, c: 3 }
+```
+
+### Exclude
+
+#### `exclude<T extends object, U extends keyof T>(a: T, b: U[]): Prettify<Omit<T, U>>`
+
+Excludes keys from an object.
+
+Example:
+
+```typescript
+const a = { a: 1, b: 2, c: 3 };
+const result = tObject.exclude(a, ["b"]);
+// result is { a: 1, c: 3 }
+```
+
+## Links
+
+- [`object.ts`](https://github.com/m10rten/suite/blob/main/packages/tzod/src/object.ts)

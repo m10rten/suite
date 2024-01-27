@@ -1,0 +1,146 @@
+---
+published: true
+title: TNumber - Mvdlei Tzod
+category: node
+package: tzod
+description: TNumber class with number parsing, constraining, percentage calculation, and related checks.
+---
+
+# TNumber Class
+
+The `TNumber` class provides utility methods for handling numbers, including parsing, constraining, percentage calculation, and various checks.
+
+## Usage
+
+### Importing the TNumber Class
+
+```typescript
+import { t } from "@mvdlei/tzod";
+```
+
+### Using the TNumber Class from the `t` Object
+
+```typescript
+const number = t.number;
+```
+
+## Methods
+
+### Parse
+
+#### `parse(value: string | number): ParseReturn<T>`
+
+Parses a string or number into a number.
+
+Example:
+
+```typescript
+const result = number.parse("42");
+// result is 42
+```
+
+### Constrain
+
+#### `constrain(value: number, min: number, max: number): number`
+
+Constrains a number between a minimum and maximum value.
+
+Example:
+
+```typescript
+const result = number.constrain(2, 1, 3);
+// result is 2
+```
+
+### Percent
+
+#### `percent(value: number, total: number): number`
+
+Calculates the percentage of a number relative to a total.
+
+Example:
+
+```typescript
+const result = number.percent(10, 50);
+// result is 20, note that the result does not include the percent sign
+```
+
+### ToSafe
+
+#### `toSafe(value: number): number`
+
+Returns the original value for a safe integer, or 0 for a non-safe integer.
+
+Example:
+
+```typescript
+const result = number.toSafe(42);
+// ^ 42
+```
+
+When the value is not safe, the result is 0:
+
+```typescript
+const result = number.toSafe(MAX_SAFE_INTEGER + 1);
+// ^ 0
+```
+
+### Number Checks
+
+The `TNumber` class includes a set of number-related checks provided by the `INumberChecks` interface.
+
+#### Even
+
+##### `is.even(value: number): boolean`
+
+Checks if a number is even.
+
+Example:
+
+```typescript
+const result = number.is.even(2);
+// result is true
+```
+
+#### Odd
+
+##### `is.odd(value: number): boolean`
+
+Checks if a number is odd.
+
+Example:
+
+```typescript
+const result = number.is.odd(3);
+// result is true
+```
+
+#### Between
+
+##### `is.between(value: number, min: number, max: number): boolean`
+
+Checks if a number is between a specified range.
+
+Example:
+
+```typescript
+const result = number.is.between(2, 1, 3);
+// result is true
+```
+
+#### Safe
+
+##### `is.safe(value: number): boolean`
+
+Checks if a number is safe to use (not NaN, not Infinity, within safe integer range).
+
+Example:
+
+```typescript
+const result = number.is.safe(42);
+// result is true
+```
+
+## Links
+
+- [`number.ts`](https://github.com/m10rten/suite/blob/main/packages/tzod/src/number.ts)
