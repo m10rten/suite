@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.1.0
+
+### Minor Changes
+
+- 256b9b0: Added .is.browser and .is.server with coresponding tests
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @mvdlei/env
 
+## 0.1.0
+
+### Minor Changes
+
+- 256b9b0: Updated with tests and `Env` class for easy env access
+
 ## 0.0.8
 
 ### Patch Changes
