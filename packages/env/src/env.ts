@@ -231,7 +231,15 @@ export interface IEnv {
 }
 
 export interface IEnvOptions {
+  /**
+   * Source where you want to call .get and .set on.
+   */
   source?: IEnvSource;
+  /**
+   * If the .get should fail if the value is undefined, and the .set should fail when the key exists.
+   *
+   * This is because Env should always be set before the application starts and should not change on runtime.
+  */
   strict?: boolean;
 }
 
