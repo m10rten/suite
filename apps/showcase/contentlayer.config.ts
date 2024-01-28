@@ -60,7 +60,7 @@ export default makeSource({
       rehypeSlug,
       [
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore - types are wrong
+        // @ts-expect-error - types are wrong
         rehypePrettyCode,
         {
           theme: "github-dark",

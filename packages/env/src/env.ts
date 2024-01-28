@@ -155,8 +155,6 @@ export function define<
   if (emptyStringAsUndefined) {
     for (const [key, value] of Object.entries(source)) {
       if (value === "") {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore - this is fine
         delete source[key];
       }
     }
@@ -239,7 +237,7 @@ export interface IEnvOptions {
    * If the .get should fail if the value is undefined, and the .set should fail when the key exists.
    *
    * This is because Env should always be set before the application starts and should not change on runtime.
-  */
+   */
   strict?: boolean;
 }
 

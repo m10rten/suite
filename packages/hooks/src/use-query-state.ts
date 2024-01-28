@@ -17,7 +17,7 @@ export const useQueryState = (key: string, init?: URLSearchParamsInit) => {
     (value: URLSearchParamsInit) => {
       if (key) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore - This throws an error because somehow it infers as undefined
+        // @ts-expect-error - This throws an error because somehow it infers as undefined
         setSearchParams({ ...searchParams, [key]: value });
       } else {
         if (value) setSearchParams(value);
