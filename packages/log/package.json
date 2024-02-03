@@ -2,7 +2,7 @@
   "name": "@mvdlei/log",
   "version": "0.0.1",
   "private": false,
-  "description": "<>",
+  "description": "A simple logger",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.mjs",
