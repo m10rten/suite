@@ -1,5 +1,13 @@
 /* eslint-disable no-console */
-export type LogLevel = "error" | "warn" | "info" | "verbose" | "debug" | "silly";
+export type LogLevel =
+  | "error"
+  | "warn"
+  | "info"
+  | "verbose"
+  | "debug"
+  | "silly"
+  | "http"
+  | "silent";
 export type LogType = "error" | "warn" | "info" | "log" | "debug";
 
 export interface LoggerOptions {

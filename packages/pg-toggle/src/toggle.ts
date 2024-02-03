@@ -100,7 +100,8 @@ export class Toggle implements IToggle {
       await this.client.close();
       return toggle.enabled;
     } catch (error) {
-      logger.error(error);
+      if (error instanceof Error) logger.error(error.message);
+      else logger.error("An error occurred while getting toggle", error);
       await this.client.close();
       return false;
     }
@@ -120,7 +121,8 @@ export class Toggle implements IToggle {
       await this.client.close();
       return enabled;
     } catch (error) {
-      logger.error(error);
+      if (error instanceof Error) logger.error(error.message);
+      else logger.error("An error occurred while setting toggle", error);
       await this.client.close();
       return false;
     }
