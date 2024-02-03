@@ -1,5 +1,12 @@
 # @mvdlei/zap
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [b8dd2c9]
+  - @mvdlei/log@0.0.2
+
 ## 0.0.3
 
 ### Patch Changes
