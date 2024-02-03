@@ -273,6 +273,15 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
 
+  packages/edge:
+    devDependencies:
+      "@types/node":
+        specifier: 20.11.5
+        version: 20.11.5
+      internal-config:
+        specifier: workspace:*
+        version: link:../internal/config
+
   packages/env:
     dependencies:
       "@mvdlei/types":
