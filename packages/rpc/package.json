@@ -1,7 +1,7 @@
 {
-  "name": "@mvdlei/edge",
+  "name": "@mvdlei/rpc",
   "version": "0.0.0",
-  "description": "Everything you need to build an Edge-ready application",
+  "description": "Remote Procedure Call (RPC) abstraction with type safety for TypeScript (Web and Node)",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -14,7 +14,7 @@
     "test:ci": "jest --ci --passWithNoTests"
   },
   "keywords": [],
-  "author": "m10rten",
+  "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "20.11.5",

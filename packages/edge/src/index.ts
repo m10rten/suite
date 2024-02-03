@@ -14,4 +14,6 @@
  *
  * ```
  */
-export const Edge = {};
+export class Edge {
+  // ...
+}

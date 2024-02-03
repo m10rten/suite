@@ -376,7 +376,28 @@ importers:
         specifier: 3.22.4
         version: 3.22.4
 
+  packages/reset:
+    devDependencies:
+      "@mvdlei/types":
+        specifier: workspace:*
+        version: link:../types
+      "@types/node":
+        specifier: 20.11.5
+        version: 20.11.5
+      internal-config:
+        specifier: workspace:*
+        version: link:../internal/config
+
   packages/retry:
+    devDependencies:
+      "@types/node":
+        specifier: 20.11.5
+        version: 20.11.5
+      internal-config:
+        specifier: workspace:*
+        version: link:../internal/config
+
+  packages/rpc:
     devDependencies:
       "@types/node":
         specifier: 20.11.5
