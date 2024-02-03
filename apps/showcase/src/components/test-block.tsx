@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   useAsync,
   useCopyToClipboard,
@@ -9,6 +9,7 @@ import {
   useKey,
   useLocalStorage,
   useOnce,
+  useOnClickOutside,
 } from "@mvdlei/hooks";
 
 import { Button } from "#/ui/button";
@@ -32,7 +33,14 @@ export default function TestBlock() {
   useOnce(() => {
     setMounted(true);
   });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, copy] = useCopyToClipboard();
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [outside, setOutside] = useState<boolean | null>(null);
+  useOnClickOutside(ref, () => {
+    setOutside(true);
+  });
 
   return (
     <>
@@ -122,6 +130,31 @@ export default function TestBlock() {
               await copy("copied");
             }}>
             copy
+          </Button>
+        </div>
+      </section>
+
+      <hr className="w-64" />
+
+      <section className="flex gap-2 flex-col justify-center items-center">
+        <h2 className="text-2xl font-bold">useOnClickOutside</h2>
+        <div className="flex gap-2 justify-center items-center">
+          <div
+            ref={ref}
+            className="w-64 h-64 flex justify-center items-center bg-gray-100"
+            onClick={() => {
+              setOutside(false);
+            }}>
+            <span className="text-black">
+              {outside === null ? "not clicked" : outside ? "outside" : "inside"}
+            </span>
+          </div>
+          <Button
+            className="text-lg font-bold flex justify-center items-center"
+            onClick={() => {
+              setOutside(null);
+            }}>
+            reset
           </Button>
         </div>
       </section>

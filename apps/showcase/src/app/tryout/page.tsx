@@ -7,7 +7,7 @@ const DynamicBlock = dynamic(() => import("@/components/test-block"), {
 
 export default function CounterPage() {
   return (
-    <main className="w-full h-full container flex flex-col justify-center items-center gap-4">
+    <main className="w-full h-full container flex flex-col justify-center items-center gap-4 my-16">
       <h1 className="text-4xl sm:text-5xl font-bold text-center">
         Tryout of <code>@mvdlei/hooks</code>
       </h1>
