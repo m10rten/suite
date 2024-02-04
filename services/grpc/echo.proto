@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package echo;
+
+option go_package = "/";
+
+message Message {
+  string body = 1;
+}
+
+service EchoService {
+  rpc Echo(Message) returns (Message) {};
+}
