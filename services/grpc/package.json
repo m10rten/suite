@@ -14,9 +14,12 @@
     "start": "node dist/client/index.js",
     "lint": "eslint . --ext .ts",
     "proto:out:go": "protoc --go-grpc_out=echo --go_out=echo echo.proto",
-    "proto:out:ts_old": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./echo/.gen --grpc_out=./echo/.gen --plugin=protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin --ts_out=./echo/.gen echo.proto",
-    "proto:out:js": "grpc_tools_node_protoc --js_out=./echo/.gen echo.proto",
-    "proto:out:ts": "protoc -I=. --ts_out=echo/.gen echo.proto"
+    "proto:out:ts": "protoc -I=. --ts_out=echo/.gen echo.proto",
+    "proto:out:js": "protoc -I=. --js_out=./echo/.gen echo.proto",
+    "proto:out": "pnpm proto:out:go && pnpm proto:out:ts && pnpm proto:out:js",
+    "protoc1": "bash ./node_modules/.bin/grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./echo/.gen --grpc_out=grpc_js:./echo/.gen -I ./  echo.proto",
+    "protoc2": "bash ./node_modules/.bin/grpc_tools_node_protoc --plugin=protoc-gen-ts=./bin/protoc-gen-ts --ts_out=grpc_js:./echo/.gen -I ./ echo.proto",
+    "protoc": "pnpm protoc1 && pnpm protoc2"
   },
   "keywords": [],
   "author": "m10rten",
@@ -25,13 +28,14 @@
     "@types/google-protobuf": "3.15.12",
     "@types/node": "20.11.16",
     "grpc-tools": "1.12.4",
-    "internal-config": "*",
+    "internal-config": "workspace:^",
+    "protoc-gen-js": "3.21.2",
     "ts-node": "10.9.2",
+    "protoc-gen-ts": "0.8.7",
     "typescript": "5.3.3"
   },
   "dependencies": {
     "@grpc/grpc-js": "1.9.14",
-    "google-protobuf": "3.21.2",
-    "protoc-gen-ts": "0.8.7"
+    "google-protobuf": "3.21.2"
   }
 }
