@@ -19,6 +19,7 @@ func main() {
 	c := echo.NewEchoServiceClient(conn)
 
 	res, err := c.Echo(context.Background(), &echo.Message{Body: "Hello from the client!"})
+	log.Print(res.String())
 	if err != nil {
 		log.Fatalf("Error when calling Echo: %s", err)
 	}

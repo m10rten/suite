@@ -12,8 +12,12 @@ async function main() {
     const message = new echo.Message({
       body: "Hello from index.ts client!",
     });
+    console.log("Sending message:", message.toObject());
 
     c.Echo(message, (err, response) => {
+      console.log("Received message:", response?.toObject());
+      console.log("possible error:", err);
+
       if (err) {
         console.error(err);
         return;

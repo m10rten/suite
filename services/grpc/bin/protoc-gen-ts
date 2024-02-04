@@ -1,7 +1,0 @@
-#!/usr/bin/env node
-/* eslint-disable */
-// @ts-nocheck
-
-const LibPath = require("path");
-
-require(LibPath.join(__dirname, "../build/index"));
