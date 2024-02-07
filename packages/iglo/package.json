@@ -1,8 +1,7 @@
 {
-  "name": "@mvdlei/template",
+  "name": "@mvdlei/iglo",
   "version": "0.0.0",
-  "description": "<>",
-  "private": true,
+  "description": "Simple Error Handling for Node.js and Browser",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -25,14 +24,21 @@
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./iglo": {
+      "import": "./dist/iglo.mjs",
+      "require": "./dist/iglo.js",
+      "types": "./dist/iglo.d.ts",
+      "default": "./dist/iglo.js"
     },
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
-      "<name>": [
-        "dist/<name>.d.ts"
+      "iglo": [
+        "dist/iglo.d.ts"
       ]
     }
   },
@@ -42,7 +48,7 @@
     "LICENSE",
     "README.md"
   ],
-  "publishConfig": {
-    "access": "restricted"
+  "dependencies": {
+    "@mvdlei/log": "workspace:*"
   }
 }
