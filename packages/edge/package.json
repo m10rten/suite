@@ -30,8 +30,8 @@
   },
   "typesVersions": {
     "*": {
-      "<name>": [
-        "dist/<name>.d.ts"
+      "edge": [
+        "dist/edge.d.ts"
       ]
     }
   },
@@ -40,5 +40,8 @@
     "package.json",
     "LICENSE",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "@mvdlei/log": "workspace:*"
+  }
 }
