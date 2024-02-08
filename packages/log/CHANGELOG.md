@@ -1,5 +1,11 @@
 # @mvdlei/log
 
+## 0.0.3
+
+### Patch Changes
+
+- 5cd0341: Changed input parameters, non-breaking
+
 ## 0.0.2
 
 ### Patch Changes

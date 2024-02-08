@@ -1,5 +1,11 @@
 # @mvdlei/hooks
 
+## 0.1.4
+
+### Patch Changes
+
+- @mvdlei/zap@0.0.5
+
 ## 0.1.3
 
 ### Patch Changes
