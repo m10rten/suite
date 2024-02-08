@@ -44,13 +44,13 @@ export const assert = (options: LoggerOptions): Logger => {
 const ec = "\x1b[0m" as const;
 
 export interface ILogger {
-  log(message: string, meta?: unknown): void;
-  error(message: string, meta?: unknown): void;
-  warn(message: string, meta?: unknown): void;
-  info(message: string, meta?: unknown): void;
-  debug(message: string, meta?: unknown): void;
+  log(...data: unknown[]): void;
+  error(...data: unknown[]): void;
+  warn(...data: unknown[]): void;
+  info(...data: unknown[]): void;
+  debug(...data: unknown[]): void;
 }
-export class Logger {
+export class Logger implements ILogger {
   constructor(private readonly _options: LoggerOptions) {}
 
   private _colorize = (level: LogType) => {
@@ -64,22 +64,21 @@ export class Logger {
       case "debug":
         return "\x1b[35m";
       case "log":
+        return "\x1b[32m";
       default:
-        return "\x1b[37m";
+        return "\x1b[0m";
     }
   };
 
   private _do = (
-    fn: (msg: string, ...arg: unknown[]) => void,
-    msg: string,
-    meta?: unknown,
+    fn: (...arg: unknown[]) => void,
+    level: LogType,
+    ...meta: unknown[]
   ) => {
-    if (this._options.level === "debug" || this._options.level === "verbose") {
-      if (meta) fn(msg, meta);
-      else fn(msg);
-    } else {
-      fn(msg);
-    }
+    const prefix = `${this._prefix(level)}`;
+    if (this._options.level === "silent") return;
+    const first = meta.shift();
+    fn(`${prefix} ${first}`, ...meta);
   };
 
   private _prefix = (level: LogType) => {
@@ -88,24 +87,24 @@ export class Logger {
     return `${ts} [${color}${level}${ec}]:`.trim();
   };
 
-  public log(message: string, meta?: unknown) {
-    return this._do(console.log, `${this._prefix("log")} ${message}`, meta);
+  public log(...data: unknown[]) {
+    return this._do(console.log, "log", ...data);
   }
 
-  public error(message: string, meta?: unknown) {
-    return this._do(console.error, `${this._prefix("error")} ${message}`, meta);
+  public error(...data: unknown[]) {
+    return this._do(console.error, "error", ...data);
   }
 
-  public warn(message: string, meta?: unknown) {
-    return this._do(console.warn, `${this._prefix("warn")} ${message}`, meta);
+  public warn(...data: unknown[]) {
+    return this._do(console.warn, "warn", ...data);
   }
 
-  public info(message: string, meta?: unknown) {
-    return this._do(console.info, `${this._prefix("info")} ${message}`, meta);
+  public info(...data: unknown[]) {
+    return this._do(console.info, "info", ...data);
   }
 
-  public debug(message: string, meta?: unknown) {
-    return this._do(console.debug, `${this._prefix("debug")} ${message}`, meta);
+  public debug(...data: unknown[]) {
+    return this._do(console.debug, "debug", ...data);
   }
 }
 
