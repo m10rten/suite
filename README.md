@@ -18,10 +18,12 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 - `@mvdlei/types` - A collection of types used in the packages in this repository.
 - `@mvdlei/retry` - A utility for retrying operations.
 - `@mvdlei/pg-toggle` - A utility for feature toggles with PostgreSQL, made with `drizzle-orm`.
+- `@mvdlei/iglo` - A simple yet very powerful error handler and secure program runner for any environment.
 
 ### `Apps`
 
 - `showcase` - A showcase of the packages in this repository.
+- `api` - An API folder where the API's can be stored.
 
 ### `pkg`
 
