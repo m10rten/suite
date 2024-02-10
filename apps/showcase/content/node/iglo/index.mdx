@@ -35,6 +35,12 @@ iglo.fish(Error, (e: Error) => {
   // .. handle the error
 });
 
+// you can also use a custom error class, just make sure it has a public 'name' property
+iglo.fish(MyErrorClass, (e: MyErrorClass) => {
+  // handle your custom error thrown in a .shell function
+});
+
+
 // start a shell to start catching errors
 const res: ReturnType<typeof myProgramFunction> = await iglo.shell(myProgramFunction);
 
