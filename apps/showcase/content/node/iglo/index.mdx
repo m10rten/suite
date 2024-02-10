@@ -23,7 +23,12 @@ Use it in any environment to catch errors and handle unexpected exceptions.
 ```ts
 import { Iglo } from "@mvdlei/iglo";
 
-const iglo = Iglo.init();
+const iglo = Iglo.init({
+  // default options:
+  runtime: "node", // set to browser when not using next server or node
+  catchGlobal: true,
+  log: logger.error, // uses @mvldei/log, a pretty wrapper on the default console
+});
 
 // fish and then catch errors thrown in .shell with the .fish function.
 iglo.fish(Error, (e: Error) => {
@@ -33,8 +38,15 @@ iglo.fish(Error, (e: Error) => {
 // start a shell to start catching errors
 const res: ReturnType<typeof myProgramFunction> = await iglo.shell(myProgramFunction);
 
-// res will be undefined when an error is thrown.
+// res will be undefined when an error is thrown. for better dev experience the returned type does not include undefined, you can add it yourself for better typesafety.
 console.log(res);
 
+// when you are done catching errors, you can melt the iglo with .melt
+iglo.melt(0 /** or 1 */, true /** to stop the execution, only works on node, default is true so set to false for usage in next and express etc*/);
+
 ```
+
+## Links
+
+- [`iglo.ts`](https://github.com/m10rten/suite/tree/main/packages/iglo/src/iglo.ts)
 
