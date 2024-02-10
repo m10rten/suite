@@ -1,0 +1,40 @@
+---
+published: true
+title: Iglo - Mvdlei Iglo
+category: node
+package: iglo
+description: Iglo shell for error wrapping and catching.
+---
+
+# Iglo
+
+Iglo quick error handling and catching
+
+## Instalation
+
+```bash
+npm install @mvdlei/iglo
+```
+
+## Usage
+
+Use it in any environment to catch errors and handle unexpected exceptions.
+
+```ts
+import { Iglo } from "@mvdlei/iglo";
+
+const iglo = Iglo.init();
+
+// fish and then catch errors thrown in .shell with the .fish function.
+iglo.fish(Error, (e: Error) => {
+  // .. handle the error
+});
+
+// start a shell to start catching errors
+const res: ReturnType<typeof myProgramFunction> = await iglo.shell(myProgramFunction);
+
+// res will be undefined when an error is thrown.
+console.log(res);
+
+```
+
