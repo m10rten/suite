@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/edge",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Everything you need to build an Edge-ready application",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
