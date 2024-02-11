@@ -1,5 +1,11 @@
 # @mvdlei/iglo
 
+## 0.0.2
+
+### Patch Changes
+
+- a660754: Updated a return-type
+
 ## 0.0.1
 
 ### Patch Changes
