@@ -40,7 +40,6 @@ iglo.fish(MyErrorClass, (e: MyErrorClass) => {
   // handle your custom error thrown in a .shell function
 });
 
-
 // start a shell to start catching errors
 const res: ReturnType<typeof myProgramFunction> = await iglo.shell(myProgramFunction);
 
@@ -48,11 +47,12 @@ const res: ReturnType<typeof myProgramFunction> = await iglo.shell(myProgramFunc
 console.log(res);
 
 // when you are done catching errors, you can melt the iglo with .melt
-iglo.melt(0 /** or 1 */, true /** to stop the execution, only works on node, default is true so set to false for usage in next and express etc*/);
-
+iglo.melt(
+  0 /** or 1 */,
+  true /** to stop the execution, only works on node, default is true so set to false for usage in next and express etc*/,
+);
 ```
 
 ## Links
 
 - [`iglo.ts`](https://github.com/m10rten/suite/tree/main/packages/iglo/src/iglo.ts)
-

@@ -108,26 +108,6 @@ export class Iglo implements IgloI {
     }
   }
 
-  onExit() {
-    const log = this.options.log || logger.error;
-    // remove event listeners
-    if (this.options.runtime === "node" || typeof window === "undefined") {
-      process.off("unhandledRejection", (error) => {
-        log(error);
-      });
-      process.off("uncaughtException", (error) => {
-        log(error);
-      });
-    } else {
-      window.removeEventListener("unhandledrejection", (event) => {
-        log(event.reason);
-      });
-      window.removeEventListener("error", (event) => {
-        log(event.error);
-      });
-    }
-  }
-
   fish<TError extends Error>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error: new (...args: any[]) => TError,
