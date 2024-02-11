@@ -119,7 +119,7 @@ export class Zap implements IZap {
       const urlWithParams = `${url}?${params.toString()}`;
       const timeout = setTimeout(() => {
         logger.error("Timeout while fetching", {
-          url: urlWithParams,
+          url: options.method === RestMethods.GET ? urlWithParams : url,
           timeout: ms,
         });
         controller.abort();
