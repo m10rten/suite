@@ -1,0 +1,112 @@
+---
+title: Edge - Mvdlei Edge
+published: true
+category: node
+package: edge
+description: Custom Edge handler for web APIs
+---
+
+# Edge
+
+Create an easy route handler for the edge.
+
+> This packages is only usable when making an API route handler that is working with the `Request` and `Response` objects from the Web API.
+
+Below are the 2 main classes this package relies on:
+
+- [MDN Web API Reference - Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)
+- [MDN Web API Reference - Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+
+## Installation
+
+```bash
+npm install @mvdlei/edge
+```
+
+## Simple Usage
+
+```ts
+import { Edge } from "@mvdlei/edge";
+
+type MyProps = {
+  myProp: string;
+};
+
+export const { GET, POST } = Edge.custom<MyProps>(
+  (req) => {
+    // set it how you want, you have the request object to your disposal
+    // recommended usage is with a tool like zod to validate the request
+    return {
+      myProp: "Hello, World!",
+    };
+  },
+  async (request) => {
+    return Response.json({ message: request.myProp });
+  },
+);
+```
+
+## API Reference
+
+### Edge.custom<TProps>(middleware, handler)
+
+Should make a custom request object with the added properties, it takes a function to set the properties.
+
+#### Parameters
+
+- `middleware`: `(req: Request) => (Promise<TProps> | TProps) | (Response | Promise<Response>)`
+- `handler`: `<TReq extends Request & TProps>(request: TReq) => Promise<Response> | Response`
+
+#### Returns
+
+An object with methods for handling different HTTP methods (`GET`, `POST`, `PUT`, `DELETE`, `PATCH`, `OPTIONS`, `HEAD`) which all use the same handler function provided.
+
+```ts
+static custom<TProps extends Record<string, unknown>>(
+  middleware: (
+    req: Request,
+  ) => (Promise<TProps> | TProps) | (Response | Promise<Response>),
+  handler: <TReq extends Request & TProps>(
+    request: TReq,
+  ) => Promise<Response> | Response,
+): {
+  default: (request: Request) => Promise<Response>;
+  GET: (request: Request) => Promise<Response>;
+  POST: (request: Request) => Promise<Response>;
+  PUT: (request: Request) => Promise<Response>;
+  DELETE: (request: Request) => Promise<Response>;
+  PATCH: (request: Request) => Promise<Response>;
+  OPTIONS: (request: Request) => Promise<Response>;
+  HEAD: (request: Request) => Promise<Response>;
+};
+```
+
+### Default export
+
+`Edge` class providing route handling functionalities.
+
+```ts
+export class Edge {
+  static custom<TProps extends Record<string, unknown>>(
+    middleware: (
+      req: Request,
+    ) => (Promise<TProps> | TProps) | (Response | Promise<Response>),
+    handler: <TReq extends Request & TProps>(
+      request: TReq,
+    ) => Promise<Response> | Response,
+  ): {
+    default: (request: Request) => Promise<Response>;
+    GET: (request: Request) => Promise<Response>;
+    POST: (request: Request) => Promise<Response>;
+    PUT: (request: Request) => Promise<Response>;
+    DELETE: (request: Request) => Promise<Response>;
+    PATCH: (request: Request) => Promise<Response>;
+    OPTIONS: (request: Request) => Promise<Response>;
+    HEAD: (request: Request) => Promise<Response>;
+  };
+}
+```
+
+## Links
+
+- [edge.ts](https://github.com/m10rten/suite/blob/main/packages/edge/src/edge.ts)

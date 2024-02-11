@@ -64,6 +64,9 @@ importers:
 
   apps/api:
     dependencies:
+      "@mvdlei/edge":
+        specifier: workspace:^
+        version: link:../../packages/edge
       zod:
         specifier: 3.22.4
         version: 3.22.4

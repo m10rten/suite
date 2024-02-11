@@ -1,3 +1,5 @@
+import { Quick } from "@mvdlei/edge";
+
 export async function GET() {
   type Route =
     | {
@@ -8,28 +10,23 @@ export async function GET() {
         method: "POST";
         body: Record<string, string>;
       };
-  return Response.json(
-    {
-      routes: [
-        {
-          method: "GET",
-          path: "/",
+  return Quick.status(200).json({
+    routes: [
+      {
+        method: "GET",
+        path: "/",
+      },
+      {
+        method: "GET",
+        path: "/api/echo",
+      },
+      {
+        method: "POST",
+        path: "/api/echo",
+        body: {
+          message: "string",
         },
-        {
-          method: "GET",
-          path: "/api/echo",
-        },
-        {
-          method: "POST",
-          path: "/api/echo",
-          body: {
-            message: "string",
-          },
-        },
-      ] satisfies Route[],
-    },
-    {
-      status: 200,
-    },
-  );
+      },
+    ] satisfies Route[],
+  });
 }

@@ -9,6 +9,7 @@
     "@types/node": "20.11.17"
   },
   "dependencies": {
-    "zod": "3.22.4"
+    "zod": "3.22.4",
+    "@mvdlei/edge": "workspace:^"
   }
 }

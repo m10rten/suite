@@ -1,0 +1,93 @@
+---
+title: EdgeResponse - Mvdlei Edge
+published: true
+category: node
+package: edge
+description: Build on top of the Response class to make it easier to use.
+---
+
+# EdgeResponse
+
+The `EdgeResponse` class is a wrapper around the `Response` class to make it easier to use.
+
+_Reference_: [MDN Web API Reference - Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+
+## Installation
+
+```bash
+npm install @mvdlei/edge
+```
+
+## Simple Usage
+
+```ts
+import { EdgeResponse } from "@mvdlei/edge";
+
+const response = new EdgeResponse();
+
+response.status(code).json({ message: "Hello, World!" });
+```
+
+## API Reference
+
+### Functions
+
+```ts
+import { EdgeResponse } from "@mvdlei/edge-response";
+
+// Create a new EdgeResponse instance
+const response = new EdgeResponse();
+
+// Set status code
+response.status(200);
+
+// Set headers
+response.headers({
+  "Content-Type": "application/json",
+  "Custom-Header": "Value",
+});
+
+// Send JSON response
+const jsonResponse = response.json({ message: "Hello, World!" });
+
+// Send text response
+const textResponse = response.text("Hello, World!");
+
+// Send response with custom body
+const customResponse = response.send({ data: "Custom response" });
+
+// End response with current body and headers, .send, .json, and .text will also end the response
+const endResponse = response.end();
+```
+
+## API Reference
+
+### EdgeResponse
+
+A class representing an Edge response with methods for setting status, headers, and sending different types of responses.
+
+#### Methods
+
+- `constructor()`: Creates a new EdgeResponse instance with default values.
+- `status(status: number): EdgeResponse`: Sets the status code of the response and returns the EdgeResponse instance.
+- `headers(headers: Record<string, string>): EdgeResponse`: Sets the headers of the response and returns the EdgeResponse instance.
+- `json(body: unknown): Response`: Sends a JSON response with the provided body and current status code and headers.
+- `text(body: string): Response`: Sends a text response with the provided body and current status code and headers.
+- `send(body: unknown): Response`: Sends a custom response with the provided body and current status code and headers.
+- `end(): Response`: Ends the response with the current body and headers.
+
+```ts
+export class EdgeResponse {
+  constructor();
+  status(status: number): EdgeResponse;
+  headers(headers: Record<string, string>): EdgeResponse;
+  json(body: unknown): Response;
+  text(body: string): Response;
+  send(body: unknown): Response;
+  end(): Response;
+}
+```
+
+## Links
+
+- [response.ts](https://github.com/m10rten/suite/blob/main/packages/edge/src/response.ts)

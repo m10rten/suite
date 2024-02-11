@@ -1,3 +1,4 @@
+import { Quick } from "@mvdlei/edge";
 import { z } from "zod";
 
 export async function GET() {
@@ -17,36 +18,16 @@ export async function POST(req: Request) {
     const body = await req.json();
     const result = echoSchema.safeParse(body);
     if (!result.success) {
-      return Response.json(
-        {
-          error: result.error,
-        },
-        {
-          status: 400,
-        },
-      );
+      return Quick.status(Quick.STATUS_CODES.BAD_REQUEST).json({
+        error: result.error,
+      });
     }
-    return Response.json({
+    return Quick.json({
       message: `You said: ${result.data.message}`,
     });
   } catch (error) {
-    if (error instanceof Error)
-      return Response.json(
-        {
-          error: error?.message || "Undefined error",
-        },
-        {
-          status: 500,
-        },
-      );
-    else
-      return Response.json(
-        {
-          error: "Unknown error",
-        },
-        {
-          status: 500,
-        },
-      );
+    return Quick.status(Quick.STATUS_CODES.INTERNAL_SERVER_ERROR).json({
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 }

@@ -6,45 +6,8 @@ import { logger } from "@mvdlei/log";
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/API/Request
  *
- * @example
- * ```ts
- * import { Edge } from '@mvdlei/edge';
- *
- * export default Edge.new((request: Request) => {
- *  return new Response.json({ message: "Hello, World!" });
- * }).default;
- *
- * // or the web worker/vercel way
- *
- * export const { GET, POST } = Edge.new((request: Request) => {
- *  return new Response.json({ message: "Hello, World!" });
- * });
- *
- * ```
  */
-export namespace Edge {
-  /**
-   * Create a new Edge application.
-   * @param path The path to the application.
-   * @param handler The handler for the application.
-   * @returns The new Edge application.
-   */
-  export function create(
-    handler: <TReq extends Request, TRes extends Response>(request: TReq) => TRes,
-  ) {
-    logger.info("Creating a new Edge route.");
-    return {
-      default: handler,
-      GET: handler,
-      POST: handler,
-      PUT: handler,
-      DELETE: handler,
-      PATCH: handler,
-      OPTIONS: handler,
-      HEAD: handler,
-    };
-  }
-
+export class Edge {
   /**
    * Should make a custom request object with the added properties, it takes a function to set the properties.
    *
@@ -66,7 +29,7 @@ export namespace Edge {
    * },
    * ```
    */
-  export function custom<TProps extends Record<string, unknown>>(
+  static custom<TProps extends Record<string, unknown>>(
     middleware: (
       req: Request,
     ) => (Promise<TProps> | TProps) | (Response | Promise<Response>),

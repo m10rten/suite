@@ -1,0 +1,104 @@
+---
+title: Quick - Mvdlei Edge
+published: true
+category: node
+package: edge
+description: Quick
+---
+
+# Quick
+
+A namespace providing quick methods for creating Edge responses with commonly used status codes.
+
+The `Quick` class is a wrapper around the `EdgeResponse` that is a wrapper on the `Response` class to make it easier to use.
+
+_Reference_: [MDN Web API Reference - Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+
+## Installation
+
+```bash
+npm install @mvdlei/edge
+```
+
+## Simple Usage
+
+```ts
+import { Quick } from "@mvdlei/edge";
+
+// End response with status code 200
+Quick.end();
+
+// Send response with status code 200 and custom body
+Quick.send({ message: "Response body" });
+
+// Send text response with status code 200
+Quick.text("Text response");
+
+// Send JSON response with status code 200
+Quick.json({ key: "value" });
+
+// Send response with custom status code
+Quick.code(404);
+
+// Set status code for response (use .code() to end response)
+Quick.status(200);
+```
+
+## API Reference
+
+### Quick
+
+A namespace providing quick methods for creating Edge responses with commonly used status codes.
+
+#### Constants
+
+- `STATUS_CODES`: An object containing various HTTP status codes.
+
+```ts
+export namespace Quick {
+  export const STATUS_CODES: {
+    OK: 200,
+    CREATED: 201,
+    ACCEPTED: 202,
+    // ... (other status codes)
+    NETWORK_AUTHENTICATION_REQUIRED: 511,
+  };
+}
+```
+
+#### Methods
+
+- `ok()`: Quickly end the response with status code 200.
+- `created()`: Quickly end the response with status code 201.
+- `accepted()`: Quickly end the response with status code 202.
+- `noContent()`: Quickly end the response with status code 204.
+- `resetContent()`: Quickly end the response with status code 205.
+- `partialContent()`: Quickly end the response with status code 206.
+- ... (other methods for different status codes)
+- `end()`: Quickly end the response with status code 200.
+- `send(body: unknown)`: Quickly send a response with status code 200 and custom body.
+- `text(body: string)`: Quickly send a text response with status code 200.
+- `json(body: unknown)`: Quickly send a JSON response with status code 200.
+- `code(status: number)`: Send & end a response with the specified status code.
+- `status(status: number)`: Set the status code of the response.
+
+```ts
+export namespace Quick {
+  export const ok: () => Response;
+  export const created: () => Response;
+  export const accepted: () => Response;
+  // ... (other methods)
+  export const end: () => Response;
+  export const send: (body: unknown) => Response;
+  export const text: (body: string) => Response;
+  export const json: (body: unknown) => Response;
+  export const code: (status: number) => Response;
+  export const status: (status: number) => EdgeResponse;
+}
+```
+
+## Links
+
+The `Quick` class is in the same file as the `EdgeResponse` class, so you can find the source code here:
+
+- [response.ts](https://github.com/m10rten/suite/blob/main/packages/edge/src/response.ts)

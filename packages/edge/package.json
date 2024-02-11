@@ -26,12 +26,25 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./response": {
+      "import": "./dist/response.mjs",
+      "require": "./dist/response.js",
+      "types": "./dist/response.d.ts"
+    },
+    "./edge": {
+      "import": "./dist/edge.mjs",
+      "require": "./dist/edge.js",
+      "types": "./dist/edge.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
       "edge": [
         "dist/edge.d.ts"
+      ],
+      "response": [
+        "dist/response.d.ts"
       ]
     }
   },
