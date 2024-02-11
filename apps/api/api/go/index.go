@@ -28,7 +28,7 @@ func registerRouter(r *gin.RouterGroup) {
 	})
 
 	// Route for square root calculation
-	r.GET("/api/square/:num", func(c *gin.Context) {
+	r.GET("/api/math/square/:num", func(c *gin.Context) {
 		num := c.Param("num")
 		n, err := util.ToInt(num)
 		if err != nil {
@@ -42,7 +42,22 @@ func registerRouter(r *gin.RouterGroup) {
 		})
 	})
 
-	r.POST("/api/validate", func(c *gin.Context) {
+	r.GET("/api/math/root/:num", func(c *gin.Context) {
+		num := c.Param("num")
+		n, err := util.ToInt(num)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"result": util.Root(n),
+		})
+	})
+
+
+	r.POST("/api/users/validate", func(c *gin.Context) {
 		schema := z.Object(map[string]util.Validator{
 			"name": z.String(),
 			"age":  z.Number(),

@@ -2,8 +2,16 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/api/go/(.*)",
+      "destination": "/api/go/index"
+    },
+    {
+      "source": "/api/ts/(.*)",
+      "destination": "/api/ts/index"
+    },
+    {
       "source": "/api/(.*)",
-      "destination": "/api/index"
+      "destination": "/api/not-found"
     }
   ]
 }

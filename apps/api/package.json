@@ -1,0 +1,14 @@
+{
+  "name": "api",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "private": true,
+  "version": "0.0.0",
+  "devDependencies": {
+    "@types/node": "20.11.17"
+  },
+  "dependencies": {
+    "zod": "3.22.4"
+  }
+}
