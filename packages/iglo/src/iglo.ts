@@ -45,7 +45,7 @@ export interface IgloI {
    * console.log(result);
    * ```
    */
-  shell<T>(callback: () => T, options?: ShellOptions): Promise<T>;
+  shell<T>(callback: () => Promise<T>, options?: ShellOptions): Promise<T>;
 }
 
 export interface ShellOptions {}
@@ -131,7 +131,7 @@ export class Iglo implements IgloI {
     throw error;
   }
 
-  async shell<T>(callback: () => T): Promise<T> {
+  async shell<T>(callback: () => Promise<T>): Promise<T> {
     try {
       return await callback();
     } catch (error) {
