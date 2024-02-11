@@ -62,30 +62,6 @@ Should make a custom request object with the added properties, it takes a functi
 An object with methods for handling different HTTP methods (`GET`, `POST`, `PUT`, `DELETE`, `PATCH`, `OPTIONS`, `HEAD`) which all use the same handler function provided.
 
 ```ts
-static custom<TProps extends Record<string, unknown>>(
-  middleware: (
-    req: Request,
-  ) => (Promise<TProps> | TProps) | (Response | Promise<Response>),
-  handler: <TReq extends Request & TProps>(
-    request: TReq,
-  ) => Promise<Response> | Response,
-): {
-  default: (request: Request) => Promise<Response>;
-  GET: (request: Request) => Promise<Response>;
-  POST: (request: Request) => Promise<Response>;
-  PUT: (request: Request) => Promise<Response>;
-  DELETE: (request: Request) => Promise<Response>;
-  PATCH: (request: Request) => Promise<Response>;
-  OPTIONS: (request: Request) => Promise<Response>;
-  HEAD: (request: Request) => Promise<Response>;
-};
-```
-
-### Default export
-
-`Edge` class providing route handling functionalities.
-
-```ts
 export class Edge {
   static custom<TProps extends Record<string, unknown>>(
     middleware: (
