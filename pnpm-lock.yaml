@@ -76,6 +76,9 @@ importers:
       "@mvdlei/log":
         specifier: workspace:^
         version: link:../../packages/log
+      "@mvdlei/reset":
+        specifier: workspace:^
+        version: link:../../packages/reset
       "@mvdlei/types":
         specifier: workspace:^
         version: link:../../packages/types

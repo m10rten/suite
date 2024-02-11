@@ -6,6 +6,7 @@
 import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
+import { z } from "zod";
 
 const args = process.argv.slice(2);
 const packageName = args[0];
@@ -33,7 +34,17 @@ fs.cpSync(templatePath, packagePath, { recursive: true });
 
 // update the package.json with the new package name
 const newName = `@mvdlei/${packageName}`;
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+const schema = z.object({
+  name: z.string(),
+  private: z.boolean().optional(),
+  publishConfig: z
+    .object({
+      access: z.string(),
+    })
+    .optional(),
+});
+const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+const packageJson = schema.parse(packageJsonContent);
 packageJson.name = newName;
 if (shouldInternal) {
   packageJson.private = true;
