@@ -31,8 +31,8 @@ import { Edge } from "@mvdlei/edge";
 type MyProps = {
   myProp: string;
 };
-
-export const { GET, POST } = Edge.custom<MyProps>(
+// best practice is to use: Edge.custom<MyProps>(...)
+export const { GET, POST } = Edge.custom(
   (req) => {
     // set it how you want, you have the request object to your disposal
     // recommended usage is with a tool like zod to validate the request
@@ -48,7 +48,7 @@ export const { GET, POST } = Edge.custom<MyProps>(
 
 ## API Reference
 
-### Edge.custom<TProps>(middleware, handler)
+### Edge.custom(middleware, handler)
 
 Should make a custom request object with the added properties, it takes a function to set the properties.
 
