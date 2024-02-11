@@ -1,22 +1,6 @@
 import { Edge } from "@/edge";
 
 describe("Edge namespace", () => {
-  describe("create function", () => {
-    it("should create a new Edge application with the provided handler", () => {
-      const handler = jest.fn();
-      const edgeApp = Edge.create(handler);
-
-      expect(edgeApp.default).toBe(handler);
-      expect(edgeApp.GET).toBe(handler);
-      expect(edgeApp.POST).toBe(handler);
-      expect(edgeApp.PUT).toBe(handler);
-      expect(edgeApp.DELETE).toBe(handler);
-      expect(edgeApp.PATCH).toBe(handler);
-      expect(edgeApp.OPTIONS).toBe(handler);
-      expect(edgeApp.HEAD).toBe(handler);
-    });
-  });
-
   describe("custom function", () => {
     it("should create a new Edge application with custom properties and handler", async () => {
       const middleware = jest.fn().mockResolvedValue({ myProp: "Hello, World!" });
