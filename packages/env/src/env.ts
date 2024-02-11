@@ -33,7 +33,7 @@ export interface BaseOptions<TEnv extends Record<string, ZodType>> {
    * Whether to skip validation of environment variables.
    * @default false
    */
-  validate?: boolean;
+  skip?: boolean;
 
   /**
    * By default, this library will feed the environment variables directly to
@@ -160,7 +160,7 @@ export function define<
     }
   }
 
-  const skip = !!opts.validate;
+  const skip = !!opts.skip;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
   if (skip) return source as any;
 
