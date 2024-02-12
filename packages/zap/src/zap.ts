@@ -52,19 +52,13 @@ export interface IZap {
   unsafe_set: (options: Partial<IZapOptions>) => void;
 }
 
-// export type Interceptor =
-//   | ((input: Request) => Request)
-//   | ((input: Response) => Response);
-
 export interface IZapOptions {
   baseUrl?: string;
-  // interceptors?: Array<Interceptor>;
   timeout?: number;
 }
 
 const defaultOptions: IZapOptions = {
   baseUrl: undefined,
-  // interceptors: [],
   timeout: undefined,
 };
 
@@ -110,6 +104,11 @@ export class Zap implements IZap {
   define<TInput extends AnyInput, TOutput extends AnyOutput>(
     options: DefineOptions<TInput, TOutput>,
   ): Call<TInput, TOutput> {
+    /**
+     * Returns a function that will make a request to the given URL with the given options.
+     *
+     * @param input - The input to be sent to the server, if input in a GET request, it will be appended to the URL as query params.
+     */
     return async (input) => {
       const controller = new AbortController();
       const ms = this.timeout ?? 15_000;

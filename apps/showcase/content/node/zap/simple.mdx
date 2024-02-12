@@ -144,18 +144,36 @@ const options: DefineOptions<{ userId: string }, { id: number }> = {
 };
 ```
 
+#### Callback Function
+
+When defining a request, you will receive a callback function that takes an input object and returns a `Promise` of the response payload.
+
+This input will be parsed to query parameters for `GET` requests and as the request payload for other methods.
+
+```tsx
+const getTodo = zap.define({
+  url: "/todos/1",
+  method: "GET",
+  output: z.object({
+    userId: z.number(),
+    id: z.number(),
+    title: z.string(),
+    completed: z.boolean(),
+  }),
+  input: z.object({
+    userId: z.string(),
+  }),
+});
+
+const todo = await getTodo({ userId: "1" });
+// ^ /todos/1?userId=1
+```
+
 ### Example
 
 ```tsx
 import { RestMethods, zap } from "@mvdlei/zap";
 import { z } from "zod";
-
-const fetchData = async () => {
-  // Simulate asynchronous operation
-  return new Promise<string>((resolve) => {
-    setTimeout(() => resolve("Data fetched successfully"), 1000);
-  });
-};
 
 const main = async () => {
   try {
@@ -172,6 +190,9 @@ const main = async () => {
         id: z.number(),
         title: z.string(),
         completed: z.boolean(),
+      }),
+      input: z.object({
+        userId: z.string(),
       }),
     });
     const todo = await getTodo({ userId: "1" });
