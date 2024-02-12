@@ -1,5 +1,15 @@
 # showcase
 
+## 0.1.14
+
+### Patch Changes
+
+- Updated dependencies [c902d7f]
+- Updated dependencies [c902d7f]
+  - @mvdlei/zap@0.0.6
+  - @mvdlei/tzod@0.1.1
+  - @mvdlei/hooks@0.1.6
+
 ## 0.1.13
 
 ### Patch Changes

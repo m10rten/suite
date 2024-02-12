@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.1.1
+
+### Patch Changes
+
+- c902d7f: Updated with more acurate typings, to.url and is.instanceof functions
+
 ## 0.1.0
 
 ### Minor Changes
