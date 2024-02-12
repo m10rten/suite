@@ -77,8 +77,25 @@ export interface IIs {
   /**
    * Because of the way `instanceof` works, you are required to pass the class or Object as second argument.
    * The first argument is a class or object instance you want to check against.
+   *
+   * Make sure to use the `new` keyword when using this function. otherewise you will check against the class itself and not the instance, so the result will not be as expected.
+   *
+   * @param c - The class or object instance you want to check against
+   * @param v - The value you want to check
+   * @returns
+   * - `true` if the value is an instance of the class
+   * - `false` if the value is not an instance of the class
    */
-  of: <C>(c: C, v: unknown) => v is C;
+  instanceof: <C>(c: new (...args: any[]) => C, v: unknown) => v is C;
+
+  /**
+   * Check if a value is of a certain type with a predicate function
+   * @param v value to check
+   * @param f predicate function
+   * @returns `true` if the value is of the type
+   * @returns `false` if the value is not of the type
+   */
+  of: <C extends V, V>(v: V, f: (v: V) => v is C) => boolean;
 
   /**
    * Check if the current environment is the browser or not.
@@ -144,9 +161,12 @@ export class Is implements IIs {
     return c.safeParse(v).success;
   };
 
-  public of = <C>(c: C, v: unknown): v is C => {
-    // @ts-expect-error - this is a hack to get it to work.
+  public instanceof = <C>(c: new (...args: any[]) => C, v: unknown): v is C => {
     return v instanceof c;
+  };
+
+  public of = <C extends V, V>(v: V, f: (v: V) => v is C): v is C => {
+    return f(v);
   };
 
   public falsy(value: unknown): value is Falsy {
@@ -168,3 +188,30 @@ export class Is implements IIs {
     return !this.server();
   }
 }
+
+/**
+ * Test code:
+ */
+// const is = new Is();
+
+// const isURL = (url: URL | string | Request): url is URL => url instanceof URL;
+
+// const myTest: any = new URL("https://example.com");
+
+// const test = is.of(myTest, isURL);
+// if (test) {
+//   console.log("Test passed", myTest);
+// }
+
+// if (isURL(myTest)) {
+//   console.log("Test passed", myTest);
+// }
+
+// if (is.instanceof(URL, myTest)) {
+//   console.log("Test passed", myTest);
+// }
+
+// const isOf = (v: unknown): v is URL => v instanceof URL;
+// if (is.of(myTest, isOf)) {
+//   console.log("Test passed", myTest);
+// }

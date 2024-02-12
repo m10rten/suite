@@ -188,28 +188,35 @@ describe("Is Class", () => {
       class MyClass {
         public constructor(public readonly name: string) {}
       }
-      const result = is.of(MyClass, new MyClass("MyInstance of myClass"));
+      const isMyClass = (value: unknown): value is MyClass => {
+        return value instanceof MyClass;
+      };
+      const myClass = new MyClass("hello");
+      const result = is.of(myClass, isMyClass);
       expect(result).toBe(true);
     });
+  });
 
+  describe("instanceof", () => {
     it("should return false if value is not of", () => {
       class MyClass {
         public constructor(public readonly name: string) {}
       }
-      const result = is.of(MyClass, "hello" as any);
+      const result = is.instanceof(MyClass, "hello" as any);
       expect(result).toBe(false);
     });
 
     it("should work for objects with no constructor", () => {
-      const result = is.of(Object, {});
+      const result = is.instanceof(Object, {});
       expect(result).toBe(true);
     });
 
     it("should error for non-callable objects", () => {
-      expect(() => is.of({ test: "test" }, { test: "test" })).toThrow();
+      // @ts-expect-error - Testing for error
+      expect(() => is.instanceof({ test: "test" }, { test: "test" })).toThrow();
     });
     it("should not throw for Object", () => {
-      expect(() => is.of(Object, { test: "test" })).not.toThrow();
+      expect(() => is.instanceof(Object, { test: "test" })).not.toThrow();
     });
   });
 

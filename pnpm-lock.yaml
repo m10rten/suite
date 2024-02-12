@@ -629,6 +629,9 @@ importers:
       "@mvdlei/types":
         specifier: workspace:*
         version: link:../types
+      "@mvdlei/tzod":
+        specifier: workspace:*
+        version: link:../tzod
     devDependencies:
       "@types/node":
         specifier: 20.11.2

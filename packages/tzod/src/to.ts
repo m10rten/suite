@@ -16,6 +16,11 @@ export interface ITo {
   any: Coerce<any>;
   array: Coerce<unknown[]>;
   date: Coerce<Date>;
+  /**
+   * Coerce a value to a URL
+   * @param value {URL | string | Request} - typed as unknown, will throw an error if the value is not a URL, string or Request
+   */
+  url: Coerce<URL>;
   error: Coerce<Error>;
   promise: Coerce<Awaitable<unknown>>;
   parse: <T>(t: z.ZodType<T>) => Coerce<T>;
@@ -53,12 +58,23 @@ export class To implements ITo {
     const s = z.any();
     return s.safeParse(value).success ? new Error(z.any().parse(value)) : new Error();
   }
-  public promise(value: unknown): Promise<unknown> {
+  public promise<U>(value: U): Promise<U> {
     return new Promise((resolve) => resolve(z.any().parse(value)));
   }
   public any(value: unknown): any {
     return z.any().parse(value);
   }
+
+  public url(value: unknown): URL {
+    const make = (v: unknown): URL => {
+      if (typeof v === "string") return new URL(v);
+      if (v instanceof URL) return v;
+      if (v instanceof Request) return new URL(v.url);
+      throw new Error("Invalid URL");
+    };
+    return make(value);
+  }
+
   public array(value: unknown): unknown[] {
     if (!Array.isArray(value)) return new Array(value);
     return this._safe_to(z.array(z.any()), value, new Array(value));

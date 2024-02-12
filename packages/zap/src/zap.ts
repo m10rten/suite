@@ -1,4 +1,5 @@
 import { logger } from "@mvdlei/log";
+import { t } from "@mvdlei/tzod";
 import { z } from "zod";
 
 type Azod = z.ZodTypeAny;
@@ -67,9 +68,9 @@ const defaultOptions: IZapOptions = {
   timeout: undefined,
 };
 
-export type RestMethod = (typeof RestMethods)[keyof typeof RestMethods];
+export type HTTP = (typeof HttpMethods)[keyof typeof HttpMethods];
 
-export const RestMethods = {
+export const HttpMethods = {
   GET: "GET",
   POST: "POST",
   PUT: "PUT",
@@ -81,7 +82,7 @@ export const RestMethods = {
 } as const;
 
 export type DefineOptions<Input, Output> = {
-  url: string;
+  url: URL | string | Request;
   output: Output;
   headers?: Record<string, string>;
 } & (
@@ -91,7 +92,7 @@ export type DefineOptions<Input, Output> = {
     }
   | {
       input: Input;
-      method?: RestMethod;
+      method?: HTTP;
     }
 );
 
@@ -112,14 +113,26 @@ export class Zap implements IZap {
     return async (input) => {
       const controller = new AbortController();
       const ms = this.timeout ?? 15_000;
-      const url = this.baseUrl ? `${this.baseUrl}${options.url}` : options.url;
+
+      const url: URL = this.baseUrl
+        ? t.is.string(options.url) || t.is.instanceof(URL, options.url)
+          ? new URL(options.url, this.baseUrl)
+          : new URL(options.url.url, this.baseUrl)
+        : t.is.string(options.url) || t.is.instanceof(URL, options.url)
+          ? new URL(options.url)
+          : new URL(options.url.url);
 
       // add query params
       const params = new URLSearchParams(input as Record<string, string>);
-      const urlWithParams = `${url}?${params.toString()}`;
+
+      const urlWithParams = new URL(url);
+      for (const [key, value] of Object.entries(params)) {
+        urlWithParams.searchParams.append(key, t.to.string(value));
+      }
+
       const timeout = setTimeout(() => {
         logger.error("Timeout while fetching", {
-          url: options.method === RestMethods.GET ? urlWithParams : url,
+          url: options.method === HttpMethods.GET ? urlWithParams : url,
           timeout: ms,
         });
         controller.abort();
@@ -134,9 +147,10 @@ export class Zap implements IZap {
       });
 
       const withOrWithoutBody =
-        options.method === RestMethods.GET ? {} : { body: JSON.stringify(input) };
+        options.method === HttpMethods.GET ? {} : { body: JSON.stringify(input) };
+
       const response = await fetch(
-        options?.method === RestMethods.GET ? urlWithParams : url,
+        options?.method === HttpMethods.GET ? urlWithParams : url,
         {
           ...withOrWithoutBody,
           method: options.method ?? "POST",
@@ -175,80 +189,80 @@ export class Zap implements IZap {
 /**
  * Be aware that this is a singleton instance of Zap.
  *
- * This instance does not have a baseUrl set, so you will need to set it manually on each call or use `zap.set({ baseUrl: "https://example.com" })` to set it globally for all calls on this instance.
+ * This instance does not have a baseUrl set, so you will need to set it manually on each call or use `zap.set({ baseUrl: "HttpMethods://example.com" })` to set it globally for all calls on this instance.
  */
-export const zap = new Zap();
+// export const zap = new Zap();
 export default Zap;
 
 /**
  * Test code:
  */
 
-// const zap = new Zap({ baseUrl: "http://10.255.255.1", timeout: 3000 });
+const zap = new Zap({ baseUrl: "http://10.255.255.1", timeout: 3000 });
 
-// const main = async () => {
-//   try {
-//     //correct usage with timeout on baseUrl
-//     const getTodo = zap.define({
-//       url: "/todos/1",
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//         "X-My-Header": "Hello World",
-//       },
-//       output: z.object({
-//         userId: z.number(),
-//         id: z.number(),
-//         title: z.string(),
-//         completed: z.boolean(),
-//       }),
-//     });
-//     const todo = await getTodo({ userId: "1" });
-//     // eslint-disable-next-line no-console
-//     console.log(todo);
-//   } catch (error) {
-//     logger.error("Error", { error });
-//   }
+const main = async () => {
+  try {
+    //correct usage with timeout on baseUrl
+    const getTodo = zap.define({
+      url: "/todos/1",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-My-Header": "Hello World",
+      },
+      output: z.object({
+        userId: z.number(),
+        id: z.number(),
+        title: z.string(),
+        completed: z.boolean(),
+      }),
+    });
+    const todo = await getTodo({ userId: "1" });
+    // eslint-disable-next-line no-console
+    console.log(todo);
+  } catch (error) {
+    logger.error("Error", { error });
+  }
 
-//   try {
-//     //correct usage with correct types
-//     zap.unsafe_set({ baseUrl: "https://jsonplaceholder.typicode.com" });
-//     const another = zap.define({
-//       url: "/todos/2",
-//       method: "GET",
-//       output: z.object({
-//         userId: z.number(),
-//         id: z.number(),
-//         title: z.string(),
-//         completed: z.boolean(),
-//       }),
-//     });
-//     const user = await another();
-//     logger.info("User", { user });
-//   } catch (error) {
-//     logger.error("Error on User", { error });
-//   }
+  try {
+    //correct usage with correct types
+    zap.unsafe_set({ baseUrl: "HttpMethods://jsonplaceholder.typicode.com" });
+    const another = zap.define({
+      url: "/todos/2",
+      method: "GET",
+      output: z.object({
+        userId: z.number(),
+        id: z.number(),
+        title: z.string(),
+        completed: z.boolean(),
+      }),
+    });
+    const user = await another();
+    logger.info("User", { user });
+  } catch (error) {
+    logger.error("Error on User", { error });
+  }
 
-//   try {
-//     //correct usage with incorrect types
-//     zap.unsafe_set({ baseUrl: "https://jsonplaceholder.typicode.com" });
-//     const another = zap.define({
-//       url: "/todos/5",
-//       method: "GET",
-//       output: z.object({
-//         userId: z.number(),
-//         id: z.number(),
-//         title: z.string(),
-//         completed: z.boolean(),
-//       }),
-//     });
-//     const todo = await another();
-//     logger.info("ToDO", { todo });
-//   } catch (error) {
-//     logger.error("Error on ToDO", { error });
-//   }
+  try {
+    //correct usage with incorrect types
+    zap.unsafe_set({ baseUrl: "HttpMethods://jsonplaceholder.typicode.com" });
+    const another = zap.define({
+      url: "/todos/5",
+      method: "GET",
+      output: z.object({
+        userId: z.number(),
+        id: z.number(),
+        title: z.string(),
+        completed: z.boolean(),
+      }),
+    });
+    const todo = await another();
+    logger.info("ToDO", { todo });
+  } catch (error) {
+    logger.error("Error on ToDO", { error });
+  }
 
-//   process.exit(0);
-// };
+  process.exit(0);
+};
 
-// main();
+main();

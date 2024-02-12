@@ -71,6 +71,36 @@ describe("To Class", () => {
     });
   });
 
+  describe("url", () => {
+    it("should coerce value to URL", () => {
+      const result = to.url("https://example.com");
+      expect(result).toBeInstanceOf(URL);
+      expect(result.href).toBe("https://example.com/");
+    });
+
+    it("should coerce value to URL when it's a Request", () => {
+      const result = to.url(new Request("https://example.com"));
+      expect(result).toBeInstanceOf(URL);
+      expect(result.href).toBe("https://example.com/");
+    });
+
+    it("should coerce value to URL when it's a URL", () => {
+      const result = to.url(new URL("https://example.com"));
+      expect(result).toBeInstanceOf(URL);
+      expect(result.href).toBe("https://example.com/");
+    });
+
+    it("should coerce value to URL when it's a string", () => {
+      const result = to.url("https://example.com");
+      expect(result).toBeInstanceOf(URL);
+      expect(result.href).toBe("https://example.com/");
+    });
+
+    it("should throw when it's a number", () => {
+      expect(() => to.url(123 as any)).toThrow();
+    });
+  });
+
   describe("error", () => {
     it("should coerce value to Error", () => {
       const message = "hello";

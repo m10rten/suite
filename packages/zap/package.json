@@ -51,7 +51,8 @@
   ],
   "dependencies": {
     "@mvdlei/log": "workspace:*",
-    "@mvdlei/types": "workspace:*"
+    "@mvdlei/types": "workspace:*",
+    "@mvdlei/tzod": "workspace:*"
   },
   "peerDependencies": {
     "zod": "3.22.4"
