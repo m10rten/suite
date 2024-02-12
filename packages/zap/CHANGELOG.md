@@ -1,5 +1,13 @@
 # @mvdlei/zap
 
+## 0.0.6
+
+### Patch Changes
+
+- c902d7f: Update to use tzod and take in any URL | string | Request
+- Updated dependencies [c902d7f]
+  - @mvdlei/tzod@0.1.1
+
 ## 0.0.5
 
 ### Patch Changes
