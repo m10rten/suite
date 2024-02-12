@@ -73,11 +73,8 @@ export type PropertyKeys<T> = T extends object ? keyof T : never;
  * @template X - Type to compare
  * @template Y - Type to compare
  */
-export type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y
-  ? 1
-  : 2
-  ? true
-  : false;
+export type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? true : false;
 
 /**
  * @type {NotEqual} - Type alias for type inequality

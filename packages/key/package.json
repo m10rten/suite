@@ -17,7 +17,7 @@
   "author": "m10rten",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "20.11.5",
+    "@types/node": "20.11.17",
     "internal-config": "workspace:*",
     "zod": "3.22.4"
   },

@@ -24,7 +24,7 @@
   "license": "",
   "devDependencies": {
     "@types/google-protobuf": "3.15.12",
-    "@types/node": "20.11.16",
+    "@types/node": "20.11.17",
     "grpc-tools": "1.12.4",
     "internal-config": "workspace:^",
     "protoc-gen-js": "3.21.2",
