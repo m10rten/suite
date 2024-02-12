@@ -34,6 +34,38 @@ const is = t.is;
 
 ## Methods
 
+### Instanceof Check
+
+Be sure to call the class with new before passing it to the `instanceof` method.
+
+#### `instanceof<T>(constructor: new (...args: any[]) => T, value: unknown): value is T`
+
+Checks if the value is an instance of a class.
+
+Example:
+
+```typescript
+class MyClass {
+  constructor(public readonly name: string) {}
+}
+
+const result = is.instanceof(MyClass, new MyClass("Instance of MyClass"));
+// ^ true
+```
+
+### Custom Check with `of`
+
+#### `of<T>(constructor: T, func: (value: T) => value is T): value is T`
+
+Checks if the value passes a custom check.
+
+Example:
+
+```typescript
+const result = is.of("Hello", (value) => value === "Hello");
+// ^ true
+```
+
 ### String Check
 
 #### `string(value: unknown): value is string`
@@ -44,7 +76,14 @@ Example:
 
 ```typescript
 const result = is.string("Hello");
-// result is true
+// ^ true
+```
+
+Negative example:
+
+```typescript
+const result = is.string(42);
+// ^ false
 ```
 
 ### Number Check
@@ -57,7 +96,7 @@ Example:
 
 ```typescript
 const result = is.number(42);
-// result is true
+// ^ true
 ```
 
 ### Null Check
@@ -70,7 +109,7 @@ Example:
 
 ```typescript
 const result = is.null(null);
-// result is true
+// ^ true
 ```
 
 ### Undefined Check
@@ -83,7 +122,7 @@ Example:
 
 ```typescript
 const result = is.undefined(undefined);
-// result is true
+// ^ true
 ```
 
 ### Boolean Check
@@ -96,7 +135,7 @@ Example:
 
 ```typescript
 const result = is.boolean(true);
-// result is true
+// ^ true
 ```
 
 ### BigInt Check
@@ -109,7 +148,7 @@ Example:
 
 ```typescript
 const result = is.bigint(BigInt(42));
-// result is true
+// ^ true
 ```
 
 ### Symbol Check
@@ -122,7 +161,7 @@ Example:
 
 ```typescript
 const result = is.symbol(Symbol("Hello"));
-// result is true
+// ^ true
 ```
 
 ### Object Check
@@ -135,7 +174,7 @@ Example:
 
 ```typescript
 const result = is.object({ key: "value" });
-// result is true
+// ^ true
 ```
 
 ### Array Check
@@ -148,7 +187,7 @@ Example:
 
 ```typescript
 const result = is.array([1, 2, 3]);
-// result is true
+// ^ true
 ```
 
 ### Function Check
@@ -161,7 +200,7 @@ Example:
 
 ```typescript
 const result = is.function(() => {});
-// result is true
+// ^ true
 ```
 
 ### Any Check
@@ -174,7 +213,7 @@ Example:
 
 ```typescript
 const result = is.any("Hello");
-// result is true
+// ^ true
 ```
 
 ### Date Check
@@ -187,7 +226,7 @@ Example:
 
 ```typescript
 const result = is.date(new Date());
-// result is true
+// ^ true
 ```
 
 ### Error Check
@@ -200,7 +239,7 @@ Example:
 
 ```typescript
 const result = is.error(new Error("Something went wrong"));
-// result is true
+// ^ true
 ```
 
 ### Promise Check
@@ -213,7 +252,7 @@ Example:
 
 ```typescript
 const result = is.promise(new Promise(() => {}));
-// result is true
+// ^ true
 ```
 
 ### Falsy Check
@@ -226,7 +265,7 @@ Example:
 
 ```typescript
 const result = is.falsy(null);
-// result is true
+// ^ true
 ```
 
 ### Schema Check
@@ -242,7 +281,7 @@ import { z } from "zod";
 
 const schema = z.string();
 const result = is.schema(schema, "Hello");
-// result is true
+// ^ true
 ```
 
 ### Of Check
@@ -259,7 +298,7 @@ class MyClass {
 }
 
 const result = is.of(MyClass, new MyClass("Instance of MyClass"));
-// result is true
+// ^ true
 ```
 
 ### Browser Check

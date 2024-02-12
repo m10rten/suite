@@ -1,0 +1,182 @@
+---
+published: true
+title: To Class - Mvdlei Tzod
+category: node
+package: tzod
+description: To Class for type casting with string, number, boolean, bigint, symbol, object, function, any, array, date, error, promise, and schema casts.
+---
+
+# To Class
+
+The `To` class provides a set of utility methods for type casting in TypeScript. It includes casts for basic types like string, number, boolean, bigint, symbol, object, function, any, array, date, error, promise, and custom casts using Zod schemas.
+
+## Usage
+
+### Importing the To Class
+
+```typescript
+import { To } from "@mvdlei/tzod/to";
+```
+
+### Creating an Instance
+
+```typescript
+const to = new To();
+```
+
+Or get from the singleton `t` instance:
+
+```typescript
+import { t } from "@mvdlei/tzod";
+
+const to = t.to;
+```
+
+## Methods
+
+### String Cast
+
+#### `string(value: unknown): string`
+
+Casts the value to a string.
+
+Example:
+
+```typescript
+const result = to.string(123);
+// ^ "123"
+```
+
+### Number Cast
+
+#### `number(value: unknown): number`
+
+Casts the value to a number.
+
+Example:
+
+```typescript
+const result = to.number("123");
+// ^ 123
+```
+
+### Boolean Cast
+
+#### `boolean(value: unknown): boolean`
+
+Casts the value to a boolean.
+
+Example:
+
+```typescript
+const result = to.boolean(0);
+// ^ false
+```
+
+### BigInt Cast
+
+#### `bigint(value: unknown): bigint`
+
+Casts the value to a bigint.
+
+Example:
+
+```typescript
+const result = to.bigint(123);
+// ^ 123n
+```
+
+### Symbol Cast
+
+#### `symbol(value: unknown): symbol`
+
+Casts the value to a symbol.
+
+Example:
+
+```typescript
+const result = to.symbol("symbol");
+// ^ Symbol("symbol")
+```
+
+### Url Cast
+
+#### `url(value: unknown): URL`
+
+Casts the value to a URL.
+
+Example:
+
+```typescript
+const result = to.url("https://example.com");
+// ^ URL { href: "https://example.com", ... }
+```
+
+### Promise Cast
+
+#### `promise<T>(value: unknown): Promise<T>`
+
+Casts the value to a Promise.
+
+Example:
+
+```typescript
+const result = to.promise("value");
+// ^ Promise { "value" }
+```
+
+### Date Cast
+
+#### `date(value: unknown): Date`
+
+Casts the value to a Date.
+
+Example:
+
+```typescript
+const result = to.date("2021-01-01");
+// ^ Date { "2021-01-01T00:00:00.000Z" }
+```
+
+### Error Cast
+
+#### `error(value: unknown): Error`
+
+Casts the value to an Error.
+
+Example:
+
+```typescript
+const result = to.error("Something went wrong");
+// ^ Error { "Something went wrong" }
+```
+
+### Readonly Cast
+
+#### `readonly<T>(value: T): Readonly<T>`
+
+Casts the value to a Readonly.
+
+Example:
+
+```typescript
+const result = to.readonly({ key: "value" });
+// ^ readonly { key: "value" }
+```
+
+### Array Cast
+
+#### `array<T>(value: unknown): T[]`
+
+Casts the value to an array.
+
+Example:
+
+```typescript
+const result = to.array("value");
+// ^ ["value"]
+```
+
+## Links
+
+- [to.ts](https://github.com/m10rten/suite/blob/main/packages/tzod/src/to.ts)
