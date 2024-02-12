@@ -1,5 +1,11 @@
 # @mvdlei/hooks
 
+## 0.1.5
+
+### Patch Changes
+
+- 91ed14b: useOnline hook added
+
 ## 0.1.4
 
 ### Patch Changes
