@@ -2,7 +2,7 @@
 import type { WithRequired } from "@mvdlei/types";
 import { z } from "zod";
 
-import { DefineOptions, RestMethods, Zap, type IZapOptions } from "./zap";
+import { DefineOptions, HttpMethods, Zap, type IZapOptions } from "./zap";
 
 export interface IStrike {
   /**
@@ -119,7 +119,7 @@ export class StrikeRequest<
   get = async (id: string) => {
     return this.zap.define({
       url: `${this.path}/${id}`,
-      method: RestMethods.GET,
+      method: HttpMethods.GET,
       input: z.string(),
       output: this.options?.get?.output ?? this.model,
     })();
@@ -128,7 +128,7 @@ export class StrikeRequest<
   new = async (input: Omit<z.infer<TModel>, "id">) => {
     return this.zap.define({
       url: this.path,
-      method: RestMethods.POST,
+      method: HttpMethods.POST,
       input,
       output: this.options?.new?.output ?? this.model,
     })(input);
@@ -137,7 +137,7 @@ export class StrikeRequest<
   list = async (options: Partial<ListOptions>) => {
     const res = await this.zap.define({
       url: this.path,
-      method: RestMethods.GET,
+      method: HttpMethods.GET,
       output: z.array(this.model),
     })(options);
     if (!options?.offset && !options?.limit) return res;
@@ -149,7 +149,7 @@ export class StrikeRequest<
   delete = async (id: string) => {
     return this.zap.define({
       url: `${this.path}/${id}`,
-      method: RestMethods.DELETE,
+      method: HttpMethods.DELETE,
       input: z.string(),
       output: z.undefined(),
     })();
@@ -158,7 +158,7 @@ export class StrikeRequest<
   update = async (id: string, input: Partial<z.infer<TModel>>) => {
     return this.zap.define({
       url: `${this.path}/${id}`,
-      method: RestMethods.PATCH,
+      method: HttpMethods.PATCH,
       input,
       output: this.model,
     })(input);
