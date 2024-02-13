@@ -18,7 +18,10 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "moduleResolution": "Bundler",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "@ui/*": ["../../packages/ui/*"]
+    }
   },
   "include": ["src", "next-env.d.ts"],
   "exclude": ["node_modules"]

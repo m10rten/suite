@@ -4,10 +4,9 @@
     "jsx": "preserve",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "baseUrl": ".",
-    "rootDir": ".",
     "declaration": true,
     "paths": {
-      "@/*": ["./*"]
+      "@ui/*": ["./*"]
     }
   },
   "include": ["."],

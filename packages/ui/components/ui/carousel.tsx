@@ -1,13 +1,14 @@
+"use client";
+
 import * as React from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import { Button } from "@ui/components/ui/button";
+import { cn } from "@ui/lib/utils";
 import useEmblaCarousel, {
   type EmblaCarouselType as CarouselApi,
   type EmblaOptionsType as CarouselOptions,
   type EmblaPluginType as CarouselPlugin,
 } from "embla-carousel-react";
-
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 type CarouselProps = {
   opts?: CarouselOptions;

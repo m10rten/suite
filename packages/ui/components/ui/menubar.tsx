@@ -3,8 +3,7 @@
 import * as React from "react";
 import { CheckIcon, ChevronRightIcon, DotFilledIcon } from "@radix-ui/react-icons";
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
-
-import { cn } from "@/lib/utils";
+import { cn } from "@ui/lib/utils";
 
 const MenubarMenu = MenubarPrimitive.Menu;
 

@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { GeistSans } from "geist/font/sans";
 
+import { cn } from "@/lib/utils";
 import Footer from "#/footer";
 import Header from "#/header";
 import Providers from "#/providers";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={GeistSans.className}>
+      <body className={cn(GeistSans.className)}>
         <Providers>
           <Header />
           {children}
