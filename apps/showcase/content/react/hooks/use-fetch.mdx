@@ -44,7 +44,7 @@ A hook to make requests with the Fetch API in React.
 
 - `url: URL | string | Request`: The URL to request.
 - `options?: RequestInit`: The options to pass to fetch.
-- `config?: Partial<FetchConfig<T>>`: The configuration for the request.
+- `config?: Partial<FetchConfig>`: The configuration for the request.
 
 #### Returns
 
@@ -66,12 +66,14 @@ export class HTTPError extends Error {
 }
 ```
 
-#### FetchConfig<T>
+#### FetchConfig
 
 A type representing the configuration for the request.
 
+`FetchConfig` is a generic type that takes a type parameter `T` representing the response data.
+
 ```typescript
-export type FetchConfig<T> = {
+export type FetchConfig = {
   timeout?: number | string | null | undefined;
   onSucces?: (data: T) => void | Promise<void>;
   onError?: (error: HTTPError) => void | Promise<void>;
@@ -87,7 +89,7 @@ const { data, error, loading, mutate, abort } = useFetch("https://api.example.co
 
 ## Customizations
 
-- You can provide additional options and configurations according to the Fetch API and the provided `FetchConfig<T>` type.
+- You can provide additional options and configurations according to the Fetch API and the provided `FetchConfig` type.
 
 ## Links
 
