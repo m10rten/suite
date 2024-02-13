@@ -1,0 +1,94 @@
+---
+published: true
+title: useFetch - Mvdlei Hooks
+category: react
+package: hooks
+description: React hook for fetching data with loading, error, and result states.
+---
+
+# useFetch Hook
+
+A React hook for fetching data with loading, error, and result states. Easy abort and error handling.
+
+## Installation
+
+Pre-requisite: You need to have `react` and `react-dom` installed in your project.
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Simple Usage
+
+```tsx
+import { useFetch } from './useFetch';
+
+const MyComponent = () => {
+  const { data, error, loading, mutate, abort } = useFetch("https://api.example.com");
+
+  // Your component logic here
+
+  return (
+    // Your JSX code here
+  );
+};
+```
+
+## API Reference
+
+### useFetch
+
+A hook to make requests with the Fetch API in React.
+
+#### Parameters
+
+- `url: URL | string | Request`: The URL to request.
+- `options?: RequestInit`: The options to pass to fetch.
+- `config?: Partial<FetchConfig<T>>`: The configuration for the request.
+
+#### Returns
+
+An object containing the following properties:
+
+- `mutate: () => Promise<void>`: A function to make the request.
+- `abort: () => void`: A function to abort the current request.
+- `data: T | undefined`: The response data.
+- `error: HTTPError | undefined`: The error object if the request fails.
+- `loading: boolean`: A boolean indicating whether the request is in progress.
+
+#### HTTPError
+
+An error class representing an HTTP error.
+
+```typescript
+export class HTTPError extends Error {
+  constructor(public response: Response);
+}
+```
+
+#### FetchConfig<T>
+
+A type representing the configuration for the request.
+
+```typescript
+export type FetchConfig<T> = {
+  timeout?: number | string | null | undefined;
+  onSucces?: (data: T) => void | Promise<void>;
+  onError?: (error: HTTPError) => void | Promise<void>;
+  onAbort?: () => void | Promise<void>;
+};
+```
+
+#### Example
+
+```tsx
+const { data, error, loading, mutate, abort } = useFetch("https://api.example.com");
+```
+
+## Customizations
+
+- You can provide additional options and configurations according to the Fetch API and the provided `FetchConfig<T>` type.
+
+## Links
+
+- [use-fetch.ts](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-fetch.ts)
