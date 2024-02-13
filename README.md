@@ -11,6 +11,7 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 ### `Packages`
 
 - `@mvdlei/zap` - A utility class for `fetch` with `zod`. Includes `Strike` and `Zap`.
+- `@mvdlei/hooks` - A collection of React hooks for various functionalities.
 - `@mvdlei/key` - A utility class for encryption and decryption. Includes `Enigma`.
 - `@mvdlei/tzod` - A utility class for `zod`. Includes `T` class.
 - `@mvdlei/env` - A utility for environment variables.
