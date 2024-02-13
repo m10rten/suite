@@ -1,5 +1,12 @@
 # showcase
 
+## 0.1.15
+
+### Patch Changes
+
+- Updated dependencies [f4b78e5]
+  - @mvdlei/hooks@0.1.7
+
 ## 0.1.14
 
 ### Patch Changes

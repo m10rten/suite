@@ -1,5 +1,11 @@
 # @mvdlei/hooks
 
+## 0.1.7
+
+### Patch Changes
+
+- f4b78e5: Added useFetch hook
+
 ## 0.1.6
 
 ### Patch Changes
