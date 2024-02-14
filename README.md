@@ -26,6 +26,14 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 - `showcase` - A showcase of the packages in this repository.
 - `api` - An API folder where the API's can be stored.
 
+### `Examples`
+
+A folder containing examples for random code snippets.
+
+- `next-cache` - An example of how to cache data in a Next.js application.
+- `drizzle-pull` - An example of how to pull data from a PostgreSQL database with `drizzle-orm`.
+- `prisma-pull` - An example of how to pull data from a PostgreSQL database with `prisma`.
+
 ### `pkg`
 
 - `util` - A utility module for `Go`.
