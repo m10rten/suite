@@ -37,7 +37,7 @@ export interface IEdgeResponse {
    *
    * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
    */
-  json(body: unknown): Response;
+  json(body: unknown, init?: ResponseInit): Response;
 
   /**
    * Should send a text response.
@@ -148,13 +148,14 @@ export class EdgeResponse implements IEdgeResponse {
     return this;
   }
 
-  json(body: unknown): Response {
+  json(body: unknown, init?: ResponseInit): Response {
     return Response.json(body, {
       status: this._status,
       headers: {
         ...this._headers,
         "content-type": "application/json",
       },
+      ...init,
     });
   }
 
