@@ -1,0 +1,22 @@
+{
+  "name": "drizzle-pull",
+  "version": "0.0.0",
+  "private": true,
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "description": "",
+  "main": "",
+  "scripts": {
+    "pull": "drizzle-kit introspect:pg"
+  },
+  "keywords": [],
+  "author": "m10rten",
+  "license": "MIT",
+  "devDependencies": {
+    "drizzle-kit": "0.20.13"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.29.3"
+  }
+}
