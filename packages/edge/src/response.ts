@@ -26,9 +26,9 @@ export interface IEdgeResponse {
    * ```ts
    * import { EdgeResponse } from '@mvdlei/edge';
    *
-   * const EdgeResponse = new EdgeResponse();
+   * const edge = new EdgeResponse();
    *
-   * EdgeResponse.json({ message: "Hello, World!" });
+   * edge.json({ message: "Hello, World!" });
    *
    * // or
    *
