@@ -1,3 +1,4 @@
+import { WithRequired } from "@mvdlei/types";
 import { t } from "@mvdlei/tzod";
 import { z } from "zod";
 
@@ -44,7 +45,7 @@ export interface IZap {
   ) => DefineResponse<TBody, TRes>;
 }
 
-export interface ZapOptions extends RequestInit {
+export interface ZapOptions {
   /**
    * The base URL for the zap instance. If not set, the fetch will be used as is with the url from the define call.
    */
@@ -94,8 +95,9 @@ export class TimeoutError extends Error {
 }
 
 export class Zap implements IZap {
-  constructor(private readonly options: ZapOptions = defaultZapOptions) {}
-  static init(options?: ZapOptions): Zap {
+  private constructor(private readonly options: ZapOptions = defaultZapOptions) {}
+  static init(options: WithRequired<Partial<ZapOptions>, "origin">): Zap {
+    if (!options?.origin) throw new SyntaxError("origin is required");
     const merged: ZapOptions = { ...defaultZapOptions, ...options };
     return new Zap(merged);
   }
@@ -105,8 +107,16 @@ export class Zap implements IZap {
     define_options?: DefineOptions<TBody, TRes>,
   ): DefineResponse<TBody, TRes> {
     return async (options?: CallOptions<TBody>) => {
-      const signal: AbortSignal | undefined =
+      const input_signal: AbortSignal | undefined =
         options?.signal ?? define_options?.signal ?? undefined;
+
+      // const abort = !signal ? () => new AbortController().abort() : () => undefined;
+      const controller = input_signal ? undefined : new AbortController();
+      const signal = input_signal ?? controller!.signal;
+      const abort = !signal ? () => controller?.abort() : () => undefined;
+      signal?.addEventListener("abort", () => {
+        abort();
+      });
 
       const timeout: number = define_options?.timeout ?? this.options.timeout ?? 15_000;
 
@@ -142,12 +152,13 @@ export class Zap implements IZap {
         throw new TimeoutError(timeout, "Timeout while fetching");
       }, timeout);
 
+      const isGet: boolean =
+        (!options?.method || options?.method === "GET") &&
+        (!define_options?.method || define_options?.method === "GET");
+
       const withOrWithoutBody: RequestInit = {
         ...mergedRequest,
-        body:
-          !define_options?.method || define_options?.method === "GET"
-            ? undefined
-            : JSON.stringify(options?.body ?? {}),
+        body: isGet ? undefined : JSON.stringify(options?.body ?? {}),
       };
 
       try {
@@ -169,6 +180,7 @@ export class Zap implements IZap {
         } else throw parsed.error;
       } catch (error) {
         clearTimeout(timeoutId);
+        abort();
         if (error instanceof HTTPError) throw error;
         if (error instanceof TimeoutError) throw error;
         if (error instanceof z.ZodError) throw error;
@@ -177,6 +189,7 @@ export class Zap implements IZap {
           throw new Error("Unknown error");
         }
       }
+      // No finally block because that would cause weird behaviors with error handling and timeouts.
     };
   }
 }
@@ -209,8 +222,8 @@ export class Zap implements IZap {
 //   }),
 //   output: z.object({
 //     id: z.number(),
-//     random: z.string(),
 //   }),
+//   method: "PUT",
 // });
 
 // const main = async () => {
@@ -221,7 +234,7 @@ export class Zap implements IZap {
 //     },
 //   });
 //   // eslint-disable-next-line no-console
-//   logger.log("get response: >>", get, "<<");
+//   console.log("get response: >>", get, "<<");
 
 //   const post = await postTodo({
 //     method: "POST",
@@ -233,7 +246,37 @@ export class Zap implements IZap {
 //   });
 
 //   // eslint-disable-next-line no-console
-//   logger.log("post response: >>", post, "<<");
+//   console.log("post response: >>", post, "<<");
+
+//   try {
+//     const controller = new AbortController();
+//     const withAbort = zap.define("/todos", {
+//       input: z.object({
+//         id: z.number(),
+//       }),
+//       output: z.object({
+//         userId: z.number(),
+//         id: z.number(),
+//         title: z.string(),
+//         completed: z.boolean(),
+//       }),
+//       signal: controller.signal,
+//     });
+
+//     setTimeout(() => {
+//       controller.abort();
+//     }, 10);
+
+//     withAbort({
+//       url: "/1",
+//     }).then((res) => {
+//       // eslint-disable-next-line no-console
+//       console.log("response", res);
+//     });
+//   } catch (error) {
+//     // eslint-disable-next-line no-console
+//     console.log("error", error);
+//   }
 // };
 
 // main();

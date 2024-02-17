@@ -50,8 +50,8 @@ export type IStrikeOptions = WithRequired<Partial<ZapOptions>, "origin">;
 export class Strike {
   private zap: Zap;
 
-  constructor(options?: IStrikeOptions) {
-    this.zap = new Zap(options);
+  constructor(options: IStrikeOptions) {
+    this.zap = Zap.init(options);
   }
 
   make<TModel extends Azod, TInput extends Azod = TModel, TOutput extends Azod = TModel>(
