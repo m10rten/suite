@@ -397,16 +397,6 @@ importers:
         specifier: ^5
         version: 5.3.3
 
-  examples/prisma-introspect:
-    dependencies:
-      prisma:
-        specifier: 5.9.1
-        version: 5.9.1
-    devDependencies:
-      "@prisma/client":
-        specifier: 5.9.1
-        version: 5.9.1(prisma@5.9.1)
-
   examples/prisma-pull:
     dependencies:
       prisma:

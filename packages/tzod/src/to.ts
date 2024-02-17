@@ -20,7 +20,7 @@ export interface ITo {
    * Coerce a value to a URL
    * @param value {URL | string | Request} - typed as unknown, will throw an error if the value is not a URL, string or Request
    */
-  url: Coerce<URL>;
+  url: (value: unknown, base?: string | URL) => URL;
   error: Coerce<Error>;
   promise: Coerce<Awaitable<unknown>>;
   parse: <T>(t: z.ZodType<T>) => Coerce<T>;
@@ -65,14 +65,13 @@ export class To implements ITo {
     return z.any().parse(value);
   }
 
-  public url(value: unknown): URL {
-    const make = (v: unknown): URL => {
-      if (typeof v === "string") return new URL(v);
-      if (v instanceof URL) return v;
-      if (v instanceof Request) return new URL(v.url);
-      throw new Error("Invalid URL");
-    };
-    return make(value);
+  public url(value: unknown, base?: string | URL): URL {
+    if (typeof value === "string") return base ? new URL(value, base) : new URL(value);
+    if (value instanceof URL)
+      return base ? new URL(value.href, base) : new URL(value.href);
+    if (value instanceof Request)
+      return base ? new URL(value.url, base) : new URL(value.url);
+    throw new Error("Invalid URL");
   }
 
   public array(value: unknown): unknown[] {

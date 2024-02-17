@@ -2,7 +2,9 @@
 import type { WithRequired } from "@mvdlei/types";
 import { z } from "zod";
 
-import { DefineOptions, HttpMethods, Zap, type IZapOptions } from "./zap";
+import { HttpMethods, Zap, type ZapOptions } from "./zap";
+
+type Azod = z.ZodTypeAny;
 
 export interface IStrike {
   /**
@@ -24,15 +26,20 @@ export interface IStrike {
 
 export type StrikeRequestOptions<I extends Azod, O extends Azod> = RoutesOptions<I, O>;
 
-export type RoutesOptions<I extends Azod, O extends Azod> = {
-  get: Partial<DefineOptions<I, O>>;
-  new: Partial<DefineOptions<I, O>>;
-  list: Partial<DefineOptions<I, O>>;
-  update: Partial<DefineOptions<I, O>>;
-  delete: Partial<DefineOptions<I, O>>;
+type Route<I extends Azod, O extends Azod> = {
+  input?: I;
+  output?: O;
 };
 
-export type IStrikeOptions = WithRequired<Partial<IZapOptions>, "baseUrl">;
+export type RoutesOptions<I extends Azod, O extends Azod> = {
+  get?: Partial<Route<I, O>>;
+  new?: Partial<Route<I, O>>;
+  list?: Partial<Route<I, O>>;
+  update?: Partial<Route<I, O>>;
+  delete?: Partial<Route<I, O>>;
+};
+
+export type IStrikeOptions = WithRequired<Partial<ZapOptions>, "origin">;
 
 /**
  * Strike is a class that allows you to make requests to a single endpoint.
@@ -50,7 +57,7 @@ export class Strike {
   make<TModel extends Azod, TInput extends Azod = TModel, TOutput extends Azod = TModel>(
     path: string,
     model: TModel,
-    options?: RoutesOptions<TInput, TOutput>,
+    options?: Partial<RoutesOptions<TInput, TOutput>>,
   ) {
     return new StrikeRequest(this.zap, path, model, options);
   }
@@ -101,7 +108,6 @@ export interface ListOptions {
   limit?: number;
   offset?: number;
 }
-type Azod = z.ZodTypeAny;
 
 export class StrikeRequest<
   TModel extends Azod,
@@ -117,29 +123,25 @@ export class StrikeRequest<
   ) {}
 
   get = async (id: string) => {
-    return this.zap.define({
-      url: `${this.path}/${id}`,
+    return this.zap.define(`${this.path}/${id}`, {
       method: HttpMethods.GET,
-      input: z.string(),
       output: this.options?.get?.output ?? this.model,
     })();
   };
 
   new = async (input: Omit<z.infer<TModel>, "id">) => {
-    return this.zap.define({
-      url: this.path,
+    return this.zap.define(this.path, {
       method: HttpMethods.POST,
-      input,
+      input: this.options?.new?.input ?? this.model,
       output: this.options?.new?.output ?? this.model,
     })(input);
   };
 
   list = async (options: Partial<ListOptions>) => {
-    const res = await this.zap.define({
-      url: this.path,
+    const res = await this.zap.define(this.path, {
       method: HttpMethods.GET,
       output: z.array(this.model),
-    })(options);
+    })();
     if (!options?.offset && !options?.limit) return res;
     if (!options?.offset) return res.slice(0, options.limit);
     if (!options?.limit) return res.slice(options.offset);
@@ -147,20 +149,17 @@ export class StrikeRequest<
   };
 
   delete = async (id: string) => {
-    return this.zap.define({
-      url: `${this.path}/${id}`,
+    return this.zap.define(`${this.path}/${id}`, {
       method: HttpMethods.DELETE,
-      input: z.string(),
-      output: z.undefined(),
+      output: z.void(),
     })();
   };
 
   update = async (id: string, input: Partial<z.infer<TModel>>) => {
-    return this.zap.define({
-      url: `${this.path}/${id}`,
-      method: HttpMethods.PATCH,
-      input,
-      output: this.model,
+    return this.zap.define(`${this.path}/${id}`, {
+      method: HttpMethods.PUT,
+      input: this.model.optional(),
+      output: this.options?.update?.output ?? this.model,
     })(input);
   };
 }
@@ -179,7 +178,7 @@ export default Strike;
  * Test code:
  */
 // const s = new Strike({
-//   baseUrl: "https://jsonplaceholder.typicode.com",
+//   origin: "https://jsonplaceholder.typicode.com",
 // });
 
 // const a = s.make(
@@ -190,6 +189,23 @@ export default Strike;
 //     title: z.string(),
 //     completed: z.boolean(),
 //   }),
+//   {
+//     new: {
+//       input: z.object({
+//         userId: z.number(),
+//         title: z.string(),
+//         completed: z.boolean(),
+//       }),
+//       output: z.object({
+//         id: z.number(),
+//       }),
+//     },
+//     update: {
+//       output: z.object({
+//         id: z.number(),
+//       }),
+//     },
+//   },
 // );
 
 // const cloud = {

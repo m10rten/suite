@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { AnyInput, AnyOutput, DefineOptions, HttpMethods, Zap } from "@mvdlei/zap";
+import { AnyData, AnyResponse, DefineOptions, HttpMethods, Zap } from "@mvdlei/zap";
 
 const zap = Zap.init({});
 
@@ -11,7 +11,7 @@ const zap = Zap.init({});
  * @param param1
  * @returns
  */
-export function useUnstableZap<TIn extends AnyInput, TOut extends AnyOutput>(
+export function useUnstableZap<TIn extends AnyData, TOut extends AnyResponse>(
   url: URL | string | Request,
   { output, input, headers, method }: Partial<DefineOptions<TIn, TOut>> = {},
 ) {
@@ -20,8 +20,7 @@ export function useUnstableZap<TIn extends AnyInput, TOut extends AnyOutput>(
   const [loading, setLoading] = useState(false);
   const act = useCallback(
     () =>
-      zap.define({
-        url,
+      zap.define(url, {
         method: method ?? HttpMethods.GET,
         output: output as TOut,
         input: input as TIn,
@@ -34,7 +33,7 @@ export function useUnstableZap<TIn extends AnyInput, TOut extends AnyOutput>(
     async (input?: TIn) => {
       try {
         setLoading(true);
-        const result = await act()(input);
+        const result = await act()({ body: input });
         setData(result);
       } catch (error) {
         if (error instanceof Error) setError(error);

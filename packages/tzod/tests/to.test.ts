@@ -99,6 +99,16 @@ describe("To Class", () => {
     it("should throw when it's a number", () => {
       expect(() => to.url(123 as any)).toThrow();
     });
+
+    it("should handle a base URL", () => {
+      const result = to.url("/path", "https://example.com");
+      expect(result).toBeInstanceOf(URL);
+      expect(result.href).toBe("https://example.com/path");
+    });
+
+    it("should throw when base URL is not a string or URL", () => {
+      expect(() => to.url("/path", 123 as any)).toThrow();
+    });
   });
 
   describe("error", () => {
