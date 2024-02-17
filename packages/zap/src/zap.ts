@@ -2,6 +2,8 @@ import { WithRequired } from "@mvdlei/types";
 import { t } from "@mvdlei/tzod";
 import { z } from "zod";
 
+import { HTTPError, TimeoutError } from "./errors";
+
 export type AnyData = z.ZodTypeAny;
 export type AnyResponse = z.ZodTypeAny;
 /**
@@ -77,26 +79,9 @@ const defaultZapOptions: ZapOptions = {
   timeout: undefined,
 };
 
-export class HTTPError extends Error {
-  constructor(
-    public readonly response: Response,
-    message: string,
-  ) {
-    super(message);
-  }
-}
-export class TimeoutError extends Error {
-  constructor(
-    public duration: number,
-    message: string,
-  ) {
-    super(message);
-  }
-}
-
 export class Zap implements IZap {
   private constructor(private readonly options: ZapOptions = defaultZapOptions) {}
-  static init(options: WithRequired<Partial<ZapOptions>, "origin">): Zap {
+  static init(options?: WithRequired<Partial<ZapOptions>, "origin">): Zap {
     if (!options?.origin) throw new SyntaxError("origin is required");
     const merged: ZapOptions = { ...defaultZapOptions, ...options };
     return new Zap(merged);
@@ -111,8 +96,10 @@ export class Zap implements IZap {
         options?.signal ?? define_options?.signal ?? undefined;
 
       // const abort = !signal ? () => new AbortController().abort() : () => undefined;
-      const controller = input_signal ? undefined : new AbortController();
-      const signal = input_signal ?? controller!.signal;
+      const controller: AbortController | undefined = input_signal
+        ? undefined
+        : new AbortController();
+      const signal: AbortSignal = input_signal ?? controller!.signal;
       const abort = !signal ? () => controller?.abort() : () => undefined;
       signal?.addEventListener("abort", () => {
         abort();
@@ -162,7 +149,7 @@ export class Zap implements IZap {
       };
 
       try {
-        const response = await fetch(url, withOrWithoutBody);
+        const response: Response = await fetch(url, withOrWithoutBody);
 
         if (!response.ok) {
           throw new HTTPError(response, response.statusText);
