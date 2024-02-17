@@ -23,8 +23,7 @@ import { zap } from "@mvdlei/zap";
 import { z } from "zod";
 
 // Define a request
-const getTodo = zap.define({
-  url: "/todos/1",
+const getTodo = zap.define("/todos", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
@@ -41,7 +40,7 @@ const getTodo = zap.define({
 // Execute the request
 const main = async () => {
   try {
-    const todo = await getTodo({ userId: "1" });
+    const todo = await getTodo({ url: "/1", params: { userId: "1" } });
     console.log("Todo", todo);
   } catch (error) {
     console.error("Error", error);
@@ -55,17 +54,17 @@ main();
 
 #### `define`
 
+Takes in an input of type `string | Request | URL` and an options object.
+
 The `define` method is used to define a request with the following options:
 
-- `url`: The endpoint URL for the request.
 - `method`: The HTTP method (default is `"POST"`).
 - `input`: The input schema for the request payload.
 - `output`: The output schema for the response payload.
 - `headers`: Additional headers for the request.
 
 ```tsx
-const getTodo = zap.define({
-  url: "/todos/1",
+const getTodo = zap.define("/todos", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
@@ -80,22 +79,17 @@ const getTodo = zap.define({
 });
 ```
 
-#### `set` and `unsafe_set`
+#### Error Handling
 
-The `set` and `unsafe_set` methods are used to set options for the Zap instance:
+The zap package uses the `fetch` API under the hood. It will throw an error if the request fails. You can use a `try/catch` block to handle errors.
 
-- `baseUrl`: The base URL for all requests.
-- `timeout`: The timeout duration for requests.
+The following errors are thrown by the handler if the request fails:
 
-Use `set` for a safer option setting approach, only overriding the options that are passed and are not set already. Use `unsafe_set` to override the options that are passed, regardless of their current state.
+- `HTTPError`: If the response status code is not `ok`.
+- `TimeoutError`: If the request times out.
+- `ZodError`: If the response payload does not match the output schema.
 
-```tsx
-// Safe option setting
-zap.set({ baseUrl: "https://example.com", timeout: 5000 });
-
-// Unsafe option setting
-zap.unsafe_set({ baseUrl: "https://example.com", timeout: 5000 });
-```
+Will not throw zod error if output is not defined.
 
 ### API
 
@@ -116,32 +110,7 @@ The main class that provides the core functionality for making HTTP requests. It
 ```tsx
 import { Zap } from "@mvdlei/zap";
 
-const zap = new Zap({ baseUrl: "https://example.com", timeout: 5000 });
-```
-
-#### `Results` Type
-
-A type representing the result of a request execution. It is a `Promise` of the inferred type of the response payload.
-
-```tsx
-import { Results } from "@mvdlei/zap";
-
-const result: Results<{ userId: number; id: number }> = getTodo();
-```
-
-#### `DefineOptions` Type
-
-A type representing the options used in the `define` method.
-
-```tsx
-import { DefineOptions } from "@mvdlei/zap";
-
-const options: DefineOptions<{ userId: string }, { id: number }> = {
-  url: "/todos",
-  method: "GET",
-  input: { userId: "1" },
-  output: { id: 1 },
-};
+const zap = new Zap({ origin: "https://example.com", timeout: 5000 });
 ```
 
 #### Callback Function
@@ -151,8 +120,8 @@ When defining a request, you will receive a callback function that takes an inpu
 This input will be parsed to query parameters for `GET` requests and as the request payload for other methods.
 
 ```tsx
-const getTodo = zap.define({
-  url: "/todos/1",
+const getTodo = zap.define("/todos", {
+  url: ,
   method: "GET",
   output: z.object({
     userId: z.number(),
@@ -165,84 +134,57 @@ const getTodo = zap.define({
   }),
 });
 
-const todo = await getTodo({ userId: "1" });
+const todo = await getTodo({
+  url: "/1",
+  params: {
+    userId: "1",
+  }
+});
 // ^ /todos/1?userId=1
 ```
 
 ### Example
 
 ```tsx
-import { RestMethods, zap } from "@mvdlei/zap";
+import { zap } from "@mvdlei/zap";
 import { z } from "zod";
 
 const main = async () => {
-  try {
-    // Correct usage with timeout on baseUrl
-    const getTodo = zap.define({
-      url: "/todos/1",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "X-My-Header": "Hello World",
-      },
-      output: z.object({
-        userId: z.number(),
-        id: z.number(),
-        title: z.string(),
-        completed: z.boolean(),
-      }),
-      input: z.object({
-        userId: z.string(),
-      }),
-    });
-    const todo = await getTodo({ userId: "1" });
-    console.log(todo);
-  } catch (error) {
-    console.error("Error", error);
-  }
+  const getTodo = zap.define("/todos", {
+    method: "GET",
+    output: z.object({
+      userId: z.number(),
+      id: z.number(),
+      title: z.string(),
+      completed: z.boolean(),
+    }),
+    input: z.object({
+      userId: z.string(),
+    }),
+  });
 
-  try {
-    // Correct usage with correct
+  const todo = await getTodo({ url: "/1", params: { userId: "1" } });
+  console.log("Todo", todo);
 
-    types;
-    zap.unsafe_set({ baseUrl: "https://jsonplaceholder.typicode.com" });
-    const another = zap.define({
-      url: "/todos/2",
-      method: "GET",
-      output: z.object({
-        userId: z.number(),
-        id: z.number(),
-        title: z.string(),
-        completed: z.boolean(),
-      }),
-    });
-    const user = await another();
-    console.log("User", user);
-  } catch (error) {
-    console.error("Error on User", error);
-  }
+  const postTodo = zap.define("/todos", {
+    method: "POST",
+    output: z.object({
+      id: z.number(),
+    }),
+    input: z.object({
+      userId: z.string(),
+      title: z.string(),
+      completed: z.boolean(),
+    }),
+  });
 
-  try {
-    // Correct usage with incorrect types
-    zap.unsafe_set({ baseUrl: "https://jsonplaceholder.typicode.com" });
-    const another = zap.define({
-      url: "/todos/5",
-      method: "GET",
-      output: z.object({
-        userId: z.number(),
-        id: z.number(),
-        title: z.string(),
-        completed: z.boolean(),
-      }),
-    });
-    const todo = await another();
-    console.log("ToDo", todo);
-  } catch (error) {
-    console.error("Error on ToDo", error);
-  }
+  const newTodo = await postTodo({
+    userId: "1",
+    title: "test",
+    completed: false,
+  });
+  console.log("New Todo", newTodo); // { id: number }
 };
-
-main();
 ```
 
 ### Links

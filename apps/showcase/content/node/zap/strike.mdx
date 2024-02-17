@@ -35,9 +35,9 @@ Under the hood, `Strike` uses the `zap` module to make requests. The `zap` modul
 ```typescript
 import { Strike } from "@mvdlei/zap";
 
-// There is no exported `strike` instance because we cannot guess the baseUrl.
+// There is no exported `strike` instance because we cannot guess the origin.
 const strike = new Strike({
-  baseUrl: "https://example.com/api",
+  origin: "https://example.com",
 });
 ```
 
@@ -47,6 +47,13 @@ const strike = new Strike({
 const strikeRequest = strike.make(
   "/users",
   z.object({ id: z.string(), name: z.string() }),
+  {
+    new: {
+      // optional, will fallback to model above.
+      input: z.object({ name: z.string() }), // or any
+      output: z.object({ id: z.string(), name: z.string() }), // or any
+    },
+  },
 );
 ```
 
@@ -80,7 +87,7 @@ import { Strike } from "@mvdlei/zap";
 import { z } from "zod";
 
 const s = new Strike({
-  baseUrl: "https://jsonplaceholder.typicode.com",
+  origin: "https://jsonplaceholder.typicode.com",
 });
 
 const todos = s.make(
@@ -111,7 +118,7 @@ import { Strike } from "@mvdlei/zap";
 import { z } from "zod";
 
 const s = new Strike({
-  baseUrl: "https://jsonplaceholder.typicode.com",
+  origin: "https://jsonplaceholder.typicode.com",
 });
 
 const todos = s.make(
