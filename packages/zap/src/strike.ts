@@ -177,52 +177,52 @@ export default Strike;
 /**
  * Test code:
  */
-const s = new Strike({
-  origin: "https://jsonplaceholder.typicode.com",
-});
+// const s = new Strike({
+//   origin: "https://jsonplaceholder.typicode.com",
+// });
 
-const a = s.make(
-  "/todos",
-  z.object({
-    userId: z.number(),
-    id: z.number(),
-    title: z.string(),
-    completed: z.boolean(),
-  }),
-  {
-    new: {
-      input: z.object({
-        userId: z.number(),
-        title: z.string(),
-        completed: z.boolean(),
-      }),
-      output: z.object({
-        id: z.number(),
-      }),
-    },
-    update: {
-      output: z.object({
-        id: z.number(),
-      }),
-    },
-  },
-);
+// const a = s.make(
+//   "/todos",
+//   z.object({
+//     userId: z.number(),
+//     id: z.number(),
+//     title: z.string(),
+//     completed: z.boolean(),
+//   }),
+//   {
+//     new: {
+//       input: z.object({
+//         userId: z.number(),
+//         title: z.string(),
+//         completed: z.boolean(),
+//       }),
+//       output: z.object({
+//         id: z.number(),
+//       }),
+//     },
+//     update: {
+//       output: z.object({
+//         id: z.number(),
+//       }),
+//     },
+//   },
+// );
 
-const cloud = {
-  todos: a,
-};
+// const cloud = {
+//   todos: a,
+// };
 
-const main = async () => {
-  const getted = await cloud.todos.get("1");
-  console.log("getted", getted);
-  const posted = await cloud.todos.new({ title: "test", completed: false, userId: 1 });
-  console.log("posted", posted);
+// const main = async () => {
+//   const getted = await cloud.todos.get("1");
+//   console.log("getted", getted);
+//   const posted = await cloud.todos.new({ title: "test", completed: false, userId: 1 });
+//   console.log("posted", posted);
 
-  const listed = await cloud.todos.list({ limit: 2, offset: 3 });
-  console.log("listed", listed, `Query: limit: 2, offset: 3`);
+//   const listed = await cloud.todos.list({ limit: 2, offset: 3 });
+//   console.log("listed", listed, `Query: limit: 2, offset: 3`);
 
-  const updated = await cloud.todos.update("1", { title: "test2" });
-  console.log("updated", updated);
-};
+//   const updated = await cloud.todos.update("1", { title: "test2" });
+//   console.log("updated", updated);
+// };
 
-main();
+// main();
