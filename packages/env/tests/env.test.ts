@@ -59,6 +59,24 @@ describe("env", () => {
       const result = env.get(TEST_KEY);
       expect(result).toBeUndefined();
     });
+
+    it("should return `undefined` with custom undefined source and strict is not set", () => {
+      const env = Env.init({ source: {} });
+      const result = env.get(TEST_KEY);
+      expect(result).toBeUndefined();
+    });
+
+    it("should test with default value", () => {
+      const env = Env.init({ source: { [TEST_KEY]: "development" } });
+      const result = env.get(NON_EXISTING_KEY, "development");
+      expect(result).toBe("development");
+    });
+
+    it("should test with default value and strict is set to true", () => {
+      const env = Env.init({ source: { [TEST_KEY]: "development" }, strict: true });
+      const result = env.get(NON_EXISTING_KEY, "development");
+      expect(result).toBe("development");
+    });
   });
 
   describe("set", () => {
