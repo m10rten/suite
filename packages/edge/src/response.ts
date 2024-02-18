@@ -434,4 +434,4 @@ export namespace Quick {
 
 // res.status(200).json({ message: "Hello, World!" });
 
-Quick.HTTP.ok();
+// Quick.HTTP.ok();
