@@ -4,7 +4,24 @@ import { z, type ZodError, type ZodObject, type ZodType } from "zod";
 
 export type ErrorMessage<T extends string> = T;
 
-export interface BaseOptions<TEnv extends Record<string, ZodType>> {
+type UnReadonlyObject<T> = T extends Readonly<infer U> ? U : T;
+
+type Reduce<
+  TArr extends Array<Record<string, unknown>>,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  TAcc = {},
+> = TArr extends []
+  ? TAcc
+  : TArr extends [infer Head, ...infer Tail]
+    ? Tail extends Array<Record<string, unknown>>
+      ? Head & Reduce<Tail, TAcc>
+      : never
+    : never;
+
+export interface BaseOptions<
+  TEnv extends Record<string, ZodType>,
+  TExtends extends Array<Record<string, unknown>>,
+> {
   /**
    * How to determine whether the app is running on the server or the client.
    * @default typeof window !== "undefined"
@@ -49,11 +66,19 @@ export interface BaseOptions<TEnv extends Record<string, ZodType>> {
    * explicitly specify this option as true.
    */
   emptyStringAsUndefined?: boolean;
+
+  /**
+   * Extend the environment variables with these values.
+   */
+  extends?: TExtends;
 }
 
-export interface LooseOptions<TEnv extends Record<string, ZodType>>
-  extends BaseOptions<TEnv> {
+export interface RuntimeOptions<
+  TEnv extends Record<string, ZodType>,
+  TExtends extends Array<Record<string, unknown>>,
+> extends BaseOptions<TEnv, TExtends> {
   strict?: never;
+  source?: never;
 
   /**
    * What object holds the environment variables at runtime. This is usually
@@ -61,7 +86,6 @@ export interface LooseOptions<TEnv extends Record<string, ZodType>>
    */
   // Unlike `strict`, this doesn't enforce that all environment variables are set.
   runtime: Record<string, string | boolean | number | undefined>;
-  source?: never;
 }
 
 type IEnvSource =
@@ -69,8 +93,10 @@ type IEnvSource =
   | {
       [key: string]: Primitive;
     };
-export interface SourceOptions<TEnv extends Record<string, ZodType>>
-  extends BaseOptions<TEnv> {
+export interface SourceOptions<
+  TEnv extends Record<string, ZodType>,
+  TExtends extends Array<Record<string, unknown>>,
+> extends BaseOptions<TEnv, TExtends> {
   strict?: never;
   runtime?: never;
   /**
@@ -82,10 +108,10 @@ export interface SourceOptions<TEnv extends Record<string, ZodType>>
 
 export interface StrictOptions<
   TPrefix extends string | undefined,
-  // TServer extends Record<string, ZodType>,
   TPrefixed extends Record<string, ZodType>,
   TEnv extends Record<string, ZodType>,
-> extends BaseOptions<TEnv> {
+  TExtends extends Array<Record<string, unknown>>,
+> extends BaseOptions<TEnv, TExtends> {
   /**
    * Runtime Environment variables to use for validation - `process.env`, `import.meta.env` or similar.
    * Enforces all environment variables to be set. Required in for example Next.js Edge and Client runtimes.
@@ -134,19 +160,26 @@ export type EnvOptions<
   TPrefix extends string | undefined,
   TPrefixed extends Record<string, ZodType>,
   TEnv extends Record<string, ZodType>,
+  TExtends extends Array<Record<string, unknown>>,
 > =
-  | (LooseOptions<TEnv> & PrefixedOptions<TPrefix, TPrefixed>)
-  | (StrictOptions<TPrefix, TPrefixed, TEnv> & PrefixedOptions<TPrefix, TPrefixed>)
-  | (SourceOptions<TEnv> & PrefixedOptions<TPrefix, TPrefixed>);
+  | (RuntimeOptions<TEnv, TExtends> & PrefixedOptions<TPrefix, TPrefixed>)
+  | (StrictOptions<TPrefix, TPrefixed, TEnv, TExtends> &
+      PrefixedOptions<TPrefix, TPrefixed>)
+  | (SourceOptions<TEnv, TExtends> & PrefixedOptions<TPrefix, TPrefixed>);
 
 export function define<
   TPrefix extends string | undefined,
-  TPrefixed extends Record<string, ZodType> = NonNullable<unknown>,
-  TEnv extends Record<string, ZodType> = NonNullable<unknown>,
+  TPrefixed extends Record<string, ZodType>,
+  TEnv extends Record<string, ZodType>,
+  const TExtends extends Array<Record<string, unknown>> = [],
 >(
-  opts: EnvOptions<TPrefix, TPrefixed, TEnv>,
-): Prettify<
-  Readonly<Prettify<z.infer<ZodObject<TPrefixed>> & z.infer<ZodObject<TEnv>>>>
+  opts: EnvOptions<TPrefix, TPrefixed, TEnv, TExtends>,
+): Readonly<
+  Prettify<
+    z.infer<ZodObject<TPrefixed>> &
+      z.infer<ZodObject<TEnv>> &
+      UnReadonlyObject<Reduce<TExtends>>
+  >
 > {
   const source = opts.source ?? opts.strict ?? opts.runtime ?? process.env;
 
@@ -190,8 +223,12 @@ export function define<
   if (parsed.success === false) {
     return onValidationError(parsed.error);
   }
+  const extended = (opts.extends ?? []).reduce((acc, curr) => {
+    return Object.assign(acc, curr);
+  }, {});
+  const combined = Object.assign(parsed.data, extended);
 
-  const env = new Proxy(parsed.data, {
+  const env = new Proxy(combined, {
     get(target, prop) {
       if (typeof prop !== "string" || prop === "__esModule" || prop === "$$typeof")
         return undefined;

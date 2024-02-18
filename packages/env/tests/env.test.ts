@@ -147,5 +147,24 @@ describe("env", () => {
 
       expect(env.TEST_KEY).toBe(TEST_VALUE);
     });
+
+    it("should take in a preset env", () => {
+      const preset = define({
+        env: {
+          PRESET_KEY: z.string(),
+        },
+        source: { PRESET_KEY: TEST_VALUE },
+      });
+
+      const env = define({
+        env: {
+          [TEST_KEY]: z.string(),
+        },
+        source: { [TEST_KEY]: TEST_VALUE },
+        extends: [preset],
+      });
+
+      expect(env.PRESET_KEY).toBe(TEST_VALUE);
+    });
   });
 });
