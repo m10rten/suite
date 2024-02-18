@@ -53,8 +53,8 @@ describe("To Class", () => {
     });
 
     it("should return an empty array when parsing fails", () => {
-      const result = to.array(123 as any);
-      expect(result).toEqual([]);
+      const result = to.array(123);
+      expect(result).toEqual([123]);
     });
   });
 
@@ -117,6 +117,23 @@ describe("To Class", () => {
       const result = to.error(message);
       expect(result).toBeInstanceOf(Error);
       expect(result.message).toBe(message);
+    });
+  });
+
+  describe("bigint", () => {
+    it("should coerce value to bigint", () => {
+      const result = to.bigint("123");
+      expect(result).toBe(BigInt(123));
+    });
+
+    it("should return BigInt(1) when parsing fails", () => {
+      const result = to.bigint("hello" as any);
+      expect(result).toBe(BigInt(1));
+    });
+
+    it("should return the input as is when it's a bigint", () => {
+      const result = to.bigint(BigInt(222));
+      expect(result).toBe(BigInt(222));
     });
   });
 

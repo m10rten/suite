@@ -179,5 +179,46 @@ describe("Array Class", () => {
         { id: 3, name: "C" },
       ]);
     });
+
+    it("should throw an error if the array is not an array", () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      expect(() => array.sort(123 as any)).toThrow();
+    });
+
+    it("should throw an error if the array is not an array of objects", () => {
+      expect(() => array.sort(["hello", "world"], "length")).toThrow();
+    });
+
+    it("should sort an array of primitives in descending order", () => {
+      const inputArray = [1, 2, 3, 4, 5];
+      const sortedArray = array.sort(inputArray, null, "desc");
+
+      expect(sortedArray).toEqual([5, 4, 3, 2, 1]);
+    });
+
+    it("should throw an error if the key does not exist on the object", () => {
+      const inputArray = [{ name: "hello" }, { name: "world" }];
+      // @ts-expect-error - Testing for error
+      expect(() => array.sort(inputArray, "id")).toThrow();
+    });
+
+    it("should sort an array of objects by a key in descending order when key is provided", () => {
+      const inputArray = [
+        { id: 5, name: "E" },
+        { id: 4, name: "D" },
+        { id: 3, name: "C" },
+        { id: 2, name: "B" },
+        { id: 1, name: "A" },
+      ];
+      const sortedArray = array.sort(inputArray, "id", "desc");
+
+      expect(sortedArray).toEqual([
+        { id: 5, name: "E" },
+        { id: 4, name: "D" },
+        { id: 3, name: "C" },
+        { id: 2, name: "B" },
+        { id: 1, name: "A" },
+      ]);
+    });
   });
 });

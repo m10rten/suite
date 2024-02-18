@@ -158,6 +158,7 @@ export class Is implements IIs {
   }
 
   public schema = <C extends z.ZodTypeAny>(c: C, v: unknown): v is C => {
+    if (!("safeParse" in c)) throw new Error("Invalid zod schema");
     return c.safeParse(v).success;
   };
 

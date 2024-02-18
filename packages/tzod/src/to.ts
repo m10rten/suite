@@ -75,8 +75,7 @@ export class To implements ITo {
   }
 
   public array(value: unknown): unknown[] {
-    if (!Array.isArray(value)) return new Array(value);
-    return this._safe_to(z.array(z.any()), value, new Array(value));
+    return this._safe_to(z.array(z.any()), value, [value]);
   }
   /**
    * Gives you the ability to parse a value to a ZodType

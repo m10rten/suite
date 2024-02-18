@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { z } from "zod";
+
 import { Is } from "@/is";
 
 describe("Is Class", () => {
@@ -53,6 +55,29 @@ describe("Is Class", () => {
     it("should return false if value is not undefined", () => {
       const result = is.undefined("hello" as any);
       expect(result).toBe(false);
+    });
+  });
+
+  describe("schema", () => {
+    const schema = z.object({
+      name: z.string(),
+    });
+    it("should return true if value is a zod schema", () => {
+      const data: unknown = {
+        name: "hello",
+      };
+
+      const result = is.schema(schema, data);
+      expect(result).toBe(true);
+    });
+
+    it("should return false if value is not a zod schema", () => {
+      const result = is.schema(schema, "hello" as any);
+      expect(result).toBe(false);
+    });
+    it("should error when the schema is not a zod schema", () => {
+      // @ts-expect-error - Testing for error
+      expect(() => is.schema({ name: "hello" }, "hello")).toThrow();
     });
   });
 
