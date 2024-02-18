@@ -1,5 +1,16 @@
 # @mvdlei/zap
 
+## 0.1.0
+
+### Minor Changes
+
+- 5584454: Refactor to accept RequestInit properties
+
+### Patch Changes
+
+- Updated dependencies [5584454]
+  - @mvdlei/tzod@0.1.2
+
 ## 0.0.6
 
 ### Patch Changes
