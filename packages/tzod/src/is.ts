@@ -171,6 +171,7 @@ export class Is implements IIs {
 
   public falsy(value: unknown): value is Falsy {
     return (
+      typeof value === "undefined" ||
       value === undefined ||
       value === null ||
       value === void 0 ||

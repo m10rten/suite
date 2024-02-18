@@ -112,6 +112,21 @@
       "import": "./dist/use-intersection-observer.mjs",
       "require": "./dist/use-intersection-observer.js",
       "types": "./dist/use-intersection-observer.d.ts"
+    },
+    "./use-fetch": {
+      "import": "./dist/use-fetch.mjs",
+      "require": "./dist/use-fetch.js",
+      "types": "./dist/use-fetch.d.ts"
+    },
+    "./use-async": {
+      "import": "./dist/use-async.mjs",
+      "require": "./dist/use-async.js",
+      "types": "./dist/use-async.d.ts"
+    },
+    "./use-online": {
+      "import": "./dist/use-online.mjs",
+      "require": "./dist/use-online.js",
+      "types": "./dist/use-online.d.ts"
     }
   },
   "typesVersions": {

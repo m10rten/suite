@@ -1,0 +1,44 @@
+---
+published: true
+title: useOnline - Mvdlei Hooks
+category: react
+package: hooks
+description: useOnline React hook for checking if the user is online.
+---
+
+# useOnline
+
+React hook for checking if the user is online.
+
+## Installation
+
+```bash
+npm install @mvdlei/hooks
+```
+
+## Usage
+
+```jsx
+import React from "react";
+import { useOnline } from "@mvdlei/hooks";
+
+const App = () => {
+  const isOnline = useOnline();
+
+  return (
+    <div>
+      <h1>Is online: {isOnline ? "Yes" : "No"}</h1>
+    </div>
+  );
+};
+```
+
+## Reference
+
+```ts
+useOnline(): boolean;
+```
+
+### Links
+
+[`use-online.ts`](https://github.com/m10rten/suite/tree/main/packages/hooks/src/use-online.ts)

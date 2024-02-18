@@ -5,7 +5,7 @@ import useEventListener from "./use-event-listener";
 export function useOnline() {
   const [online, setOnline] = useState(window?.navigator?.onLine);
   const handler = () => {
-    if (!window?.navigator) return;
+    if (typeof window === "undefined" || !window || !window?.navigator) return;
     setOnline(window?.navigator?.onLine || false);
   };
   useEventListener("online", handler);

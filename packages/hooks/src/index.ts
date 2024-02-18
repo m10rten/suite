@@ -2,11 +2,13 @@
  * @file Index - Hooks
  * @module @mvdlei/hooks
  */
-export * from "./use-zap";
+// export * from "./use-zap";
 export * from "./use-key";
 export * from "./use-once";
 export * from "./use-touch";
 export * from "./use-async";
+export * from "./use-online";
+export * from "./use-fetch";
 export * from "./use-scroll";
 export * from "./use-storage";
 export * from "./use-debounce";
