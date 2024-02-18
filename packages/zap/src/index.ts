@@ -7,4 +7,5 @@
 
 export * from "./zap";
 export * from "./strike";
+export * from "./errors";
 // export * from "./cloud";
