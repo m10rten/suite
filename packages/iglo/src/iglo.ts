@@ -118,9 +118,15 @@ export class Iglo implements IgloI {
 
   melt(code?: 0 | 1, stop?: boolean): void {
     this._handlers.clear();
+
     if (this.options?.runtime === "node") {
+      process.off("unhandledRejection", () => {});
+      process.off("uncaughtException", () => {});
       if (stop !== true) return;
       return process.exit(code);
+    } else {
+      window.removeEventListener("unhandledrejection", () => {});
+      window.removeEventListener("error", () => {});
     }
   }
 

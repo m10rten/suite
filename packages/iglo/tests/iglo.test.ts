@@ -27,6 +27,10 @@ describe("Iglo", () => {
     iglo = Iglo.init(); // Initialize a new Iglo instance before each test
   });
 
+  afterEach(() => {
+    iglo.melt(0, false);
+  });
+
   describe("fish", () => {
     it("should add a handler for a specific error type", () => {
       const handler = jest.fn();
@@ -101,5 +105,43 @@ describe("Iglo", () => {
       await iglo.shell(callback);
       expect(handler).toHaveBeenCalledWith(error);
     });
+  });
+
+  it("should return the result of the callback if no error occurs", async () => {
+    const callback = jest.fn().mockResolvedValue("Test result");
+    const result = await iglo.shell(callback);
+    expect(result).toBe("Test result");
+  });
+
+  it("should call the appropriate error handler if an error occurs and the error type is registered", async () => {
+    const error = new MyError("Test error", 500);
+    const handler = jest.fn();
+    iglo.fish(MyError, handler);
+    const callback = jest.fn().mockRejectedValue(error);
+    await iglo.shell(callback);
+    expect(handler).toHaveBeenCalledWith(error);
+  });
+
+  it("should not throw the error if an error occurs and the error type is registered", async () => {
+    const error = new MyError("Test error", 500);
+    const handler = jest.fn();
+    iglo.fish(MyError, handler);
+    const callback = jest.fn().mockRejectedValue(error);
+    await iglo.shell(callback);
+    expect(callback).toHaveBeenCalled();
+  });
+
+  it("should not call any error handler if an error occurs and no error handler is registered for the error type", async () => {
+    const unhandledError = new Error("Unhandled error");
+    const handler = jest.fn();
+    const callback = jest.fn().mockRejectedValue(unhandledError);
+    await iglo.shell(callback);
+    expect(handler).not.toHaveBeenCalled();
+  });
+
+  it("should throw an error if the error is not an instance of Error", async () => {
+    const unhandledError = "Unhandled error";
+    const callback = jest.fn().mockRejectedValue(unhandledError);
+    await expect(iglo.shell(callback)).rejects.toEqual(unhandledError);
   });
 });
