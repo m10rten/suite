@@ -94,6 +94,10 @@ Static method to initialize a new `Toggle` instance with the provided PostgreSQL
 
 - `options`: PostgreSQL connection options.
 
+This method will also create the necessary tables if they don't exist.
+
+> Tables are created by the `drizzle-orm` package.
+
 ### Example
 
 #### Basic Usage

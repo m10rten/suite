@@ -51,6 +51,7 @@ const env = Env.init({
 });
 
 const value = env.get("NODE_ENV");
+// ^ Primitive | undefined
 ```
 
 #### Strict mode
@@ -66,6 +67,13 @@ const value = env.get("DOES_NOT_EXIST");
 // Do have note that setting your own `KEY` to `undefined` will also throw this error.
 ```
 
+And where you want to use the environment variable, you can use the `get` method with a default value.
+
+```ts
+const withDefault = Env.get("NODE_ENV", "development");
+// ^ Primitive | "production"
+```
+
 ### Usage `Env.set`
 
 ```ts
@@ -76,6 +84,18 @@ const env = Env.init({
 });
 
 env.set("NODE_ENV", "production");
+```
+
+### Strict mode
+
+```ts
+const env = Env.init({
+  strict: true,
+});
+
+env.set("EXISTING", "my_value");
+// ^ This will throw an error, because the variable already exists.
+// Default error message: `Environment variable "${key}" is already set`
 ```
 
 ### Usage `define`
@@ -107,7 +127,7 @@ export const env = define({
     INTERNAL_LOG_LEVEL: z
       .enum(["error", "warn", "info", "http", "verbose", "debug", "silly"] as const)
       .default("info")
-      .transform((val) => t.string.lower(val) as Level),
+      .transform((val) => t.string.lower(val)),
   },
 });
 
@@ -117,6 +137,36 @@ const logLevel = env.INTERNAL_LOG_LEVEL; // "info"
 ```
 
 ## API Reference
+
+### `Env`
+
+The `Env` class provides a set of utility methods for working with environment variables.
+
+#### `init(options: EnvOptions): Env`
+
+The `init` method is used to initialize a new `Env` instance with the provided options.
+
+#### `get(key: string, defaultValue?: Primitive): Primitive`
+
+The `get` method is used to get the value of an environment variable by key.
+
+#### `set(key: string, value: Primitive): void`
+
+The `set` method is used to set the value of an environment variable by key.
+
+#### `EnvOptions`
+
+The `EnvOptions` interface defines the contract for the `Env` class options.
+
+Default values, providing one will override its default counterpart.
+
+```ts
+Env.init({
+  // default options:
+  source: process.env,
+  strict: false,
+});
+```
 
 ### `define(options: EnvOptions<TPrefix, TPrefixed, TEnv>): Readonly<z.infer<ZodObject<TPrefixed>> & z.infer<ZodObject<TEnv>>>`
 

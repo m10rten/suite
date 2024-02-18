@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { Prettify } from "@mvdlei/types";
+import type { Prettify, Primitive } from "@mvdlei/types";
 import { z, type ZodError, type ZodObject, type ZodType } from "zod";
 
 export type ErrorMessage<T extends string> = T;
@@ -64,7 +64,6 @@ export interface LooseOptions<TEnv extends Record<string, ZodType>>
   source?: never;
 }
 
-type Primitive = string | boolean | number | undefined | null | symbol;
 type IEnvSource =
   | NodeJS.Process["env"]
   | {
@@ -220,6 +219,8 @@ export interface IEnv {
    */
   get<T extends string>(key: T): Primitive;
 
+  get<T extends string>(key: T, defaultValue?: Primitive): Primitive;
+
   /**
    * Set an environment variable.
    *
@@ -246,7 +247,10 @@ const defaultOptions: IEnvOptions = {
   source: process.env,
 };
 
-export class Env {
+export class Env implements IEnv {
+  /**
+   * Define env with a validation before usage, that way you can ensure the app isn't built with invalid env vars.
+   */
   public static define = define;
 
   /**
@@ -270,22 +274,23 @@ export class Env {
    * ```
    */
   public static init(options?: Partial<IEnvOptions>) {
-    return new Env(options);
+    const merged = { ...defaultOptions, ...options };
+    return new Env(merged);
   }
 
-  private constructor(private readonly options: IEnvOptions = defaultOptions) {}
+  private constructor(private readonly options: IEnvOptions) {}
 
-  public get<T extends string>(key: T): Primitive {
+  public get<T extends string>(key: T, defaultValue?: Primitive): Primitive {
     const source = this.options?.source ?? process.env;
     const value = source[key];
-    if (value === undefined && this.options?.strict) {
+    if (value === undefined && this.options?.strict && defaultValue === undefined) {
       throw new Error(`Environment variable "${key}" is not set`);
     }
-    return value;
+    return value ?? defaultValue ?? undefined;
   }
 
-  public static get<T extends string>(key: T): Primitive {
-    return Env.init().get(key);
+  public static get<T extends string>(key: T, defaultValue?: Primitive): Primitive {
+    return Env.init().get(key, defaultValue);
   }
 
   public set<T extends string>(key: T, value: Primitive): void {
