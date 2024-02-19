@@ -8,7 +8,7 @@
 - Updated dependencies [4fc2485]
 - Updated dependencies [5584454]
   - @mvdlei/tzod@0.1.2
-  - @mvdlei/hooks@1.0.0
+  - @mvdlei/hooks@0.1.8
   - @mvdlei/zap@0.1.0
 
 ## 0.1.15

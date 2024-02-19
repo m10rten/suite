@@ -1,6 +1,6 @@
 # @mvdlei/hooks
 
-## 1.0.0
+## 0.1.8
 
 ### Patch Changes
 
