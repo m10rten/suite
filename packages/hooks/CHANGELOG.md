@@ -1,5 +1,13 @@
 # @mvdlei/hooks
 
+## 1.0.0
+
+### Patch Changes
+
+- 4fc2485: Added Readme + file exports
+- Updated dependencies [5584454]
+  - @mvdlei/zap@0.1.0
+
 ## 0.1.7
 
 ### Patch Changes

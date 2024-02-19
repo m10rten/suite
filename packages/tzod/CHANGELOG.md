@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.1.2
+
+### Patch Changes
+
+- 5584454: Updated `t.to.url` to accept base/origin as second parameter.
+
 ## 0.1.1
 
 ### Patch Changes
