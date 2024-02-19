@@ -92,6 +92,12 @@ export class Zap implements IZap {
     define_options?: DefineOptions<TBody, TRes>,
   ): DefineResponse<TBody, TRes> {
     return async (options?: CallOptions<TBody>) => {
+      // if the input is defined, check if the body satisfies the input schema.
+      if (define_options?.input) {
+        const parsed = define_options.input.safeParse(options?.body);
+        if (!parsed.success) throw parsed.error;
+      }
+
       const input_signal: AbortSignal | undefined =
         options?.signal ?? define_options?.signal ?? undefined;
 
