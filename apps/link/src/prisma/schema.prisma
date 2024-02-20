@@ -1,0 +1,49 @@
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Link {
+  id           String  @id @default(uuid())
+  url          String // The original URL where the key will redirect to
+  domain       String // The domain of the generated link
+  key          String  @unique
+  cloak        Boolean @default(false) // If the link is cloaked, it will hide the original URL
+  previous_key String? // If the key was changed, the previous key will be stored here so we can redirect the old key to the new one
+
+  og_title       String? @db.Char(255)
+  og_description String? @db.VarChar(255)
+  og_image       String? @db.Text
+
+  utm_source   String? // UTM: The source of the link (e.g. newsletter, facebook, twitter)
+  utm_medium   String? // UTM: The medium of the link (e.g. cpc, banner, email)
+  utm_campaign String? // UTM: The campaign of the link (e.g. spring_sale)
+  utm_term     String? // UTM: The term of the link (e.g. reyn)
+  utm_content  String? // UTM: The content of the link (e.g. utm_content=logolink)
+
+  private  Boolean @default(false) // If the link is private, not public
+  disabled Boolean @default(false) // If the link is disabled
+  archived Boolean @default(false) // If the link is archived / removed
+  flagged  Boolean @default(false) // If the link is flagged for inspection
+  verified Boolean @default(false) // If the link is verified
+
+  visits      Int       @default(0)
+  lastVisited DateTime?
+
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+  updatedAt DateTime?
+  deletedAt DateTime?
+
+  @@unique([domain, key])
+  @@index([domain, key])
+  @@index([domain, url])
+  @@index([domain, previous_key])
+  @@index(createdAt(sort: Desc))
+  @@index(visits(sort: Desc))
+}

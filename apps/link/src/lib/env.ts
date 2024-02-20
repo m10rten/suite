@@ -8,6 +8,13 @@ export const env = define({
       .enum(["development", "production", "test"] as const)
       .default("development")
       .transform((val) => t.string.lower(val)),
+    DATABASE_URL: z
+      .string()
+      .default("postgres://postgres:postgres@localhost:5433/reyn_db"),
+    SHADOW_DATABASE_URL: z
+      .string()
+      .default("postgres://postgres:postgres@localhost:5433/reyn_db"),
+    REDIS_URL: z.string().default("redis://localhost:6380"),
   },
   prefix: "INTERNAL_",
   prefixed: {

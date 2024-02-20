@@ -16,7 +16,7 @@ services:
     volumes:
       - redis_data:/data
     ports:
-      - "6379:6379"
+      - "6380:6379"
   go:
     container_name: go-api
     build:
