@@ -4,7 +4,6 @@ import { Quick } from "@mvdlei/edge";
 import { prisma } from "@/lib/db";
 import { logger } from "@/lib/log";
 import { create } from "@/lib/redis";
-import { Link } from "@/lib/schemas";
 
 export const GET = async (_req: NextRequest, ctx: { params: { key: string } }) => {
   try {
@@ -14,12 +13,7 @@ export const GET = async (_req: NextRequest, ctx: { params: { key: string } }) =
     logger.log("Cache", cached);
     if (cached) {
       const json = JSON.parse(cached);
-      const parsed = Link.safeParse(json);
-      if (parsed.success) {
-        logger.log("Cache hit", parsed.data);
-        return Quick.status(Quick.STATUS_CODES.OK).json(parsed.data);
-      }
-      logger.error("Cache miss", parsed.error);
+      return Quick.status(Quick.STATUS_CODES.OK).json(json);
     }
 
     const link = await prisma.link.findUnique({
