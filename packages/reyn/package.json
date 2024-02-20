@@ -2,7 +2,7 @@
   "name": "reyn",
   "version": "0.0.0",
   "description": "Reyn is a simple, fast and lightweight library for easy link management.",
-  "private": true,
+  "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -43,6 +43,6 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   }
 }
