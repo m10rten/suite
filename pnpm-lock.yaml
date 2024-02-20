@@ -548,6 +548,15 @@ importers:
         specifier: workspace:*
         version: link:../internal/config
 
+  packages/reyn:
+    devDependencies:
+      "@types/node":
+        specifier: 20.11.17
+        version: 20.11.17
+      internal-config:
+        specifier: workspace:*
+        version: link:../internal/config
+
   packages/rpc:
     devDependencies:
       "@types/node":
@@ -2483,7 +2492,7 @@ packages:
     engines: { node: ^8.13.0 || >=10.10.0 }
     dependencies:
       "@grpc/proto-loader": 0.7.10
-      "@types/node": 20.11.17
+      "@types/node": 20.11.19
     dev: false
 
   /@grpc/proto-loader@0.7.10:
@@ -5639,7 +5648,7 @@ packages:
         integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==,
       }
     dependencies:
-      "@types/node": 20.11.17
+      "@types/node": 20.11.19
     dev: true
 
   /@types/mdast@3.0.15:
@@ -5686,6 +5695,7 @@ packages:
       }
     dependencies:
       undici-types: 5.26.5
+    dev: true
 
   /@types/node@20.11.19:
     resolution:
@@ -5746,7 +5756,7 @@ packages:
         integrity: sha512-H/+L+UkTV33uf49PH5pCAUBVPNj2nDBXTN+qS1dOwyyg24l3CcicicCA7ca+HMvJBZcFgl5r8e+RR6elsb4Lyw==,
       }
     dependencies:
-      "@types/node": 20.11.17
+      "@types/node": 20.11.19
     dev: true
 
   /@types/scheduler@0.16.8:
@@ -13654,7 +13664,7 @@ packages:
       "@protobufjs/path": 1.1.2
       "@protobufjs/pool": 1.1.0
       "@protobufjs/utf8": 1.1.0
-      "@types/node": 20.11.17
+      "@types/node": 20.11.19
       long: 5.2.3
     dev: false
 
