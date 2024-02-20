@@ -26,8 +26,24 @@ export const GET = async (_req: NextRequest, ctx: { params: { key: string } }) =
       where: {
         key,
       },
+      select: {
+        url: true,
+        key: true,
+        domain: true,
+      },
     });
     if (!link) {
+      const previousKey = await prisma.link.findFirst({
+        where: {
+          previous_key: key,
+        },
+        select: {
+          key: true,
+        },
+      });
+      if (previousKey) {
+        return Response.redirect(`/${previousKey.key}`);
+      }
       return Quick.status(Quick.STATUS_CODES.BAD_REQUEST).json({
         error: "A bad request",
       });
