@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - "apps/showcase/**"
+      - "apps/**"
       - ".github/workflows/main_push_node_apps.yaml"
       - pnpm-lock.yaml
       - package.json
