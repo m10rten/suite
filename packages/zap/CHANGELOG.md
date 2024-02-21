@@ -1,5 +1,11 @@
 # @mvdlei/zap
 
+## 0.1.1
+
+### Patch Changes
+
+- 3a2b268: Update error handling
+
 ## 0.1.0
 
 ### Minor Changes
