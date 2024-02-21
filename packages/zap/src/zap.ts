@@ -2,7 +2,7 @@ import { WithRequired } from "@mvdlei/types";
 import { t } from "@mvdlei/tzod";
 import { z } from "zod";
 
-import { HTTPError, TimeoutError } from "./errors";
+import { AbortError, HTTPError, TimeoutError } from "./errors";
 
 export type AnyData = z.ZodTypeAny;
 export type AnyResponse = z.ZodTypeAny;
@@ -172,10 +172,11 @@ export class Zap implements IZap {
           return parsed.data satisfies z.infer<TRes>;
         } else throw parsed.error;
       } catch (error) {
-        clearTimeout(timeoutId);
-        abort();
-        if (error instanceof HTTPError) throw error;
+        if (signal.aborted) throw new AbortError("The request was aborted");
+        abort(); // abort the request if it was not aborted
         if (error instanceof TimeoutError) throw error;
+        clearTimeout(timeoutId); // clear the timeout if the request was not timed out
+        if (error instanceof HTTPError) throw error;
         if (error instanceof z.ZodError) throw error;
         else if (error instanceof Error) throw error;
         else {
