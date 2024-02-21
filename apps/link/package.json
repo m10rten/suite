@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "generate": "pnpm prisma:generate",
     "prisma:generate": "prisma generate --schema=./src/prisma/schema.prisma",
     "prisma:migrate": "prisma migrate dev --schema=./src/prisma/schema.prisma",
     "prisma:studio": "prisma studio --schema=./src/prisma/schema.prisma",
