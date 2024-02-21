@@ -108,34 +108,40 @@ const LinkAnalytics = z.object({
 
 export const Link = z
   .object({
+    /**
+     * The unique identifier of the link in the database.
+     */
     id: z
       .string({
         description: "The unique identifier of the link in the database",
       })
-      .uuid({ message: "The ID must be a valid UUID" }),
+      .uuid({ message: "The ID must be a valid UUID" })
+      .or(
+        z
+          .string({
+            description: "The unique identifier of the link in the database",
+          })
+          .cuid({
+            message: "The ID must be a valid CUID",
+          }),
+      ),
+
+    /**
+     * The domain of the generated link. (e.g. https://example.com/)
+     */
     domain: z.string({
       description: "The domain of the generated link",
     }),
+
+    /**
+     * If the link is cloaked, it will hide the original URL.
+     */
     cloak: z
       .boolean({
         description: "If the link is cloaked, it will hide the original URL",
       })
       .optional()
       .default(false),
-    previous_key: z
-      .string({
-        description:
-          "If the key was changed, the previous key will be stored here so we can redirect the old key to the new one",
-      })
-      .optional(),
-
-    /**
-       *   domain       String // The domain of the generated link
-  key          String  @unique
-  cloak        Boolean @default(false) // If the link is cloaked, it will hide the original URL
-  previous_key String? // If the key was changed, the previous key will be stored here so we can redirect the old key to the new one
-
-       */
   })
   .merge(LinkBase)
   .merge(LinkAnalytics)

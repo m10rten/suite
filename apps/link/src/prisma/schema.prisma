@@ -9,12 +9,12 @@ generator client {
 }
 
 model Link {
-  id           String  @id @default(uuid())
-  url          String // The original URL where the key will redirect to
-  domain       String // The domain of the generated link
-  key          String  @unique
-  cloak        Boolean @default(false) // If the link is cloaked, it will hide the original URL
-  previous_key String? // If the key was changed, the previous key will be stored here so we can redirect the old key to the new one
+  id     String  @id @default(uuid())
+  url    String // The original URL where the key will redirect to
+  domain String // The domain of the generated link
+  key    String  @unique
+  cloak  Boolean @default(false) // If the link is cloaked, it will hide the original URL
+  // previous_key String? // If the key was changed, the previous key will be stored here so we can redirect the old key to the new one
 
   og_title       String? @db.Char(255)
   og_description String? @db.VarChar(255)
@@ -43,7 +43,7 @@ model Link {
   @@unique([domain, key])
   @@index([domain, key])
   @@index([domain, url])
-  @@index([domain, previous_key])
+  // @@index([domain, previous_key])
   @@index(createdAt(sort: Desc))
   @@index(visits(sort: Desc))
 }
