@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/hooks",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A Collection of React Hooks",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
