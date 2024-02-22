@@ -59,19 +59,28 @@ model Session {
   @@index([userId])
 }
 
-enum Plan {
-  TRIAL // 7 days
-  BASIC // pay for 1 month
-  PRO // pay for 1 year, 2 users
-  BUSINESS // pay for 1 year, 10 users
-  ENTERPRISE // pay for 1 year, 20+
-}
+// enum Plan {
+//   TRIAL // 7 days
+//   BASIC // pay for 1 month, 1 user
+//   PRO // pay for 1 year, 2 users
+//   BUSINESS // pay for 1 year, 10 users
+//   ENTERPRISE // pay for 1 year, 20+
+// }
+
+// enum OrganizationType {
+//   PERSONAL
+//   TEAM
+//   BUSINESS
+//   ENTERPRISE
+// }
 
 model Organization {
   id   String @id @default(uuid())
   name String @unique
 
-  plan Plan @default(TRIAL)
+  // type OrganizationType
+
+  // plan Plan @default(TRIAL)
 
   members Member[]
   links   Link[]
