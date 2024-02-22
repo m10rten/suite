@@ -8,7 +8,101 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model User {
+  id    String @id @default(uuid())
+  email String @unique
+
+  name     String?
+  verified Boolean @default(false)
+  image    String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  deletedAt DateTime?
+
+  sessions      Session[]
+  accounts      Account[]
+  organizations Member[]
+}
+
+model Account {
+  id                String @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+
+  refresh_token            String
+  refresh_token_expires_in Int?
+  access_token             String
+  expires_at               Int?
+
+  token_type    String?
+  scope         String?
+  id_token      String?
+  session_state String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id      String   @id @default(uuid())
+  token   String   @unique
+  userId  String
+  expires DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+enum Plan {
+  TRIAL // 7 days
+  BASIC // pay for 1 month
+  PRO // pay for 1 year, 2 users
+  BUSINESS // pay for 1 year, 10 users
+  ENTERPRISE // pay for 1 year, 20+
+}
+
+model Organization {
+  id   String @id @default(uuid())
+  name String @unique
+
+  plan Plan @default(TRIAL)
+
+  members Member[]
+  links   Link[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  deletedAt DateTime?
+}
+
+enum Role {
+  OWNER // Creator of the organization
+  ADMIN // Can manage members, links, and settings
+  MEMBER // Can view links + password-protected links, and analytics
+}
+
+model Member {
+  id             String @id @default(uuid())
+  userId         String
+  organizationId String
+  role           Role
+
+  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  org  Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, organizationId])
+  @@index([organizationId])
+}
+
 model Link {
+  organizationId String
+
   id     String  @id @default(uuid())
   url    String // The original URL where the key will redirect to
   domain String // The domain of the generated link
@@ -39,6 +133,8 @@ model Link {
   expiresAt DateTime?
   updatedAt DateTime?
   deletedAt DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@unique([domain, key])
   @@index([domain, key])
