@@ -12,17 +12,20 @@ model User {
   id    String @id @default(uuid())
   email String @unique
 
-  name     String?
-  verified Boolean @default(false)
-  image    String?
+  name          String?
+  emailVerified Boolean @default(false)
+  image         String?
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime?
-  deletedAt DateTime?
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime? // Soft delete
 
-  sessions      Session[]
-  accounts      Account[]
+  sessions Session[]
+  accounts Account[]
+
   organizations Member[]
+
+  @@index([email])
 }
 
 model Account {
@@ -49,14 +52,22 @@ model Account {
 }
 
 model Session {
-  id      String   @id @default(uuid())
-  token   String   @unique
-  userId  String
-  expires DateTime
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 // enum Plan {

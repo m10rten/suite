@@ -19,15 +19,15 @@ export const POST = async (req: NextRequest) => {
       return Quick.status(Quick.STATUS_CODES.BAD_REQUEST).json(body.error);
     }
 
-    const link = await prisma.link.create({
-      data: {
-        domain: body.data.domain,
-        url: body.data.url,
-        key: body.data.key,
-      },
-    });
+    // const link = await prisma.link.create({
+    //   data: {
+    //     domain: body.data.domain,
+    //     url: body.data.url,
+    //     key: body.data.key,
+    //   },
+    // });
 
-    return Quick.status(Quick.STATUS_CODES.CREATED).json(link);
+    return Quick.status(Quick.STATUS_CODES.CREATED).json({ link: "link" });
   } catch (e) {
     return Quick.status(Quick.STATUS_CODES.INTERNAL_SERVER_ERROR).json({
       error: e instanceof Error ? e.message : "An error occurred",
