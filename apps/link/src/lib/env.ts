@@ -15,6 +15,8 @@ export const env = define({
       .string()
       .default("postgres://postgres:postgres@localhost:5433/reyn_db"),
     REDIS_URL: z.string().default("redis://localhost:6380"),
+    GITHUB_CLIENT_ID: z.string(),
+    GITHUB_CLIENT_SECRET: z.string(),
   },
   prefix: "INTERNAL_",
   prefixed: {

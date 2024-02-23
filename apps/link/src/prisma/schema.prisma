@@ -9,11 +9,11 @@ generator client {
 }
 
 model User {
-  id    String @id @default(uuid())
-  email String @unique
+  id    String  @id @default(uuid())
+  email String? @unique
 
   name          String?
-  emailVerified Boolean @default(false)
+  emailVerified DateTime?
   image         String?
 
   createdAt DateTime  @default(now())
@@ -35,9 +35,9 @@ model Account {
   provider          String
   providerAccountId String
 
-  refresh_token            String
+  refresh_token            String?
   refresh_token_expires_in Int?
-  access_token             String
+  access_token             String?
   expires_at               Int?
 
   token_type    String?
