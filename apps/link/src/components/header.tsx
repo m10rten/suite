@@ -3,6 +3,7 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 
 import Profile from "./profile";
+import ThemeSwitch from "./theme-switch";
 import { Button } from "./ui/button";
 
 export default async function Header() {
@@ -20,11 +21,14 @@ export default async function Header() {
           {session ? (
             <Profile session={session} />
           ) : (
-            <Button variant={"outline"} asChild>
-              <Link href={"/signin"}>
-                <span className="cursor-pointer">Sign in</span>
-              </Link>
-            </Button>
+            <>
+              <ThemeSwitch />
+              <Button variant={"outline"} asChild>
+                <Link href={"/signin"}>
+                  <span className="cursor-pointer">Sign in</span>
+                </Link>
+              </Button>
+            </>
           )}
         </div>
       </nav>

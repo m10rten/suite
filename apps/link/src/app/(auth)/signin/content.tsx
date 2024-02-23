@@ -23,12 +23,7 @@ export default function SinginContent() {
       </Button>
       <p className="text-xs text-secondary-foreground/80 mt-4 max-w-xs">
         By signing in, you agree to our{" "}
-        <Link
-          className="underline"
-          href="/terms"
-          onClick={() => {
-            router.push("/terms");
-          }}>
+        <Link className="underline" href="/terms">
           Terms of Service
         </Link>
       </p>
