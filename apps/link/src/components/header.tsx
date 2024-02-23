@@ -1,8 +1,12 @@
 import Link from "next/link";
 
-import ThemeSwitch from "#/theme-switch";
+import { auth } from "@/lib/auth";
 
-export default function Header() {
+import Profile from "./profile";
+import { Button } from "./ui/button";
+
+export default async function Header() {
+  const session = await auth();
   return (
     <header className="fixed top-0 w-full border-b py-2 px-4 z-50 backdrop-blur-md bg-background/80 shadow-sm">
       <nav className="w-full justify-between flex items-center my-1 sm:container">
@@ -13,7 +17,15 @@ export default function Header() {
           </Link>
         </span>
         <div className="flex items-center sm:gap-5 gap-3 group sm:px-3 px-1 text-sm sm:text-base">
-          <ThemeSwitch />
+          {session ? (
+            <Profile session={session} />
+          ) : (
+            <Button variant={"outline"} asChild>
+              <Link href={"/signin"}>
+                <span className="cursor-pointer">Sign in</span>
+              </Link>
+            </Button>
+          )}
         </div>
       </nav>
     </header>

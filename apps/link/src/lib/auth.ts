@@ -13,6 +13,11 @@ export const options: NextAuthConfig = {
       clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
   ],
+  pages: {
+    signIn: "/signin",
+    newUser: "/onboarding",
+    error: "/error",
+  },
 };
 
 export const {
