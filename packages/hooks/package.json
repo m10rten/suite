@@ -175,6 +175,15 @@
       ],
       "use-intersection-observer": [
         "dist/use-intersection-observer.d.ts"
+      ],
+      "use-fetch": [
+        "dist/use-fetch.d.ts"
+      ],
+      "use-async": [
+        "dist/use-async.d.ts"
+      ],
+      "use-online": [
+        "dist/use-online.d.ts"
       ]
     }
   },

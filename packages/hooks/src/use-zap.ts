@@ -9,12 +9,13 @@ import {
   Zap,
   ZapOptions,
 } from "@mvdlei/zap";
+import { z } from "zod";
 
 type Input = Request | URL | string;
 
 type UseHookReturn<TIn extends AnyData, TOut extends AnyResponse> = {
   call: (input?: TIn) => Promise<void>;
-  data: TOut | undefined;
+  data: z.infer<TOut> | undefined;
   error: Error | HTTPError | TimeoutError | undefined;
   loading: boolean;
 };
@@ -51,7 +52,7 @@ export function useZap(
     url: Input,
     { output, input, headers, method, params }: WantedOptions<TIn, TOut> = {},
   ): UseHookReturn<TIn, TOut> {
-    const [data, setData] = useState<TOut | undefined>();
+    const [data, setData] = useState<z.infer<TOut> | undefined>();
     const [error, setError] = useState<Error | HTTPError | TimeoutError | undefined>();
     const [loading, setLoading] = useState(false);
     const act = useCallback(
