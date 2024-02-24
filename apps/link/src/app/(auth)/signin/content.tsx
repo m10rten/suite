@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 
-export default function SinginContent() {
+export default function SigninContent() {
   return (
     <>
       <h1 className="text-4xl font-bold">Sign In</h1>
