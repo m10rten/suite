@@ -1,15 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Github } from "lucide-react";
 import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 
 export default function SinginContent() {
-  const router = useRouter();
-
   return (
     <>
       <h1 className="text-4xl font-bold">Sign In</h1>
