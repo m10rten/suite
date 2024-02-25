@@ -1,13 +1,7 @@
 import { useCallback, useState } from "react";
-import { TimeoutError } from "@mvdlei/zap";
+import { HTTPError, TimeoutError } from "@mvdlei/zap";
 
 import useOnce from "./use-once";
-
-export class HTTPError extends Error {
-  constructor(public response: Response) {
-    super(response.statusText);
-  }
-}
 
 export type FetchConfig<T> = {
   timeout?: number | string | null | undefined;
