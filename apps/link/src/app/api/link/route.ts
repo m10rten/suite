@@ -2,8 +2,9 @@ import { NextRequest } from "next/server";
 import { Quick } from "@mvdlei/edge";
 import { z } from "zod";
 
-import { prisma } from "@/lib/db";
-import { logger } from "@/lib/log";
+import { auth } from "~/auth";
+import { prisma } from "~/db";
+import { logger } from "~/log";
 
 const schema = z.object({
   domain: z.string(),
@@ -11,7 +12,7 @@ const schema = z.object({
   key: z.string(),
 });
 
-export const POST = async (req: NextRequest) => {
+export const POST = auth(async (req: NextRequest) => {
   try {
     logger.log("Request body", req.body);
     const body = schema.safeParse(await req.json());
@@ -33,7 +34,7 @@ export const POST = async (req: NextRequest) => {
       error: e instanceof Error ? e.message : "An error occurred",
     });
   }
-};
+});
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const GET = async (_req: NextRequest) => {
