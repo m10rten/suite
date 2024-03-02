@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.1.3
+
+### Patch Changes
+
+- 862b223: Updated `tzod` with more string functions
+
 ## 0.1.2
 
 ### Patch Changes
