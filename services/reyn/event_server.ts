@@ -2,7 +2,7 @@
 import express from "express";
 import { z } from "zod";
 
-import { handleEvent } from "./shared";
+import { validateEvent } from "./shared";
 
 const app = express();
 app.use(express.json());
@@ -14,7 +14,7 @@ app.get("/", (_req, res) => {
 
 app.get("/event", async (req, res) => {
   try {
-    const event = await handleEvent("register_user", req.query);
+    const event = await validateEvent("register_user", req.query);
 
     const response = await fetch("http://localhost:8000/webhook", {
       method: "POST",
@@ -30,8 +30,8 @@ app.get("/event", async (req, res) => {
     }
     if (error instanceof z.ZodError) {
       console.error(`[ ❌ ]: Error: ${error.message}`);
-      return res.status(500).json({ message: "Error", error });
-    }
+      return res.status(400).json({ message: "Error", error });
+    } else return res.status(500).json({ message: "Error", error: error.message });
   }
 });
 

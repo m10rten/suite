@@ -28,17 +28,17 @@ const make = <ZodSchema extends z.ZodTypeAny>(schema: ZodSchema) => {
   };
 };
 
-export const handleEvent = make(
+// This will likely be done by the event-handler that then calls the webhook
+export const validateEvent = make(
   z.object({
     name: z.string(),
   }),
 );
+export type Data = r.Infer<Awaited<ReturnType<typeof validateEvent>>>;
 
 // const exampleEvent = createEvent("user_created", {
 //   name: "John Doe",
 // });
-
-export type Data = r.Infer<Awaited<ReturnType<typeof handleEvent>>>;
 
 // export const mySchema = z.object({
 //   name: z.string(),
