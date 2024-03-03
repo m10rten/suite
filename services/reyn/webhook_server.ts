@@ -1,21 +1,7 @@
 /* eslint-disable no-console */
 import express from "express";
-import { z } from "zod";
 
-import { r } from "./event_server";
-
-export const mySchema = z.object({
-  name: z.string(),
-});
-type Schema = z.infer<typeof mySchema>;
-
-const myEvent: r.CreateEvent<Schema> = {
-  event: "user_created",
-  data: {
-    name: "John Doe",
-  },
-};
-export type Data = r.Infer<typeof myEvent>;
+import { Data, r } from "./shared";
 
 const app = express();
 app.use(express.json());
@@ -24,8 +10,9 @@ app.get("/", (_req, res) => {
 });
 
 app.post("/webhook", (req, res) => {
-  const data: Data = req.body;
-  res.json({ message: "Webhook received!", data });
+  const event: r.Event<Data> = req.body;
+  console.log(`[ 🎉 ]: Webhook received: ${JSON.stringify(event)}`);
+  res.json({ message: "Webhook received!", event });
 });
 
 app.listen(8000, () => {
