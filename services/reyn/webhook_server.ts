@@ -1,7 +1,21 @@
 /* eslint-disable no-console */
 import express from "express";
+import { z } from "zod";
 
-import { Data } from "./event_server";
+import { r } from "./event_server";
+
+export const mySchema = z.object({
+  name: z.string(),
+});
+type Schema = z.infer<typeof mySchema>;
+
+const myEvent: r.CreateEvent<Schema> = {
+  event: "user_created",
+  data: {
+    name: "John Doe",
+  },
+};
+export type Data = r.Infer<typeof myEvent>;
 
 const app = express();
 app.use(express.json());

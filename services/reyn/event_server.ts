@@ -1,33 +1,27 @@
 /* eslint-disable no-console */
 import express from "express";
-import { z } from "zod";
+
+import { Data, mySchema } from "./webhook_server";
 
 const app = express();
-
+app.use(express.json());
 app.get("/", (_req, res) => {
   res.send("Hello World!");
 });
 
-type CreateEvent<TData extends Record<string, unknown>> = {
-  event: string;
-  data: TData;
-};
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace r {
+  // API built-in types
+  export type CreateEvent<TData extends Record<string, unknown>> = {
+    event: string;
+    data: TData;
+  };
+  export type Infer<T> = T extends CreateEvent<infer U> ? U : never;
+}
 
-const myEvent: CreateEvent<{ name: string }> = {
-  event: "user_created",
-  data: {
-    name: "John Doe",
-  },
-};
-
-type Infer<T> = T extends CreateEvent<infer U> ? U : never;
-
-export type Data = Infer<typeof myEvent>;
+// client is mocked with the browser making a GET request with query parameters, but this should be an API call like <module>.call, or REST like `POST /event`
 
 app.get("/event", async (req, _res) => {
-  const mySchema = z.object({
-    name: z.string(),
-  });
   const parsed = mySchema.safeParse(req.query);
   if (!parsed.success) {
     return _res.status(400).json({ error: parsed.error });
