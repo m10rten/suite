@@ -122,6 +122,8 @@ export interface IString {
 
     /**
      * Find the longest word in a string
+     *
+     * Returns the longest word or an array of longest words
      */
     longest: <T extends string>(value: T) => string | string[];
   };
