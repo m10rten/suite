@@ -38,7 +38,7 @@ export const handleEvent = make(
 //   name: "John Doe",
 // });
 
-export type Data = r.Infer<ReturnType<typeof handleEvent>>;
+export type Data = r.Infer<Awaited<ReturnType<typeof handleEvent>>>;
 
 // export const mySchema = z.object({
 //   name: z.string(),
