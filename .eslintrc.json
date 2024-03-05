@@ -9,5 +9,6 @@
     "@typescript-eslint/ban-ts-comment": "warn"
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"]
+  "plugins": ["@typescript-eslint"],
+  "ignorePatterns": ["node_modules", ".eslintrc.*", "dist", "coverage", "jest.config.js"]
 }
