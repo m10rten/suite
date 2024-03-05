@@ -1,5 +1,9 @@
 {
   "prettier.configPath": ".prettierrc.json",
   "prettier.prettierPath": "./node_modules/prettier/index.cjs",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.exclude": {
+    "**/node_modules/**": true,
+    "**/.turbo/**": true
+  }
 }
