@@ -129,7 +129,7 @@ export namespace Web {
   }
 }
 
-const makeUrl = (input: RequestInfo | URL, init?: ApiInit) => {
+const makeUrl = (input: Request | string | URL, init?: ApiInit) => {
   const path = init?.path ?? "";
   const origin = init?.origin ?? init?.baseUrl ?? Web.Api.Origin.fromEnv();
 
@@ -171,12 +171,12 @@ export class HttpError extends Error {
 /**
  * Extended version of fetch with defaults for the headers and the base URL.
  *
- * @param input {RequestInfo | URL} - The input to be called to, can be a URL, string or Request object.
+ * @param input {Request | string | URL} - The input to be called to, can be a URL, string or Request object.
  * @param init {ApiInit} - The options for the request.
  * @returns {Promise<unknown>} - The response from the request, you can use `await` to get the data, you are required to validate and parse the data.
  */
 export async function api(
-  input: RequestInfo | URL,
+  input: Request | string | URL,
   init?: ApiInit,
 ): Promise<ApiResponse> {
   const headers = new Headers({
