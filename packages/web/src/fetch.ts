@@ -43,7 +43,7 @@ export interface ApiInit extends RequestInit {
    * @example
    * ```ts
    * const response = await api("/users/octocat", {
-   *   origin: "https://api.github.com"
+   *   origin: "https://api.github.com", // request will be made to https://api.github.com/users/octocat
    * });
    * ```
    */
@@ -51,18 +51,28 @@ export interface ApiInit extends RequestInit {
 
   /**
    * BaseURL for the request, this is the same as `origin` but with a different name.
+   *
+   * @see ApiInit.origin
    */
   baseUrl?: string;
 
   /**
    * Set a base path for the request.
    *
-   * You can load this basePath the same way as the origin, using `Web.Api.Path.fromEnv()`.
+   * @example
+   * ```ts
+   * const response = await api("/users/octocat", {
+   *  path: "/api/v1", // request will be made to /api/v1/users/octocat
+   * });
+   * ```
+   *
+   * Please note that this path will always be the first part of the path.
    *
    * @example
    * ```ts
    * const response = await api("/users/octocat", {
-   *  basePath: "/api/v1", // request will be made to /api/v1/users/octocat
+   *  origin: "https://api.github.com/v1", // request will be made to https://api.github.com/v1/users/octocat
+   *  path: "/api/", // now the request will be made to https://api.github.com/api/v1/users/octocat
    * });
    * ```
    */
@@ -85,9 +95,10 @@ export namespace Web {
     server?: string;
     isClient?: boolean | (() => boolean);
   };
-  export class Api {
-    private constructor() {} // not meant to be instantiated
-    public static readonly Origin = {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  export namespace Api {
+    // private constructor() {} // not meant to be instantiated
+    export class Origin {
       /**
        * Get the API URL from the environment variables
        *
@@ -100,7 +111,10 @@ export namespace Web {
        * @param options - Options to override the defaults
        * @returns
        */
-      fromEnv(env?: string | null | undefined, options?: Partial<Options>): string {
+      public static fromEnv(
+        env?: string | null | undefined,
+        options?: Partial<Options>,
+      ): string {
         const mergedOptions = { ...defaultOptions, ...options };
         const { client, server, isClient } = mergedOptions;
 
@@ -110,17 +124,32 @@ export namespace Web {
             : server;
 
         return process.env[key] ?? process.env[client] ?? process.env[server] ?? "";
-      },
-    };
+      }
+    }
   }
 }
 
 const makeUrl = (input: RequestInfo | URL, init?: ApiInit) => {
+  const path = init?.path ?? "";
   const origin = init?.origin ?? init?.baseUrl ?? Web.Api.Origin.fromEnv();
-  const url = t.to.url(input, origin);
+
+  const inputWithoutDoubleSlash = stripDoubleSlash(input.toString());
+
+  const url = t.to.url(inputWithoutDoubleSlash, origin);
+  if (path) url.pathname = `${path}${slashIt(url.pathname)}`;
 
   if (init?.params) {
-    const params = new URLSearchParams(init.params);
+    const existingParams = new URLSearchParams(url.search);
+    const initParams = new URLSearchParams(init.params);
+    const combinedParams = new URLSearchParams(
+      `${existingParams.toString()}&${initParams.toString()}`,
+    );
+
+    const params = new URLSearchParams();
+    combinedParams.forEach((value, key) => {
+      params.set(key, value);
+    });
+
     url.search = params.toString();
   }
 
@@ -128,7 +157,7 @@ const makeUrl = (input: RequestInfo | URL, init?: ApiInit) => {
 };
 
 const slashIt = (str: string) => (str.endsWith("/") ? str : `${str}/`);
-const stripDoubleSlash = (str: string) => str.replace(/([^:]\/)\/+/g, "$1");
+const stripDoubleSlash = (str: string) => str.replace(/[/]{2,}/g, "/");
 
 export class HttpError extends Error {
   public static is(httpError: unknown): httpError is HttpError {
@@ -156,25 +185,21 @@ export async function api(
   });
 
   const url = makeUrl(input, init);
+
   // url that has the queryParams, trailing slash, and base url if present.
   const stringUrl = url.toString();
-  const pathSlashed = init?.path ? slashIt(init.path) : "";
-  const withPath = `${pathSlashed}${stringUrl}`;
-  const finalUrl = stripDoubleSlash(slashIt(withPath));
+  const finalUrl = stripDoubleSlash(stringUrl);
 
   const response = await fetch(finalUrl, {
     headers,
     ...init,
   });
+
   if (!response.ok) {
     throw new HttpError(response);
   }
 
-  const api_response: ApiResponse = {
-    ...response,
-    data: await response.json(),
-  };
-  return api_response;
+  return Object.assign(response, { data: await response.json() });
 }
 
 /**
@@ -186,10 +211,14 @@ export async function api(
 
 //     console.log("started");
 
-//     const response = await api("/todos/1", {
-//       origin: "https://jsonplaceholder.typicode.com/",
+//     const response = await api("1//?q=1", {
+//       origin: "https://jsonplaceholder.typicode.com//1",
+//       path: "//todos//",
+//       params: {
+//         h: "2",
+//       },
 //     });
-//     console.log(response.data);
+//     console.log(response.status, response.data);
 //   } catch (error) {
 //     if (HttpError.is(error)) {
 //       console.log(error.response.statusText);
