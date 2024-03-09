@@ -2,7 +2,7 @@
   "name": "@mvdlei/web",
   "version": "0.0.0",
   "description": "Web utilities like fetch, browser api's, etc.",
-  "private": true,
+  "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -27,12 +27,17 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./fetch": {
+      "import": "./dist/fetch.mjs",
+      "require": "./dist/fetch.js",
+      "types": "./dist/fetch.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
-      "<name>": [
-        "dist/<name>.d.ts"
+      "fetch": [
+        "dist/fetch.d.ts"
       ]
     }
   },
@@ -43,6 +48,9 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
+  },
+  "dependencies": {
+    "@mvdlei/tzod": "workspace:*"
   }
 }
