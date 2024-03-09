@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { t } from "@mvdlei/tzod";
 
 export interface ApiInit extends RequestInit {
@@ -66,6 +67,10 @@ export interface ApiInit extends RequestInit {
    * ```
    */
   path?: string;
+}
+
+export interface ApiResponse extends Response {
+  data: unknown;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -141,7 +146,10 @@ export class HttpError extends Error {
  * @param init {ApiInit} - The options for the request.
  * @returns {Promise<unknown>} - The response from the request, you can use `await` to get the data, you are required to validate and parse the data.
  */
-export async function api(input: RequestInfo | URL, init?: ApiInit): Promise<unknown> {
+export async function api(
+  input: RequestInfo | URL,
+  init?: ApiInit,
+): Promise<ApiResponse> {
   const headers = new Headers({
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -150,7 +158,7 @@ export async function api(input: RequestInfo | URL, init?: ApiInit): Promise<unk
   const url = makeUrl(input, init);
   // url that has the queryParams, trailing slash, and base url if present.
   const stringUrl = url.toString();
-  const pathSlashed = slashIt(init?.path ?? "");
+  const pathSlashed = init?.path ? slashIt(init.path) : "";
   const withPath = `${pathSlashed}${stringUrl}`;
   const finalUrl = stripDoubleSlash(slashIt(withPath));
 
@@ -162,10 +170,11 @@ export async function api(input: RequestInfo | URL, init?: ApiInit): Promise<unk
     throw new HttpError(response);
   }
 
-  if (response.headers.get("Content-Type")?.includes("application/json")) {
-    return response.json();
-  }
-  return response.text();
+  const api_response: ApiResponse = {
+    ...response,
+    data: await response.json(),
+  };
+  return api_response;
 }
 
 /**
@@ -173,14 +182,14 @@ export async function api(input: RequestInfo | URL, init?: ApiInit): Promise<unk
  */
 // const main = async () => {
 //   try {
-//     console.log(Web.Api.fromEnv());
+//     console.log(Web.Api.Origin.fromEnv());
 
 //     console.log("started");
 
-//     const data = await api("/todos/1", {
+//     const response = await api("/todos/1", {
 //       origin: "https://jsonplaceholder.typicode.com/",
 //     });
-//     console.log(data);
+//     console.log(response.data);
 //   } catch (error) {
 //     if (HttpError.is(error)) {
 //       console.log(error.response.statusText);
