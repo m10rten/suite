@@ -35,18 +35,37 @@ export interface ApiInit extends RequestInit {
    *
    * Origin for the input to be called to.
    *
-   * Defaults to: `Web.Api.fromEnv()`
+   * Defaults to: `Web.Api.Origin.fromEnv()`
    *
    * @see Web.Api.fromEnv
    *
    * @example
    * ```ts
    * const response = await api("/users/octocat", {
-   *   baseUrl: "https://api.github.com"
+   *   origin: "https://api.github.com"
    * });
    * ```
    */
+  origin?: string;
+
+  /**
+   * BaseURL for the request, this is the same as `origin` but with a different name.
+   */
   baseUrl?: string;
+
+  /**
+   * Set a base path for the request.
+   *
+   * You can load this basePath the same way as the origin, using `Web.Api.Path.fromEnv()`.
+   *
+   * @example
+   * ```ts
+   * const response = await api("/users/octocat", {
+   *  basePath: "/api/v1", // request will be made to /api/v1/users/octocat
+   * });
+   * ```
+   */
+  path?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -61,36 +80,39 @@ export namespace Web {
     server?: string;
     isClient?: boolean | (() => boolean);
   };
-  export const Api = {
-    /**
-     * Get the API URL from the environment variables
-     *
-     * Defaults to `NEXT_PUBLIC_API_URL` for the client and `API_URL` for the server.
-     *
-     * `isClient` is used to determine if the code is running on the client or server.
-     * Defaults to `typeof window !== "undefined"`, can be overridden with a boolean or a function that returns a boolean.
-     *
-     * @param env - The environment key to use for the API URL
-     * @param options - Options to override the defaults
-     * @returns
-     */
-    fromEnv: (env?: string | null | undefined, options?: Partial<Options>): string => {
-      const mergedOptions = { ...defaultOptions, ...options };
-      const { client, server, isClient } = mergedOptions;
+  export class Api {
+    private constructor() {} // not meant to be instantiated
+    public static readonly Origin = {
+      /**
+       * Get the API URL from the environment variables
+       *
+       * Defaults to `NEXT_PUBLIC_API_URL` for the client and `API_URL` for the server.
+       *
+       * `isClient` is used to determine if the code is running on the client or server.
+       * Defaults to `typeof window !== "undefined"`, can be overridden with a boolean or a function that returns a boolean.
+       *
+       * @param env - The environment key to use for the API URL
+       * @param options - Options to override the defaults
+       * @returns
+       */
+      fromEnv(env?: string | null | undefined, options?: Partial<Options>): string {
+        const mergedOptions = { ...defaultOptions, ...options };
+        const { client, server, isClient } = mergedOptions;
 
-      const key =
-        env ?? (typeof isClient === "function" ? isClient() : isClient)
-          ? client
-          : server;
+        const key =
+          env ?? (typeof isClient === "function" ? isClient() : isClient)
+            ? client
+            : server;
 
-      return process.env[key] ?? process.env[client] ?? process.env[server] ?? "";
-    },
-  };
+        return process.env[key] ?? process.env[client] ?? process.env[server] ?? "";
+      },
+    };
+  }
 }
 
 const makeUrl = (input: RequestInfo | URL, init?: ApiInit) => {
-  const baseUrl = init?.baseUrl ?? Web.Api.fromEnv();
-  const url = t.to.url(input, baseUrl);
+  const origin = init?.origin ?? init?.baseUrl ?? Web.Api.Origin.fromEnv();
+  const url = t.to.url(input, origin);
 
   if (init?.params) {
     const params = new URLSearchParams(init.params);
@@ -100,9 +122,8 @@ const makeUrl = (input: RequestInfo | URL, init?: ApiInit) => {
   return url;
 };
 
-const slashIt = (url: string) => (url.endsWith("/") ? url : `${url}/`);
-// const itSlash = (url: string) => (url.startsWith("/") ? url : `/${url}`);
-const stripDoubleSlash = (url: string) => url.replace(/([^:]\/)\/+/g, "$1");
+const slashIt = (str: string) => (str.endsWith("/") ? str : `${str}/`);
+const stripDoubleSlash = (str: string) => str.replace(/([^:]\/)\/+/g, "$1");
 
 export class HttpError extends Error {
   public static is(httpError: unknown): httpError is HttpError {
@@ -113,6 +134,13 @@ export class HttpError extends Error {
   }
 }
 
+/**
+ * Extended version of fetch with defaults for the headers and the base URL.
+ *
+ * @param input {RequestInfo | URL} - The input to be called to, can be a URL, string or Request object.
+ * @param init {ApiInit} - The options for the request.
+ * @returns {Promise<unknown>} - The response from the request, you can use `await` to get the data, you are required to validate and parse the data.
+ */
 export async function api(input: RequestInfo | URL, init?: ApiInit): Promise<unknown> {
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -121,7 +149,10 @@ export async function api(input: RequestInfo | URL, init?: ApiInit): Promise<unk
 
   const url = makeUrl(input, init);
   // url that has the queryParams, trailing slash, and base url if present.
-  const finalUrl = stripDoubleSlash(slashIt(url.toString()));
+  const stringUrl = url.toString();
+  const pathSlashed = slashIt(init?.path ?? "");
+  const withPath = `${pathSlashed}${stringUrl}`;
+  const finalUrl = stripDoubleSlash(slashIt(withPath));
 
   const response = await fetch(finalUrl, {
     headers,
@@ -147,7 +178,7 @@ export async function api(input: RequestInfo | URL, init?: ApiInit): Promise<unk
 //     console.log("started");
 
 //     const data = await api("/todos/1", {
-//       baseUrl: "https://jsonplaceholder.typicode.com/",
+//       origin: "https://jsonplaceholder.typicode.com/",
 //     });
 //     console.log(data);
 //   } catch (error) {
