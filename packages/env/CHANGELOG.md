@@ -1,5 +1,11 @@
 # @mvdlei/env
 
+## 0.1.1
+
+### Patch Changes
+
+- 5fac306: Update to include extends property in define options.
+
 ## 0.1.0
 
 ### Minor Changes

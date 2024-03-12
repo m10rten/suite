@@ -1,5 +1,12 @@
 # showcase
 
+## 0.1.19
+
+### Patch Changes
+
+- Updated dependencies [5fac306]
+  - @mvdlei/env@0.1.1
+
 ## 0.1.18
 
 ### Patch Changes
