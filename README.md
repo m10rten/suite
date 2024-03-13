@@ -23,6 +23,7 @@ Personal Suite of Code for self-made packages and apps, written in TypeScript, b
 - `@mvdlei/reset` - A typescript utility for resetting default behavior of built-in types.
 - `@mvdlei/edge` - A utility for edge-ready web applications.
 - `@mvdlei/next` - A package containing utilities for Next.js applications.
+- `@mvdlei/web` - A package containing an upgraded fetch utility for web applications.
 
 ### `Apps`
 
