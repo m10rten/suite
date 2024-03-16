@@ -123,7 +123,7 @@ export namespace Web {
             ? client
             : server;
 
-        return process.env[key] ?? process.env[client] ?? process.env[server] ?? "";
+        return process.env[key] ?? process.env[server] ?? process.env[client] ?? "";
       }
     }
   }
