@@ -21,7 +21,7 @@
     "@mvdlei/types": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "20.11.17",
+    "@types/node": "20.11.28",
     "internal-config": "workspace:*"
   },
   "files": [
