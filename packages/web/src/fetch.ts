@@ -166,6 +166,18 @@ export class HttpError extends Error {
   constructor(public response: Response) {
     super(`HTTP error: ${response.status}`);
   }
+
+  get status() {
+    return this.response.status;
+  }
+
+  get redirected() {
+    return this.response.redirected;
+  }
+
+  get ok() {
+    return this.response.ok;
+  }
 }
 
 /**
@@ -195,7 +207,7 @@ export async function api(
     ...init,
   });
 
-  if (!response.ok) {
+  if (!response.ok && !response.redirected) {
     throw new HttpError(response);
   }
 
