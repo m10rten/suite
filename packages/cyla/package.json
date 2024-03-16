@@ -1,0 +1,48 @@
+{
+  "name": "cyla",
+  "version": "0.0.0",
+  "description": "",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup --format cjs,esm --dts",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --passWithNoTests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "20.11.17",
+    "internal-config": "workspace:*"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "cyla": [
+        "dist/cyla.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
