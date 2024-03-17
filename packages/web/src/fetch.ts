@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-console */
-import { t } from "@mvdlei/tzod";
+
+import { makeUrl, stripDoubleSlash } from "./_utils";
+import { HttpError } from "./errors";
 
 export interface ApiInit extends RequestInit {
   /**
@@ -83,103 +86,6 @@ export interface ApiResponse extends Response {
   data: unknown;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
-export namespace Web {
-  const defaultOptions = {
-    client: "NEXT_PUBLIC_API_URL",
-    server: "API_URL",
-    isClient: typeof window !== "undefined",
-  } as const;
-  type Options = {
-    client?: string;
-    server?: string;
-    isClient?: boolean | (() => boolean);
-  };
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  export namespace Api {
-    // private constructor() {} // not meant to be instantiated
-    export class Origin {
-      /**
-       * Get the API URL from the environment variables
-       *
-       * Defaults to `NEXT_PUBLIC_API_URL` for the client and `API_URL` for the server.
-       *
-       * `isClient` is used to determine if the code is running on the client or server.
-       * Defaults to `typeof window !== "undefined"`, can be overridden with a boolean or a function that returns a boolean.
-       *
-       * @param env - The environment key to use for the API URL
-       * @param options - Options to override the defaults
-       * @returns
-       */
-      public static fromEnv(
-        env?: string | null | undefined,
-        options?: Partial<Options>,
-      ): string {
-        const mergedOptions = { ...defaultOptions, ...options };
-        const { client, server, isClient } = mergedOptions;
-
-        const key =
-          env ?? (typeof isClient === "function" ? isClient() : isClient)
-            ? client
-            : server;
-
-        return process.env[key] ?? process.env[server] ?? process.env[client] ?? "";
-      }
-    }
-  }
-}
-
-const makeUrl = (input: Request | string | URL, init?: ApiInit) => {
-  const path = init?.path ?? "";
-  const origin = init?.origin ?? init?.baseUrl ?? Web.Api.Origin.fromEnv();
-
-  const inputWithoutDoubleSlash = stripDoubleSlash(input.toString());
-
-  const url = t.to.url(inputWithoutDoubleSlash, origin);
-  if (path) url.pathname = `${path}${slashIt(url.pathname)}`;
-
-  if (init?.params) {
-    const existingParams = new URLSearchParams(url.search);
-    const initParams = new URLSearchParams(init.params);
-    const combinedParams = new URLSearchParams(
-      `${existingParams.toString()}&${initParams.toString()}`,
-    );
-
-    const params = new URLSearchParams();
-    combinedParams.forEach((value, key) => {
-      params.set(key, value);
-    });
-
-    url.search = params.toString();
-  }
-
-  return url;
-};
-
-const slashIt = (str: string) => (str.endsWith("/") ? str : `${str}/`);
-const stripDoubleSlash = (str: string) => str.replace(/[/]{2,}/g, "/");
-
-export class HttpError extends Error {
-  public static is(httpError: unknown): httpError is HttpError {
-    return httpError instanceof HttpError;
-  }
-  constructor(public response: Response) {
-    super(`HTTP error: ${response.status}`);
-  }
-
-  get status() {
-    return this.response.status;
-  }
-
-  get redirected() {
-    return this.response.redirected;
-  }
-
-  get ok() {
-    return this.response.ok;
-  }
-}
-
 /**
  * Extended version of fetch with defaults for the headers and the base URL.
  *
@@ -213,30 +119,20 @@ export async function api(
 
   return Object.assign(response, { data: await response.json() });
 }
-
-/**
- * Test code:
- */
-// const main = async () => {
-//   try {
-//     console.log(Web.Api.Origin.fromEnv());
-
-//     console.log("started");
-
-//     const response = await api("1//?q=1", {
-//       origin: "https://jsonplaceholder.typicode.com//1",
-//       path: "//todos//",
-//       params: {
-//         h: "2",
-//       },
-//     });
-//     console.log(response.status, response.data);
-//   } catch (error) {
-//     if (HttpError.is(error)) {
-//       console.log(error.response.statusText);
-//     } else {
-//       console.error(error);
-//     }
-//   }
-// };
-// main().then(() => console.log("done"));
+export namespace api {
+  export const post = async (input: Request | string | URL, init?: ApiInit) => {
+    return api(input, { ...init, method: "POST" });
+  };
+  export const put = async (input: Request | string | URL, init?: ApiInit) => {
+    return api(input, { ...init, method: "PUT" });
+  };
+  export const patch = async (input: Request | string | URL, init?: ApiInit) => {
+    return api(input, { ...init, method: "PATCH" });
+  };
+  export const del = async (input: Request | string | URL, init?: ApiInit) => {
+    return api(input, { ...init, method: "DELETE" });
+  };
+  export const get = async (input: Request | string | URL, init?: ApiInit) => {
+    return api(input, { ...init, method: "GET" });
+  };
+}
