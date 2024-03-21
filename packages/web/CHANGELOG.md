@@ -1,5 +1,11 @@
 # @mvdlei/web
 
+## 0.0.3
+
+### Patch Changes
+
+- 5cca57b: Add errors to export from index
+
 ## 0.0.2
 
 ### Patch Changes
