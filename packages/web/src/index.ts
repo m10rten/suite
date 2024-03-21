@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 export * from "./fetch";
+export * from "./errors";
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Web {
