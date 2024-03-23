@@ -1,0 +1,74 @@
+---
+published: true
+title: Most Used - Mvdlei
+category: info
+package: ""
+description: See what is most used in this showcase.
+---
+
+# Most Used
+
+Explore the most used utilities and tools in this showcase.
+
+> **Note**: These are mostly preferenced by the author and may not be the best choice for your project.
+
+## TZod - Utility Class(es)
+
+The `TZod` package is without a doubt the most useful and best built, maintained and tested package in this showcase. It provides a set of utility classes that are most useful in any project.
+
+It can do transformations, validations, and more with ease.
+
+### Example
+
+As you would with `zod`, you import the `t` namespace from `@mvdlei/tzod` and use it to do what you need.
+
+#### To functions
+
+The `to` namespace provides functions to convert values to a specific type.
+
+```typescript
+import { t } from "@mvdlei/node";
+
+const url = t.to.url("https://example.com");
+// url is now a URL object
+```
+
+Read more about `TZod` [here](./node/tzod).
+
+## Web - Simplified Fetch
+
+The `web` package is a simplified and upgraded fetch tool. It provides an extended version of the `fetch` function with defaults for headers and base URL.
+This makes it super easy to send and receive JSON data from endpoints.
+
+### Example
+
+As you would call `fetch`, you import the `api` function from `@mvdlei/web` and use it to make requests.
+
+```typescript
+import { api } from "@mvdlei/web";
+
+const response = await api("https://api.github.com/users/octocat");
+
+// or with parameters
+const response = await api("https://api.example.com", {
+  params: {
+    key: "value",
+  },
+});
+
+// or make a POST request
+const response = await api.post("https://api.example.com/login", {
+  body: JSON.stringify(...data),
+});
+
+
+// or with a private endpoint from env:
+const response = await api("/private/endpoint");
+// will get process.env.API_URL or process.env.NEXT_PUBLIC_API_URL as the base URL
+// or set it manually
+const response = await api("/private/endpoint", {
+  origin: "https://api.example.com",
+});
+```
+
+Why is this useful? Because you don't have to worry about headers, base URL, or other configurations. It's all done for you.

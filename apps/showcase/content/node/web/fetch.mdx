@@ -1,0 +1,97 @@
+---
+published: true
+title: Fetch - Mvdlei
+category: node
+package: web
+description: Simplified and upgraded fetch tool.
+---
+
+# @mvdlei/web/fetch
+
+A simplified and upgraded fetch tool.
+
+## API Documentation
+
+### Introduction
+
+This module provides an extended version of the `fetch` function with defaults for headers and base URL.
+
+### Usage
+
+```typescript
+import { api } from "@mvdlei/web";
+
+// Example 1: Making a GET request
+const response = await api("https://api.github.com/users/octocat");
+console.log(response.data);
+
+// Example 2: Making a POST request
+const postData = {
+  username: "example",
+  password: "example123",
+};
+const postResponse = await api.post("https://api.example.com/login", {
+  body: JSON.stringify(postData),
+});
+console.log(postResponse.data);
+```
+
+#### With parameters
+
+```typescript
+import { api } from "@mvdlei/web";
+
+const response = await api("https://api.example.com", {
+  params: {
+    key: "value",
+  },
+});
+
+console.log(response.data);
+```
+
+### API Reference
+
+#### `api(input: Request | string | URL, init?: ApiInit): Promise<ApiResponse>`
+
+Extended version of fetch with defaults for headers and the base URL.
+
+- `input`: The input to be called, which can be a URL, string, or Request object.
+- `init`: The options for the request.
+- Returns: `Promise<ApiResponse>` - The response from the request.
+
+#### `api.post(input: Request | string | URL, init?: ApiInit): Promise<ApiResponse>`
+
+Makes a POST request using the `api` function.
+
+#### `api.put(input: Request | string | URL, init?: ApiInit): Promise<ApiResponse>`
+
+Makes a PUT request using the `api` function.
+
+#### `api.patch(input: Request | string | URL, init?: ApiInit): Promise<ApiResponse>`
+
+Makes a PATCH request using the `api` function.
+
+#### `api.del(input: Request | string | URL, init?: ApiInit): Promise<ApiResponse>`
+
+Makes a DELETE request using the `api` function.
+
+#### `api.get(input: Request | string | URL, init?: ApiInit): Promise<ApiResponse>`
+
+Makes a GET request using the `api` function.
+
+#### `ApiInit`
+
+Interface for initializing the API.
+
+- `params?: Record<string, string> | URLSearchParams | string | null | undefined`: The parameters added to the URL.
+- `origin?: string`: Base URL for the request.
+- `baseUrl?: string`: Base URL for the request (same as `origin` but with a different name).
+- `path?: string`: Base path for the request.
+
+#### `ApiResponse`
+
+Interface representing the response from the API.
+
+- `data: unknown`: The data received in the response.
+- `status: number`: The status code of the response.
