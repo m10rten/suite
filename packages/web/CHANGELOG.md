@@ -1,5 +1,11 @@
 # @mvdlei/web
 
+## 0.0.4
+
+### Patch Changes
+
+- 3e20200: Update to API has logging
+
 ## 0.0.3
 
 ### Patch Changes

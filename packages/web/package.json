@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/web",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Web utilities like fetch, browser api's, etc.",
   "private": false,
   "main": "./dist/index.js",
