@@ -7,10 +7,9 @@ export const makeUrl = (input: Request | string | URL, init?: ApiInit): URL => {
   const path = init?.path ?? "";
   const origin = init?.origin ?? init?.baseUrl ?? Web.Api.Origin.fromEnv();
 
-  const inputWithoutDoubleSlash = stripDoubleSlash(input.toString());
-
-  const url = t.to.url(inputWithoutDoubleSlash, origin);
-  if (path) url.pathname = `${path}${slashIt(url.pathname)}`;
+  const url = t.to.url(input, origin);
+  if (path) url.pathname = `${slashIt(path)}${slashIt(url.pathname)}`;
+  url.pathname = stripDoubleSlash(url.pathname); // prevent double slashes, but also do not remove the http:// or https:// slashes.
 
   if (init?.params) {
     const existingParams = new URLSearchParams(url.search);

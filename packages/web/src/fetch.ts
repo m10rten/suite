@@ -3,7 +3,7 @@
 
 import { logger } from "@mvdlei/log";
 
-import { makeUrl, stripDoubleSlash } from "./_utils";
+import { makeUrl } from "./_utils";
 import { HttpError } from "./errors";
 
 export interface ApiInit extends RequestInit {
@@ -104,20 +104,17 @@ export async function api(
     Accept: "application/json",
   });
 
-  const url = makeUrl(input, init);
-
   // url that has the queryParams, trailing slash, and base url if present.
-  const stringUrl = url.toString();
-  const finalUrl = stripDoubleSlash(stringUrl);
+  const url = makeUrl(input, init).toString();
 
-  logger.info(`[API]: fetching ${finalUrl}`);
-  const response = await fetch(finalUrl, {
+  logger.info(`[API]: fetching ${url}`);
+  const response = await fetch(url, {
     headers,
     ...init,
   });
 
   logger.debug(
-    `[API]: ${finalUrl}: \n { status: ${response.status}, statusText: ${response.statusText}, ok: ${response.ok}, redirected: ${response.redirected}`,
+    `[API]: ${url}: \n { status: ${response.status}, statusText: ${response.statusText}, ok: ${response.ok}, redirected: ${response.redirected}`,
   );
   if (!response.ok) {
     throw new HttpError(response);
