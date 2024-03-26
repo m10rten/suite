@@ -3,7 +3,7 @@ import { t } from "@mvdlei/tzod";
 import { ApiInit } from "./fetch";
 import { Web } from "./index";
 
-export const makeUrl = (input: Request | string | URL, init?: ApiInit) => {
+export const makeUrl = (input: Request | string | URL, init?: ApiInit): URL => {
   const path = init?.path ?? "";
   const origin = init?.origin ?? init?.baseUrl ?? Web.Api.Origin.fromEnv();
 

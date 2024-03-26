@@ -342,3 +342,10 @@ export class Env implements IEnv {
     return Env.init().set(key, value);
   }
 }
+
+// /**
+//  * Test code:
+//  */
+// const env = define({
+
+// })

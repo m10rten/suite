@@ -59,6 +59,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@mvdlei/log": "workspace:*",
     "@mvdlei/tzod": "workspace:*"
   }
 }

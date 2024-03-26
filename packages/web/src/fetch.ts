@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-console */
 
+import { logger } from "@mvdlei/log";
+
 import { makeUrl, stripDoubleSlash } from "./_utils";
 import { HttpError } from "./errors";
 
@@ -108,12 +110,16 @@ export async function api(
   const stringUrl = url.toString();
   const finalUrl = stripDoubleSlash(stringUrl);
 
+  logger.info(`[API]: fetching ${finalUrl}`);
   const response = await fetch(finalUrl, {
     headers,
     ...init,
   });
 
-  if (!response.ok && !response.redirected) {
+  logger.debug(
+    `[API]: ${finalUrl}: \n { status: ${response.status}, statusText: ${response.statusText}, ok: ${response.ok}, redirected: ${response.redirected}`,
+  );
+  if (!response.ok) {
     throw new HttpError(response);
   }
 
