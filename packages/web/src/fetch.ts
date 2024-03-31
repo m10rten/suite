@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable no-console */
 
-import { makeUrl, stripDoubleSlash } from "./_utils";
+import { logger } from "@mvdlei/log";
+
+import { makeUrl } from "./_utils";
 import { HttpError } from "./errors";
 
 export interface ApiInit extends RequestInit {
@@ -102,18 +104,19 @@ export async function api(
     Accept: "application/json",
   });
 
-  const url = makeUrl(input, init);
-
   // url that has the queryParams, trailing slash, and base url if present.
-  const stringUrl = url.toString();
-  const finalUrl = stripDoubleSlash(stringUrl);
+  const url = makeUrl(input, init).toString();
 
-  const response = await fetch(finalUrl, {
+  logger.info(`[API]: fetching ${url}`);
+  const response = await fetch(url, {
     headers,
     ...init,
   });
 
-  if (!response.ok && !response.redirected) {
+  logger.debug(
+    `[API]: ${url}: \n { status: ${response.status}, statusText: ${response.statusText}, ok: ${response.ok}, redirected: ${response.redirected}`,
+  );
+  if (!response.ok) {
     throw new HttpError(response);
   }
 

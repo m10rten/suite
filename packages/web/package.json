@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/web",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Web utilities like fetch, browser api's, etc.",
   "private": false,
   "main": "./dist/index.js",
@@ -59,6 +59,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@mvdlei/log": "workspace:*",
     "@mvdlei/tzod": "workspace:*"
   }
 }
