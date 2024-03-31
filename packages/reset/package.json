@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "@mvdlei/types": "workspace:*",
-    "@types/node": "20.11.17",
+    "@types/node": "20.12.2",
     "internal-config": "workspace:*"
   },
   "exports": {
