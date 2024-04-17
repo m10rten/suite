@@ -22,12 +22,12 @@
     "drizzle-kit": "0.20.13",
     "drizzle-orm": "0.29.3",
     "internal-config": "workspace:*",
-    "postgres": "3.4.3",
+    "postgres": "3.4.4",
     "zod": "3.22.4"
   },
   "peerDependencies": {
     "drizzle-orm": "0.29.3",
-    "postgres": "3.4.3",
+    "postgres": "3.4.4",
     "zod": "3.22.4"
   },
   "exports": {
