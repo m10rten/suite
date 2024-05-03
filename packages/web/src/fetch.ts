@@ -86,6 +86,7 @@ export interface ApiInit extends RequestInit {
 
 export interface ApiResponse extends Response {
   data: unknown;
+  json: never;
 }
 
 /**
@@ -120,7 +121,7 @@ export async function api(
     throw new HttpError(response);
   }
 
-  return Object.assign(response, { data: await response.json() });
+  return Object.assign(response, { data: await response.json(), json: undefined });
 }
 export namespace api {
   export const post = async (input: Request | string | URL, init?: ApiInit) => {
