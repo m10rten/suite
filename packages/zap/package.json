@@ -21,7 +21,7 @@
     "@types/node": "20.12.2",
     "internal-config": "workspace:*",
     "ts-node": "10.9.2",
-    "zod": "3.22.4"
+    "zod": "3.23.6"
   },
   "exports": {
     ".": {
@@ -55,6 +55,6 @@
     "@mvdlei/tzod": "workspace:*"
   },
   "peerDependencies": {
-    "zod": "3.22.4"
+    "zod": "^3.22.4"
   }
 }

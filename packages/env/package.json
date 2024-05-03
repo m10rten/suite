@@ -24,6 +24,9 @@
     "@types/node": "20.12.2",
     "internal-config": "workspace:*"
   },
+  "peerDependencies": {
+    "zod": "^3.23.6"
+  },
   "files": [
     "dist",
     "package.json",

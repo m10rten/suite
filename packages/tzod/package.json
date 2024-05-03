@@ -20,10 +20,10 @@
   "devDependencies": {
     "@types/node": "20.12.2",
     "internal-config": "workspace:*",
-    "zod": "3.22.4"
+    "zod": "3.23.6"
   },
   "peerDependencies": {
-    "zod": "3.22.4"
+    "zod": "^3.22.4"
   },
   "files": [
     "dist",
