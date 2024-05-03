@@ -1,5 +1,11 @@
 # @mvdlei/tzod
 
+## 0.1.4
+
+### Patch Changes
+
+- 76125a7: Add peerDependency zod to be flexible
+
 ## 0.1.3
 
 ### Patch Changes

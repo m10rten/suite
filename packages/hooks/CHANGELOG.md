@@ -1,5 +1,12 @@
 # @mvdlei/hooks
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [76125a7]
+  - @mvdlei/zap@0.1.3
+
 ## 0.1.10
 
 ### Patch Changes
