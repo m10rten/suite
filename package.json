@@ -64,7 +64,7 @@
     "@changesets/cli": "2.27.1",
     "@ianvs/prettier-plugin-sort-imports": "4.2.1",
     "@types/jest": "29.5.12",
-    "@types/node": "20.12.2",
+    "@types/node": "20.12.11",
     "@typescript-eslint/eslint-plugin": "7.4.0",
     "@typescript-eslint/parser": "7.4.0",
     "eslint": "8.57.0",
@@ -72,12 +72,12 @@
     "internal-config": "workspace:*",
     "jest": "29.7.0",
     "prettier": "3.2.5",
-    "prettier-plugin-tailwindcss": "0.5.13",
+    "prettier-plugin-tailwindcss": "0.5.14",
     "ts-jest": "29.1.2",
     "ts-node": "10.9.2",
     "tsup": "8.0.2",
-    "turbo": "1.13.0",
-    "typescript": "5.4.3",
+    "turbo": "1.13.3",
+    "typescript": "5.4.5",
     "zod": "3.23.6"
   }
 }
