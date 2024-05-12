@@ -1,5 +1,11 @@
 # @mvdlei/env
 
+## 0.1.2
+
+### Patch Changes
+
+- 76125a7: Add peerDependency zod to be flexible
+
 ## 0.1.1
 
 ### Patch Changes

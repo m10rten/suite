@@ -1,5 +1,13 @@
 # @mvdlei/zap
 
+## 0.1.3
+
+### Patch Changes
+
+- 76125a7: Add peerDependency zod to be flexible
+- Updated dependencies [76125a7]
+  - @mvdlei/tzod@0.1.4
+
 ## 0.1.2
 
 ### Patch Changes

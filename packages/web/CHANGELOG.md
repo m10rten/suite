@@ -1,5 +1,12 @@
 # @mvdlei/web
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [76125a7]
+  - @mvdlei/tzod@0.1.4
+
 ## 0.0.5
 
 ### Patch Changes
