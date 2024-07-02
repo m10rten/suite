@@ -11,7 +11,7 @@
     "generate": "pnpm build"
   },
   "dependencies": {
-    "@hookform/resolvers": "3.3.4",
+    "@hookform/resolvers": "3.6.0",
     "@mvdlei/env": "workspace:^",
     "@mvdlei/hooks": "workspace:^",
     "@mvdlei/log": "workspace:^",
