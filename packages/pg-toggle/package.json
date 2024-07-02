@@ -1,6 +1,6 @@
 {
   "name": "@mvdlei/pg-toggle",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Postgres feature toggle, easy to use, just connect and toggle.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
