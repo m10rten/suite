@@ -1,5 +1,11 @@
 # @mvdlei/pg-toggle
 
+## 0.0.3
+
+### Patch Changes
+
+- 0432aa8: Updated with readme
+
 ## 0.0.2
 
 ### Patch Changes
