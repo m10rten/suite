@@ -665,15 +665,6 @@ importers:
         specifier: workspace:*
         version: link:../internal/config
 
-  packages/reyn:
-    devDependencies:
-      "@types/node":
-        specifier: 20.12.2
-        version: 20.12.2
-      internal-config:
-        specifier: workspace:*
-        version: link:../internal/config
-
   packages/rpc:
     devDependencies:
       "@types/node":
